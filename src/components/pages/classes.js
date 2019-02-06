@@ -3,6 +3,7 @@ import { Page } from '../page';
 import { blocks } from '../shared';
 import { Calendar } from '../calendar';
 import { Dialogue } from '../dialogue';
+import { GravitonDropdown } from '../graviton';
 
 import * as flat from 'array.prototype.flat';
 
@@ -139,13 +140,7 @@ export class ClassesPage extends Page {
         <tab-view slot="body" for="add-dialogue-tabs">
           <main>
             <h2>Add Homework</h2>
-            <h3>Class</h3>
-            <select>
-              ${blocks.map(block => {
-                const className = this.user.classes[block];
-                return html`<option>${className}</option>`;
-              })}
-            </select>
+            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
             <graviton-input>Title</graviton-input>
             <graviton-input type="date">Date</graviton-input>
             <graviton-button filled @click=${() => {
@@ -187,6 +182,7 @@ export class ClassesPage extends Page {
           </main>
           <main>
             <h2>Add Event</h2>
+            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
             <graviton-input>Title</graviton-input>
             <graviton-input type="date">Date</graviton-input>
           </main>
