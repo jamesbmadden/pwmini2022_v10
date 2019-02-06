@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en_ca">
+  <head>
+    <title>Mini '22</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/src/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/src/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/src/icon/favicon-16x16.png">
+    <link rel="shortcut icon" href="/src/icon/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Mini '22">
+    <meta name="application-name" content="Mini '22">
+    <meta name="theme-color" content="#ffffff">
+    <script src="main.js" defer></script>
+    <style>
+      html {
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+        --mdc-theme-primary: #e53935;
+        --mdc-theme-secondary: white;
+      }
+      body {
+        margin:0px;
+        overflow-x:hidden;
+      }
+      *:not(input) {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout:none;
+      }
+    </style>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+          console.log('servivce worker:', reg);
+        })
+      }
+    </script>
+    <noscript>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </noscript>
+  </head>
+  <body>
+    <app-state></app-state>
+    <script>
+      window.addEventListener('load', function() {
+        const matIcons = document.createElement('link');
+        matIcons.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+        matIcons.setAttribute('rel', 'stylesheet');
+        document.head.appendChild(matIcons);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "Mini '22",
+  "short_name": "Mini '22",
+  "icons": [
+    {
+      "src": "/src/icon/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/src/icon/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/src/icon/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "/src/icon/apple-touch-icon-120.png",
+      "type": "image/png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "/src/icon/icon-round-1024.png",
+      "type": "image/png",
+      "sizes": "1024x1024"
+    }
+
+  ],
+  "display": "standalone",
+  "start_url": "/?pwa=true",
+  "theme_color": "#fff",
+  "background_color": "#f44336"
+}
