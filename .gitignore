@@ -3,6 +3,7 @@ src/keys.js
 
 # Ignore Built Files
 dist/*.main.js
+dist/main.js
 icon/
 functions/
 
