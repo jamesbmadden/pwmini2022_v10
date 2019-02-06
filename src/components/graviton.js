@@ -153,6 +153,7 @@ class GravitonDropdown extends LitElement {
           padding-left: 8px;
           border: none;
           cursor: pointer;
+          background-color: transparent;
           -webkit-appearance: none;
         }
         .highlight {
