@@ -139,8 +139,15 @@ export class ClassesPage extends Page {
         <tab-view slot="body" for="add-dialogue-tabs">
           <main>
             <h2>Add Homework</h2>
+            <h3>Class</h3>
+            <select>
+              ${blocks.map(block => {
+                const className = this.user.classes[block];
+                return html`<option>${className}</option>`;
+              })}
+            </select>
             <graviton-input>Title</graviton-input>
-            <graviton-input>Date</graviton-input>
+            <graviton-input type="date">Date</graviton-input>
             <graviton-button filled @click=${() => {
               let fileSelector = document.createElement('input');
               fileSelector.type = 'file';
@@ -181,7 +188,7 @@ export class ClassesPage extends Page {
           <main>
             <h2>Add Event</h2>
             <graviton-input>Title</graviton-input>
-            <graviton-input>Date</graviton-input>
+            <graviton-input type="date">Date</graviton-input>
           </main>
         </tab-view>
         <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']}></tab-container>
