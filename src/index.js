@@ -56,7 +56,7 @@ class AppState extends LitElement {
         if (user) {
           this.user = user;
           this.signedIn = true;
-          let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=true`);
+          let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
           this.userData = await response.json();
         } else {
           this.signedIn = false;

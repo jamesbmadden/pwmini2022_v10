@@ -7,11 +7,15 @@ export class MePage extends Page {
     return {
       user: { type: Object },
       userData: { type: Object },
-      signOut: { type: Function }
+      signOut: { type: Function },
+      options: { type: Object },
+      rerender: { type: Number }
     }
   }
   constructor () {
     super();
+    this.rerender = 0;
+    this.options = JSON.parse(localStorage.getItem('config'));
     this.serviceWorker = 'serviceWorker' in navigator;
   }
   get tabs () {
@@ -59,8 +63,12 @@ export class MePage extends Page {
         <main class="tab scrollable">
           <graviton-card>
             <h3>Images</h3>
-            <h2 class="option-supported">Enabled</h2>
-            <graviton-button filled>Disable</graviton-button>
+            <h2 class="option-${this.options.images ? 'supported' : 'unsupported'}">${this.options.images ? 'Enabled' : 'Disabled'}</h2>
+            <graviton-button filled @click=${() => {
+              this.options.images = !this.options.images;
+              this.rerender++;
+              localStorage.setItem('config', JSON.stringify(this.options));
+            }}>${this.options.images ? 'Disable' : 'Enable'}</graviton-button>
           </graviton-card>
           <graviton-card>
             <h3>Offline</h3>
