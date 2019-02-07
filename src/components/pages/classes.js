@@ -19,7 +19,10 @@ export class ClassesPage extends Page {
       dialogueOpen: { type: Boolean },
       uploadFile: { type: Object },
       uploadFileUri: { type: String },
-      imageLoadComplete: { type: Boolean }
+      imageLoadComplete: { type: Boolean },
+      uploadDate: { type: String },
+      uploadClass: { type: String },
+      uploadTitle: { type: String }
     }
   }
   constructor () {
@@ -154,10 +157,16 @@ export class ClassesPage extends Page {
         <tab-view slot="body" for="add-dialogue-tabs">
           <main>
             <h2>Add Homework</h2>
-            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
-            <graviton-input>Title</graviton-input>
+            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
+              this.uploadClass = e.target.value;
+            }}>Class</graviton-dropdown>
+            <graviton-input @change=${e => {
+              this.uploadTitle = e.target.value;
+            }}>Title</graviton-input>
             ${this.supportsDate ? html` <!-- Input Type="date" supported -->
-              <graviton-input type="date">Date</graviton-input>
+              <graviton-input type="date" @change=${e => {
+                this.uploadDate = e.target.value;
+              }}>Date</graviton-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
                 <graviton-input type="number" value="2019">Year</graviton-input>
