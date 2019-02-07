@@ -114,7 +114,7 @@ export class ClassesPage extends Page {
         <main class="tab">
           <grid-calendar .events=${calendar}></grid-calendar>
         </main>
-        <main class="tab">
+        <main class="tab scrollable">
           ${this.user.homework.map((theClass, index) => {
             if (theClass.length > 0) {
               return html`
@@ -133,7 +133,7 @@ export class ClassesPage extends Page {
             }
           })}
         </main>
-        <main class="tab">
+        <main class="tab scrollable">
         ${this.user.events.map((theClass, index) => {
             if (theClass.length > 0) {
               return html`

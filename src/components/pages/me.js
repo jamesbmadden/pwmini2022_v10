@@ -40,7 +40,7 @@ export class MePage extends Page {
       </style>
       <page-header title="Me" .tabs=${this.tabs}></page-header>
       <tab-view for="Me-tabs">
-        <main class="tab">
+        <main class="tab scrollable">
           <graviton-card>
             <h3>Account</h3>
             <h2>${this.user.email}</h2>
@@ -56,7 +56,7 @@ export class MePage extends Page {
             <graviton-button filled>Change</graviton-button>
           </graviton-card>
         </main>
-        <main class="tab">
+        <main class="tab scrollable">
           <graviton-card>
             <h3>Images</h3>
             <h2 class="option-supported">Enabled</h2>

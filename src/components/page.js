@@ -17,6 +17,10 @@ export class Page extends LitElement {
         width: 100%;
         box-sizing: border-box;
       }
+      main.scrollable {
+        overflow: auto;
+        height: calc(100vh - 10.5rem);
+      }
       .fab {
         position: fixed !important;
         width: 3.5rem;
