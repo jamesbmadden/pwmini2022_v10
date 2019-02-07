@@ -102,6 +102,12 @@ export class ClassesPage extends Page {
         .homework-image {
           max-width: 100%;
         }
+        .replace-date {
+          position: relative;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+        }
       </style>
       <page-header title="Classes" .tabs=${this.tabs}></page-header>
       <tab-view for="Classes-tabs">
@@ -150,9 +156,15 @@ export class ClassesPage extends Page {
             <h2>Add Homework</h2>
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
             <graviton-input>Title</graviton-input>
-            ${this.supportsDate ? html`
-            <graviton-input type="date">Date</graviton-input>
-            ` : html`<p>Todo: Three Number Inputs</p>`}
+            ${this.supportsDate ? html` <!-- Input Type="date" supported -->
+              <graviton-input type="date">Date</graviton-input>
+            ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
+              <div class="replace-date">
+                <graviton-input type="number">Year</graviton-input>
+                <graviton-input type="number">Month</graviton-input>
+                <graviton-input type="number">Day</graviton-input>
+              </div>
+            `}
             <graviton-button filled @click=${() => {
               let fileSelector = document.createElement('input');
               fileSelector.type = 'file';
@@ -194,7 +206,15 @@ export class ClassesPage extends Page {
             <h2>Add Event</h2>
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
             <graviton-input>Title</graviton-input>
-            <graviton-input type="date">Date</graviton-input>
+            ${this.supportsDate ? html` <!-- Input Type="date" supported -->
+              <graviton-input type="date">Date</graviton-input>
+            ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
+              <div class="replace-date">
+                <graviton-input type="number">Year</graviton-input>
+                <graviton-input type="number">Month</graviton-input>
+                <graviton-input type="number">Day</graviton-input>
+              </div>
+            `}
           </main>
         </tab-view>
         <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']}></tab-container>

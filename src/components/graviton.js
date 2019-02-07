@@ -75,7 +75,6 @@ export class GravitonInput extends LitElement {
                   box-sizing:border-box;
                   padding:0px 12px;
                   width:100%;
-                  min-width:17.5rem;
                   height:3.5rem;
                   background:transparent;
                   border:0px;
