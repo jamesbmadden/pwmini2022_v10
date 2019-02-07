@@ -160,7 +160,7 @@ export class ClassesPage extends Page {
               <graviton-input type="date">Date</graviton-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
-                <graviton-input type="number">Year</graviton-input>
+                <graviton-input type="number" value="2019">Year</graviton-input>
                 <graviton-input type="number">Month</graviton-input>
                 <graviton-input type="number">Day</graviton-input>
               </div>
@@ -210,7 +210,7 @@ export class ClassesPage extends Page {
               <graviton-input type="date">Date</graviton-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
-                <graviton-input type="number">Year</graviton-input>
+                <graviton-input type="number" value="2019">Year</graviton-input>
                 <graviton-input type="number">Month</graviton-input>
                 <graviton-input type="number">Day</graviton-input>
               </div>
