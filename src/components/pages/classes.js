@@ -28,6 +28,14 @@ export class ClassesPage extends Page {
       this.mini = [];
     }
   }
+  get supportsDate () {
+    if (this._supportsDate === undefined) {
+      const input = document.createElement('input');
+      input.type = 'date';
+      this._spportsDate = input.type === 'date';
+    }
+    return this._spportsDate;
+  }
   get tabs () {
     return [
       'Calendar',
@@ -142,7 +150,9 @@ export class ClassesPage extends Page {
             <h2>Add Homework</h2>
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
             <graviton-input>Title</graviton-input>
+            ${this.supportsDate ? html`
             <graviton-input type="date">Date</graviton-input>
+            ` : html`<p>Todo: Three Number Inputs</p>`}
             <graviton-button filled @click=${() => {
               let fileSelector = document.createElement('input');
               fileSelector.type = 'file';
