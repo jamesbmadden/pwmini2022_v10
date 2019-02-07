@@ -5,7 +5,6 @@ src/keys.js
 dist/*.main.js
 dist/main.js
 icon/
-functions/
 
 # Logs
 logs

@@ -81,6 +81,7 @@ export class GravitonInput extends LitElement {
                   position:relative;
                   font-size:16pt;
                   z-index:3;
+                  -webkit-appearance: none;
                 }
                 .highlight {
                   content:"";
