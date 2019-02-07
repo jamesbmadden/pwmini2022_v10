@@ -13,6 +13,9 @@ import('firebase/app').then(module => {
   import('firebase/auth').then(module => {
     document.dispatchEvent(new CustomEvent('firebase-auth-loaded'));
   });
+  import('firebase/firestore').then(module => {
+    document.dispatchEvent(new CustomEvent('firebase-firestore-loaded'));
+  })
 });
 
 import(/* webpackChunkName: "classes-page" */ './components/pages/classes');
@@ -131,11 +134,14 @@ class SigninPage extends LitElement {
     this.errorMsg = '';
     this.state = 'Sign In';
     this.loading = false;
-    if (!this.username) {
+    if (this.username === undefined) {
       this.username = '';
     }
-    if (!this.password) {
+    if (this.password === undefined) {
       this.password = '';
+    }
+    if (this.retypePassword === undefined) {
+      this.retypePassword = '';
     }
   }
   submit() {
@@ -147,8 +153,11 @@ class SigninPage extends LitElement {
       })
     } else {
       this.loading = true;
-      if (this.password == this.retypePassword) {
-        console.log(true);
+      if (this.password === this.retypePassword) {
+        firebase.auth().createUserWithEmailAndPassword(this.username, this.password).catch(error => {
+          this.loading = false;
+          this.errorMsg = error.message;
+        });
       } else {
         this.loading = false;
         this.errorMsg = 'Passwords are Not the Same.'
