@@ -144,6 +144,10 @@ class GravitonDropdown extends LitElement {
       value: { type: String }
     }
   }
+  connectedCallback () {
+    super.connectedCallback();
+    this.value = this.options[0];
+  }
   render () {
     return html`
       <style>
