@@ -129,7 +129,8 @@ export class GravitonInput extends LitElement {
               <div class="inputContainer">
                 <input .value=${this.value} @input=${(e)=> {
                   this.value = e.target.value;
-                }} class="fieldInput" name="fieldInput" id="fieldInput" placeholder=" " type="${this.type}" autocomplete="${this.autocomplete}">
+                  this.dispatchEvent(new Event('input'));
+                }} @change=${(e)=>this.dispatchEvent(new Event('change'))} class="fieldInput" name="fieldInput" id="fieldInput" placeholder=" " type="${this.type}" autocomplete="${this.autocomplete}">
                 <label class="fieldInputLabel" for="fieldInput"><slot></slot></label>
                 <div class="highlight"></div>
               </div>`;
@@ -211,7 +212,8 @@ class GravitonDropdown extends LitElement {
       <div class="select-container">
         <select id="select" @input=${event => {
           this.value = event.target.value;
-        }}>
+          this.dispatchEvent(new Event('input'));
+        }} @change=${(e)=>this.dispatchEvent(new Event('change'))}>
           ${this.options.map(option => {
             return html`<option>${option}</option>`;
           })}
