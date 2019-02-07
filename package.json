@@ -10,7 +10,7 @@
     "array.prototype.flat": "^1.2.1",
     "firebase": "^5.5.8",
     "firebase-tools": "^6.1.0",
-    "lit-element": "^2.0.0-rc.2"
+    "lit-element": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
