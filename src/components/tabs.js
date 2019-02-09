@@ -106,7 +106,6 @@ export class TabContainer extends LitElement {
       </nav>` : null;
   }
   touchStart() {
-    console.log('touch started');
     this.shadowRoot.querySelector('.header-tabindicator').style.transition = 'none';
   }
   touchMove(x) {
@@ -114,7 +113,6 @@ export class TabContainer extends LitElement {
   }
   touchEnd(tab) {
     this.selected = tab;
-    console.log('selected is ', tab);
     this.shadowRoot.querySelector('.header-tabindicator').style.transition = 'transform 0.4s cubic-bezier(0,0,0,1)';
     this.shadowRoot.querySelector('.header-tabindicator').style.transform = `translate(${100*this.selected}%)`;
     setTimeout(() => {
