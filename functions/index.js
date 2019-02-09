@@ -131,9 +131,11 @@ exports.eventsForEmail = functions.https.onRequest(async (request, response) => 
 
 exports.classesForEmail = functions.https.onRequest(async (request, response) => {
   const email = request.url.split('/')[3];
-  let classList = await getClasses(email);
-  if (classList == undefined) {
-    classList = {};
+  const classList = await getClasses(email);
+  if (classList === undefined) {
+    response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
+    response.end('{}');
+    return;
   }
   response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
   response.end(JSON.stringify(classList));
@@ -143,13 +145,10 @@ exports.getUser = functions.https.onRequest(async (request, response) => {
   const email = request.url.split('/')[3].split('?')[0];
   const classList = await getClasses(email);
   if (classList === undefined) {
-    const user = {
-      "classes":undefined,
-      "homework":undefined,
-      "events":undefined
-    }
+    const user = {}
     response.writeHead(201, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
     response.end(JSON.stringify(user));
+    return;
   }
   const searchParams = new url.URL('https://powmini2022.firebaseapp.com'+request.url).searchParams;
   console.log(searchParams.get('images'));
