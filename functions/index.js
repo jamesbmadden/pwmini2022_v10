@@ -65,8 +65,12 @@ exports.oldHomework = functions.https.onRequest(async (request, response) => {
 });
 
 async function getClasses(email) {
-  let userSnap = await fs.collection('users').doc(email).get();
-  return userSnap.data().classes;
+  try {
+    let userSnap = await fs.collection('users').doc(email).get();
+    return userSnap.data().classes;
+  } catch (error) {
+    return undefined;
+  }
 }
 
 async function getHomework(classList, images) {
@@ -135,6 +139,15 @@ exports.classesForEmail = functions.https.onRequest(async (request, response) =>
 exports.getUser = functions.https.onRequest(async (request, response) => {
   const email = request.url.split('/')[3].split('?')[0];
   const classList = await getClasses(email);
+  if (classList === undefined) {
+    const user = {
+      "classes":undefined,
+      "homework":undefined,
+      "events":undefined
+    }
+    response.writeHead(201, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
+    response.end(JSON.stringify(user));
+  }
   const searchParams = new url.URL('https://powmini2022.firebaseapp.com'+request.url).searchParams;
   console.log(searchParams.get('images'));
   const user = {
