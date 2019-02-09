@@ -27,9 +27,13 @@ export class ClassesPage extends Page {
   }
   constructor () {
     super();
+    this.dialogueOpen = location.pathname.split('/')[2] === 'add' ? true : false;
     if (this.mini == undefined) {
       this.mini = [];
     }
+    window.addEventListener('popstate', event => {
+      this.dialogueOpen = location.pathname.split('/')[2] === 'add' ? true : false;
+    })
   }
   get supportsDate () {
     if (this._supportsDate === undefined) {
@@ -228,10 +232,11 @@ export class ClassesPage extends Page {
         </tab-view>
         <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']}></tab-container>
         <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete}>Post</graviton-button><graviton-button @click=${() => {
-          this.dialogueOpen = false;
+          history.back();
         }}>Close</graviton-button></div>
       </app-dialogue>` : ''}
       <div class="fab" @click=${() => {
+        history.pushState({ page: 'classes', state: 'add' }, 'Classes: Add', '/classes/add');
         this.uploadFile = undefined;
         this.dialogueOpen = true;
       }}>
