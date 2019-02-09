@@ -136,8 +136,7 @@ exports.classesForEmail = functions.https.onRequest(async (request, response) =>
     classList = {};
   }
   response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
-  response.status('200').send(classList);
-  response.end();
+  response.end(JSON.stringify(classList));
 });
 
 exports.getUser = functions.https.onRequest(async (request, response) => {
