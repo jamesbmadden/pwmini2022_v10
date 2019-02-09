@@ -251,8 +251,8 @@ export class TabView extends LitElement {
     });
     this.addEventListener('touchend', event => {
       if (this.swipeable) {
-        if (this.touchInfo.previous.x - this.touchInfo.start.x < window.innerWidth/4-window.innerWidth/2) this.selected++;
-        if (this.touchInfo.previous.x - this.touchInfo.start.x > window.innerWidth/4) this.selected--;
+        if (this.touchInfo.previous.x - this.touchInfo.start.x < window.innerWidth/3-window.innerWidth/1.5 && this.selected < this.tabContainerElement.tabs.length-1) this.selected++;
+        if (this.touchInfo.previous.x - this.touchInfo.start.x > window.innerWidth/3 && this.selected > 0) this.selected--;
         this.tabContainerElement.touchEnd(this.selected);
         this.shadowRoot.querySelector('div').style.transition = 'transform 0.4s cubic-bezier(0,0,0,1)';
         this.shadowRoot.querySelector('div').style.transform = `translate(-${this.selected*100/this.tabContainerElement.tabs.length}%)`;
