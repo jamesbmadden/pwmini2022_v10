@@ -38,7 +38,7 @@ class AppState extends LitElement {
   constructor () {
     super();
     this.loading = true;
-    this.state = location.pathname;
+    this.state = location.pathname.split('/')[1];
     this.mini = [];
     this.userData = {
       classes:{},
@@ -73,7 +73,7 @@ class AppState extends LitElement {
       history.pushState({ page: this.state }, this.state, this.state);
     });
     window.addEventListener('popstate', event => {
-      this.state = location.pathname;
+      this.state = location.pathname.split('/')[1];
     });
     fetch('https://us-central1-powmini2022.cloudfunctions.net/miniEvents').then(resp => resp.json()).then(json => { // Get Mini Events
       this.mini = json;
@@ -87,11 +87,11 @@ class AppState extends LitElement {
   }
   getPage (page) {
     switch (page) {
-      case '/': 
-      case '/classes': return html`<classes-page .mini=${this.mini} .user=${this.userData} .postWork=${this.postWork}>loading page...</classes-page>`;
-      case '/mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`;
-      case '/me': return html`<me-page .user=${this.user} .userData=${this.userData} .signOut=${this.signOut}>loading page...</me-page>`;
-      case '/select-classes': return html`<select-classes-page .userData=${this.userData}></select-classes-page>`;
+      case '': 
+      case 'classes': return html`<classes-page .mini=${this.mini} .user=${this.userData} .postWork=${this.postWork}>loading page...</classes-page>`;
+      case 'mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`;
+      case 'me': return html`<me-page .user=${this.user} .userData=${this.userData} .signOut=${this.signOut}>loading page...</me-page>`;
+      case 'select-classes': return html`<select-classes-page .userData=${this.userData}></select-classes-page>`;
       default: return html`<error-page error=404></error-page>`; 
     }
   }
@@ -100,26 +100,26 @@ class AppState extends LitElement {
       {
         title:'Mini',
         icon:'school',
-        page:'/mini'
+        page:'mini'
       },
       {
         title:'Classes',
         icon:'book',
-        page:'/'
+        page:''
       },
       {
         title:'Me',
         icon:'person',
-        page:'/me'
+        page:'me'
       }
     ];
   }
   get selectedInt () {
     switch (this.state) {
-      case '/mini': return 0;
-      case '/':
-      case '/classes': return 1;
-      case '/me': return 2;
+      case 'mini': return 0;
+      case '':
+      case 'classes': return 1;
+      case 'me': return 2;
     }
   }
   render () {
