@@ -10,7 +10,10 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 2022
+    port: 2022,
+    historyApiFallback: {
+      index: 'index.html'
+    }
   },
   module: {
     rules: [

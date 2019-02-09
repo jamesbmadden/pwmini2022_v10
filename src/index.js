@@ -21,6 +21,7 @@ import('firebase/app').then(module => {
 import(/* webpackChunkName: "classes-page" */ './components/pages/classes');
 import(/* webpackChunkName: "me-page" */ './components/pages/me');
 import(/* webpackChunkName: "mini-page" */ './components/pages/mini');
+import(/* webpackChunkName: "choose-classes-page" */ './components/pages/choose-classes');
 
 class AppState extends LitElement {
   static get properties () {
@@ -36,7 +37,7 @@ class AppState extends LitElement {
   constructor () {
     super();
     this.loading = true;
-    this.state = 'classes';
+    this.state = location.pathname;
     this.mini = [];
     this.userData = {
       classes:{},
@@ -58,6 +59,9 @@ class AppState extends LitElement {
           this.signedIn = true;
           let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
           this.userData = await response.json();
+          if (this.userData.classes === undefined) {
+            this.state = 'choose-classes';
+          }
         } else {
           this.signedIn = false;
         }
@@ -73,14 +77,15 @@ class AppState extends LitElement {
   signOut () {
     firebase.auth().signOut();
   }
+  postWork (isHomework, theclass, title, date, image) {
+    console.log(isHomework, theclass, title, date, image);
+  }
   getPage (page) {
     switch (page) {
-      case 'classes': return html`<classes-page .mini=${this.mini} .user=${this.userData}>loading page...</classes-page>`;
-      break;
-      case 'mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`;
-      break;
-      case 'me': return html`<me-page .user=${this.user} .userData=${this.userData} .signOut=${this.signOut}>loading page...</me-page>`;
-      break;
+      case '/': return html`<classes-page .mini=${this.mini} .user=${this.userData} .postWork=${this.postWork}>loading page...</classes-page>`;
+      case '/mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`;
+      case '/me': return html`<me-page .user=${this.user} .userData=${this.userData} .signOut=${this.signOut}>loading page...</me-page>`;
+      case '/choose-classes': return html`<choose-classes-page .userData=${this.userData}></choose-classes-page>`;
       default: return html`<p>loading...</p>`; 
     }
   }
@@ -89,22 +94,22 @@ class AppState extends LitElement {
       {
         title:'Mini',
         icon:'school',
-        page:'mini'
+        page:'/mini'
       },
       {
         title:'Classes',
         icon:'book',
-        page:'classes'
+        page:'/'
       },
       {
         title:'Me',
         icon:'person',
-        page:'me'
+        page:'/me'
       }
     ];
   }
   get selectedInt () {
-    return ['mini', 'classes', 'me'].indexOf(this.state);
+    return ['/mini', '/', '/me'].indexOf(this.state);
   }
   render () {
     if (this.signedIn) {
