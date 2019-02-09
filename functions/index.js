@@ -131,7 +131,11 @@ exports.eventsForEmail = functions.https.onRequest(async (request, response) => 
 
 exports.classesForEmail = functions.https.onRequest(async (request, response) => {
   const email = request.url.split('/')[3];
-  const classList = await getClasses(email);
+  let classList = await getClasses(email);
+  if (classList == undefined) {
+    classList = {};
+  }
+  response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
   response.status('200').send(classList);
   response.end();
 });
