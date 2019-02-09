@@ -21,7 +21,7 @@ import('firebase/app').then(module => {
 import(/* webpackChunkName: "classes-page" */ './components/pages/classes');
 import(/* webpackChunkName: "me-page" */ './components/pages/me');
 import(/* webpackChunkName: "mini-page" */ './components/pages/mini');
-import(/* webpackChunkName: "choose-classes-page" */ './components/pages/choose-classes');
+import(/* webpackChunkName: "select-classes-page" */ './components/pages/select-classes');
 
 class AppState extends LitElement {
   static get properties () {
@@ -60,7 +60,7 @@ class AppState extends LitElement {
           let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
           this.userData = await response.json();
           if (this.userData.classes === undefined) {
-            this.state = 'choose-classes';
+            this.state = 'select-classes';
           }
         } else {
           this.signedIn = false;
@@ -85,7 +85,7 @@ class AppState extends LitElement {
       case '/': return html`<classes-page .mini=${this.mini} .user=${this.userData} .postWork=${this.postWork}>loading page...</classes-page>`;
       case '/mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`;
       case '/me': return html`<me-page .user=${this.user} .userData=${this.userData} .signOut=${this.signOut}>loading page...</me-page>`;
-      case '/choose-classes': return html`<choose-classes-page .userData=${this.userData}></choose-classes-page>`;
+      case '/select-classes': return html`<select-classes-page .userData=${this.userData}></select-classes-page>`;
       default: return html`<p>loading...</p>`; 
     }
   }

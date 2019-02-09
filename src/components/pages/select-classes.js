@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 import { Page } from '../page';
 
-export class ChooseClasses extends Page {
+export class SelectClasses extends Page {
 
   render () {
     return html`<p>Coming Soon!</p>`;
@@ -9,4 +9,4 @@ export class ChooseClasses extends Page {
 
 }
 
-customElements.define('choose-classes-page', ChooseClasses);
+customElements.define('select-classes-page', SelectClasses);
