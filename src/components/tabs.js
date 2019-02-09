@@ -49,7 +49,7 @@ export class HeaderComponent extends LitElement {
       </style>
       <header>
         <p class="title">${this.title}</p>
-        <tab-container id="${`${this.title}-tabs`}" .selected=${0} .tabs=${this.tabs}></tab-container>
+        <tab-container id="${`${this.title}-tabs`}" .tabs=${this.tabs}></tab-container>
       </header>
     `;
   }
@@ -65,6 +65,7 @@ export class TabContainer extends LitElement {
   }
   constructor () {
     super();
+    this.selected = 0;
   }
   connectedCallback() {
     super.connectedCallback();
@@ -105,6 +106,7 @@ export class TabContainer extends LitElement {
       </nav>` : null;
   }
   touchStart() {
+    console.log('touch started');
     this.shadowRoot.querySelector('.header-tabindicator').style.transition = 'none';
   }
   touchMove(x) {
@@ -112,6 +114,7 @@ export class TabContainer extends LitElement {
   }
   touchEnd(tab) {
     this.selected = tab;
+    console.log('selected is ', tab);
     this.shadowRoot.querySelector('.header-tabindicator').style.transition = 'transform 0.4s cubic-bezier(0,0,0,1)';
     this.shadowRoot.querySelector('.header-tabindicator').style.transform = `translate(${100*this.selected}%)`;
     setTimeout(() => {
@@ -213,9 +216,9 @@ export class TabView extends LitElement {
     }
   }
   connectedCallback () {
+    this.selected = 0;
     document.addEventListener(`tabs-created-${this.for}`, event => {
       this.tabContainerElement = event.detail.element;
-      this.selected = event.detail.selected;
       super.connectedCallback();
       this.tabContainerElement.addEventListener('tab-change', event => {
         this.selected = event.detail.tab;
