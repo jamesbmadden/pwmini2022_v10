@@ -23,7 +23,7 @@ export class ErrorPage extends Page {
       </style>
       <h3></h3>
       <h1>${this.error}.</h1>
-      <h3>/Message Coming Soon/</h3>
+      <h3>You Seem Lost.</h3>
     `;
   }
 
