@@ -70,7 +70,7 @@ class AppState extends LitElement {
     });
     document.addEventListener('set-page', (e)=>{
       this.state = e.detail.page;
-      history.pushState({ page: this.state }, this.state, this.state);
+      history.pushState({ page: this.state }, this.state, `/${this.state}`);
     });
     window.addEventListener('popstate', event => {
       this.state = location.pathname.split('/')[1];
