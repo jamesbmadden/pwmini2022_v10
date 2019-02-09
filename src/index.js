@@ -70,6 +70,7 @@ class AppState extends LitElement {
     });
     document.addEventListener('set-page', (e)=>{
       this.state = e.detail.page;
+      history.pushState({ page: this.state }, this.state, this.state);
     });
     fetch('https://us-central1-powmini2022.cloudfunctions.net/miniEvents').then(resp => resp.json()).then(json => { // Get Mini Events
       this.mini = json;
