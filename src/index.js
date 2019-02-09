@@ -22,6 +22,7 @@ import(/* webpackChunkName: "classes-page" */ './components/pages/classes');
 import(/* webpackChunkName: "me-page" */ './components/pages/me');
 import(/* webpackChunkName: "mini-page" */ './components/pages/mini');
 import(/* webpackChunkName: "select-classes-page" */ './components/pages/select-classes');
+import(/* webpackChunkName: "error-page" */ './components/pages/error');
 
 class AppState extends LitElement {
   static get properties () {
@@ -86,7 +87,7 @@ class AppState extends LitElement {
       case '/mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`;
       case '/me': return html`<me-page .user=${this.user} .userData=${this.userData} .signOut=${this.signOut}>loading page...</me-page>`;
       case '/select-classes': return html`<select-classes-page .userData=${this.userData}></select-classes-page>`;
-      default: return html`<p>loading...</p>`; 
+      default: return html`<error-page error=404></error-page>`; 
     }
   }
   get bottomAppBarTabs () {
