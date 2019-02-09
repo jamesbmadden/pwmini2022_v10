@@ -115,7 +115,12 @@ class AppState extends LitElement {
     ];
   }
   get selectedInt () {
-    return ['/mini', '/', '/me'].indexOf(this.state);
+    switch (this.state) {
+      case '/mini': return 0;
+      case '/':
+      case '/classes': return 1;
+      case '/me': return 2;
+    }
   }
   render () {
     if (this.signedIn) {
