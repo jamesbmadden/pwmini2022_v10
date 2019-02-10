@@ -33,7 +33,8 @@ class AppState extends LitElement {
       userData: { type: Object },
       loading: { type: Boolean },
       signedIn: { type: Boolean },
-      mini: { type: Array }
+      mini: { type: Array },
+      classes: { type: Object }
     }
   }
   constructor () {
@@ -85,6 +86,9 @@ class AppState extends LitElement {
     fetch('https://us-central1-powmini2022.cloudfunctions.net/miniEvents').then(resp => resp.json()).then(json => { // Get Mini Events
       this.mini = json;
     });
+    fetch('https://us-central1-powmini2022.cloudfunctions.net/availableClasses').then(resp => resp.json()).then(json  => {
+      this.classes = json;
+    });
   }
   signOut () {
     firebase.auth().signOut();
@@ -98,7 +102,7 @@ class AppState extends LitElement {
       case 'classes': return html`<classes-page .mini=${this.mini} .user=${this.userData} .postWork=${this.postWork}>loading page...</classes-page>`;
       case 'mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`;
       case 'me': return html`<me-page .user=${this.user} .userData=${this.userData} .signOut=${this.signOut}>loading page...</me-page>`;
-      case 'select-classes': return html`<select-classes-page .userData=${this.userData}></select-classes-page>`;
+      case 'select-classes': return html`<select-classes-page .userData=${this.userData} .classes=${this.classes}></select-classes-page>`;
       default: return html`<error-page error=404></error-page>`; 
     }
   }
