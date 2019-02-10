@@ -157,7 +157,7 @@ export class ClassesPage extends Page {
           })}
         </main>
       </tab-view>
-      ${this.dialogueOpen ? html`<app-dialogue ?open=${this.dialogueOpen}>
+      <app-dialogue ?open=${this.dialogueOpen}>
         <tab-view slot="body" for="add-dialogue-tabs">
           <main>
             <h2>Add Homework</h2>
@@ -234,7 +234,7 @@ export class ClassesPage extends Page {
         <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete}>Post</graviton-button><graviton-button @click=${() => {
           history.back();
         }}>Close</graviton-button></div>
-      </app-dialogue>` : ''}
+      </app-dialogue>
       <div class="fab" @click=${() => {
         history.pushState({ page: 'classes', state: 'add' }, 'Classes: Add', '/classes/add');
         this.uploadFile = undefined;
