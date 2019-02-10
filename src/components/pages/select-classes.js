@@ -1,7 +1,27 @@
 import { html } from 'lit-element';
 import { Page } from '../page';
+import { blocks } from '../shared';
 
 export class SelectClasses extends Page {
+
+  constructor () {
+    super();
+    if (firebase.firestore() !== undefined) {
+      this.getClasses();
+    } else {
+      document.addEventListener('firebase-firestore-loaded', () => {
+        this.getClasses();
+      })
+    }
+  }
+
+  async getClasses () {
+    const classes = firebase.firestore().collection('classes');
+    const blockList = blocks.map(block => {
+      return classes.doc(block);
+    });
+    console.log(blockList);
+  }
 
   render () {
     return html`
