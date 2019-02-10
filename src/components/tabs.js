@@ -1,13 +1,18 @@
 import { LitElement, html } from 'lit-element';
-import { red } from './shared';
+import { red, grad } from './shared';
 import '@material/mwc-ripple/mwc-ripple';
 
 export class HeaderComponent extends LitElement {
   static get properties () {
     return {
       title: { type: String },
-      tabs: { type: Array }
+      tabs: { type: Array },
+      filled: { type: Boolean }
     }
+  }
+  constructor () {
+    super();
+    this.filled = true;
   }
   render () {
     return html`
@@ -19,6 +24,7 @@ export class HeaderComponent extends LitElement {
           width:100vw;
           height:${this.tabs.length > 0 ? 7 : 3.5}rem;
           transition:box-shadow 0.4s cubic-bezier(0.4,0,0,1);
+          box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
           color:#222;
           overflow:hidden;
           z-index:4;
@@ -33,10 +39,13 @@ export class HeaderComponent extends LitElement {
           -ms-user-select: none;
           user-select: none;
         }
+        header[filled] {
+          color: white;
+          background: ${grad};
+        }
         .title {
           text-align:center;
           font-size:20pt;
-          //font-weight: 300;
           height:3.5rem;
           margin:0px;
           display: flex;
@@ -47,9 +56,9 @@ export class HeaderComponent extends LitElement {
           width:100%;
         }
       </style>
-      <header>
+      <header ?filled=${this.filled}>
         <p class="title">${this.title}</p>
-        <tab-container id="${`${this.title}-tabs`}" .tabs=${this.tabs}></tab-container>
+        <tab-container id="${`${this.title}-tabs`}" .tabs=${this.tabs} ?light=${this.filled}></tab-container>
       </header>
     `;
   }
@@ -60,7 +69,8 @@ export class TabContainer extends LitElement {
     return {
       tabs: { type: Array },
       selected: { type: Number },
-      id: { type: String }
+      id: { type: String },
+      light: { type: Boolean }
     }
   }
   constructor () {
@@ -93,16 +103,19 @@ export class TabContainer extends LitElement {
           transition:transform 0.4s cubic-bezier(0.4,0,0,1);
           transform:translate(${100*this.selected}%);
         }
+        .header-tabindicator[light] {
+          background-color: white;
+        }
         tab-component {
           width:100%;
         }
       </style>
       <nav>
-        ${this.tabs.map((tab, index) => html`<tab-component .selected=${this.selected == index} .index=${index} .tabChange=${tab => {
+        ${this.tabs.map((tab, index) => html`<tab-component ?light=${this.light} .selected=${this.selected == index} .index=${index} .tabChange=${tab => {
           this.selected = tab;
           this.dispatchEvent(new CustomEvent('tab-change', { detail: {tab:tab}}));
         }}>${tab}</tab-component>`)}
-        <span class="header-tabindicator"></span>
+        <span class="header-tabindicator" ?light=${this.light}></span>
       </nav>` : null;
   }
   touchStart() {
@@ -136,7 +149,8 @@ export class TabComponent extends LitElement {
       selected: { type: Boolean },
       index: { type: Number },
       tabChange: { type: Function },
-      icon: { type: String }
+      icon: { type: String },
+      light: { type: Boolean }
     }
   }
   render () {
@@ -167,9 +181,16 @@ export class TabComponent extends LitElement {
           transition-delay: 0s;
           transform:scale(0.8);
         }
+        div[light] *:not(mwc-ripple) {
+          opacity: 0.5;
+        }
         div[selected=true] *:not(mwc-ripple) {
           transform:scale(1);
           color:${red};
+        }
+        div[light][selected=true] *:not(mwc-ripple) {
+          color: white;
+          opacity: 1;
         }
         .material-icons {
           font-family: 'Material Icons';
@@ -189,10 +210,10 @@ export class TabComponent extends LitElement {
           font-feature-settings: 'liga';
         }
       </style>
-      <div selected=${this.selected} @click="${()=>{this.tabChange(this.index)}}">
+      <div ?light=${this.light} selected=${this.selected} @click="${()=>{this.tabChange(this.index)}}">
         ${this.icon ? html`<i class="material-icons">${this.icon}</i>` : null}
         <span><slot></slot></span>
-        <mwc-ripple primary></mwc-ripple>
+        <mwc-ripple ?primary=${!this.light} ?accent=${this.light}></mwc-ripple>
       </div>
     `;
   }
