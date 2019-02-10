@@ -234,7 +234,8 @@ class GravitonPanel extends LitElement {
 
   static get properties () {
     return {
-      expanded: { type: Boolean }
+      expanded: { type: Boolean },
+      value: { type: Object }
     }
   }
 
@@ -307,12 +308,16 @@ class GravitonPanel extends LitElement {
         .panel[expanded] .drop-icon {
           transform: rotate(200grad);
         }
+        .panel-title-value {
+          margin-left: 1rem;
+          color: #444;
+        }
       </style>
       <div class="panel" ?expanded=${this.expanded}>
         <div class="panel-title" @click=${() => {
           this.expanded = !this.expanded;
         }}>
-          <slot name="title"></slot> 
+          <slot name="title"></slot><p class="panel-title-value">${this.value ? this.value : ''}</p>
           <i class="material-icons drop-icon">arrow_drop_down</i>
         </div>
         <div class="panel-body">
