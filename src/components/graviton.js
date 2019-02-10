@@ -1,5 +1,5 @@
 import { LitElement, html, customElement, property } from 'lit-element';
-import { red } from './shared';
+import { red, grad } from './shared';
 
 export class GravitonButton extends LitElement {
   static get properties() {
@@ -33,7 +33,7 @@ export class GravitonButton extends LitElement {
         }
         .btn.fill {
           color: white;
-          background-color:${red};
+          background:${grad};
           box-shadow: 0px 3px 6px rgba(244, 67, 54, 0.16);
         }
         .btn-wrapping {
@@ -264,9 +264,9 @@ class GravitonPanel extends LitElement {
         }
         .panel {
           box-sizing: border-box;
-          width: calc(100% - 64px);
+          width: calc(100% - 32px);
           margin: 0px auto;
-          box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
           transition: margin 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
           -webkit-user-select: none;
           -moz-user-select: none;
