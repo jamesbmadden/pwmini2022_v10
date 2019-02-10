@@ -11,9 +11,11 @@ export class Page extends LitElement {
     return `
       main.tab {
         margin-top: ${this.tabs.length > 0 ? 7 : 3.5}rem;
+        width: 100vw;
       }
       main {
-        margin: 8px;
+        padding: 0px 8px;
+        margin: 8px 0px;
         width: 100%;
         box-sizing: border-box;
       }
