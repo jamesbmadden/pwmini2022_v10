@@ -248,13 +248,19 @@ class GravitonPanel extends LitElement {
       <style>
         .panel-title {
           position: relative;
-          height: 2rem;
+          height: 3rem;
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          cursor: pointer;
+        }
+        .panel:not([expanded]) > .panel-title:hover {
+          background: #e3e3e3;
         }
         .panel-body {
           position: relative;
           height: 0;
           overflow: hidden;
-          transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .panel {
           box-sizing: border-box;
@@ -262,9 +268,11 @@ class GravitonPanel extends LitElement {
           margin: 0px auto;
           box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
           transition: margin 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .panel:hover {
-          margin: 0.5rem auto;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          z-index: 1;
         }
         .panel[expanded] {
           margin: 1rem auto;
@@ -273,12 +281,39 @@ class GravitonPanel extends LitElement {
         .panel[expanded] > .panel-body {
           height: auto;
         }
+        .material-icons {
+          font-family: 'Material Icons';
+          font-weight: normal;
+          font-style: normal;
+          display: inline-block;
+          line-height: 1;
+          text-transform: none;
+          letter-spacing: normal;
+          word-wrap: normal;
+          white-space: nowrap;
+          direction: ltr;
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          -moz-osx-font-smoothing: grayscale;
+          font-feature-settings: 'liga';
+        }
+        .drop-icon {
+          position: absolute;
+          font-size: 1.5rem;
+          right: 0.25rem;
+          pointer-events: none;
+          transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .panel[expanded] .drop-icon {
+          transform: rotate(200grad);
+        }
       </style>
       <div class="panel" ?expanded=${this.expanded}>
         <div class="panel-title" @click=${() => {
           this.expanded = !this.expanded;
         }}>
-          <slot name="title"></slot>
+          <slot name="title"></slot> 
+          <i class="material-icons drop-icon">arrow_drop_down</i>
         </div>
         <div class="panel-body">
           <slot name="body"></slot>
