@@ -177,3 +177,14 @@ exports.miniEvents = functions.https.onRequest(async (request, response) => {
     response.end(JSON.stringify(error));
   }
 });
+
+exports.availableClasses = functions.https.onRequest(async (request, response) => {
+  let classesCollection = fs.collection('classes');
+  let classes = {};
+  await asyncForEach(blocks, async block => {
+    let blockSnap = await classesCollection.doc(block).get();
+    classes[block] = Object.keys(blockSnap.data());
+  });
+  response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
+  response.end(JSON.stringify(classes));
+});

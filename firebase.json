@@ -12,6 +12,10 @@
     ],
     "rewrites": [
       {
+        "source": "/api/classes",
+        "function": "availableClasses"
+      },
+      {
         "source": "/api/mini",
         "function": "miniEvents"
       },
