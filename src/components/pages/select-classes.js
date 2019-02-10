@@ -10,7 +10,6 @@ export class SelectClasses extends Page {
         h2[slot=title] {
           margin-top: 0px;
           margin-bottom: 0px;
-          height: 32px;
         }
       </style>
       <page-header title="Select Classes" .tabs=${this.tabs}></page-header>
