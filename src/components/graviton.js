@@ -230,6 +230,66 @@ class GravitonDropdown extends LitElement {
   }
 }
 
+class GravitonPanel extends LitElement {
+
+  static get properties () {
+    return {
+      expanded: { type: Boolean }
+    }
+  }
+
+  constructor () {
+    super();
+    this.expanded = false;
+  }
+
+  render () {
+    return html`
+      <style>
+        .panel-title {
+          position: relative;
+          height: 2rem;
+        }
+        .panel-body {
+          position: relative;
+          height: 0;
+          overflow: hidden;
+          transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .panel {
+          box-sizing: border-box;
+          width: calc(100% - 64px);
+          margin: 0px auto;
+          box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+          transition: margin 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .panel:hover {
+          margin: 0.5rem auto;
+        }
+        .panel[expanded] {
+          margin: 1rem auto;
+          width: 100%;
+        }
+        .panel[expanded] > .panel-body {
+          height: auto;
+        }
+      </style>
+      <div class="panel" ?expanded=${this.expanded}>
+        <div class="panel-title" @click=${() => {
+          this.expanded = !this.expanded;
+        }}>
+          <slot name="title"></slot>
+        </div>
+        <div class="panel-body">
+          <slot name="body"></slot>
+        </div>
+      </div>
+    `;
+  }
+
+}
+
 customElements.define('graviton-button', GravitonButton);
 customElements.define('graviton-input', GravitonInput);
 customElements.define('graviton-dropdown', GravitonDropdown);
+customElements.define('graviton-panel', GravitonPanel);
