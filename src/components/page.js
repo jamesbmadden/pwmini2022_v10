@@ -1,7 +1,7 @@
 import { LitElement, customElement } from 'lit-element';
 import { HeaderComponent, TabContainer, TabComponent, TabView } from './tabs';
 import { BottomAppBar } from './bottom-app-bar';
-import { red } from './shared';
+import { red, grad } from './shared';
 
 export class Page extends LitElement {
   get tabs() {
@@ -21,13 +21,13 @@ export class Page extends LitElement {
       }
       main.scrollable {
         overflow: auto;
-        height: calc(100vh - 10.5rem);
+        height: calc(100vh - ${(this.tabs.length > 0 ? 7 : 3.5) + 3.5}rem);
       }
       .fab {
         position: fixed !important;
         width: 3.5rem;
         height: 3.5rem;
-        background: ${red};
+        background: ${grad};
         display: flex;
         justify-content: center;
         align-items: center;
