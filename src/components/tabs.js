@@ -177,20 +177,18 @@ export class TabComponent extends LitElement {
           }
         }
         div *:not(mwc-ripple) {
-          transition:color 0.4s cubic-bezier(0.4,0,0,1), transform 0.4s cubic-bezier(0.4,0,0,1);
+          transition:color 0.4s cubic-bezier(0.4,0,0,1), transform 0.4s cubic-bezier(0.4,0,0,1), opacity 0.4s cubic-bezier(0.4,0,0,1);
           transition-delay: 0s;
           transform:scale(0.8);
-        }
-        div[light] *:not(mwc-ripple) {
           opacity: 0.5;
         }
         div[selected=true] *:not(mwc-ripple) {
           transform:scale(1);
           color:${red};
+          opacity: 1;
         }
         div[light][selected=true] *:not(mwc-ripple) {
           color: white;
-          opacity: 1;
         }
         .material-icons {
           font-family: 'Material Icons';
