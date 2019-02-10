@@ -4,7 +4,7 @@ import { LitElement, html, customElement, property } from 'lit-element';
 import { GravitonButton, GravitonInput } from './components/graviton.js';
 import { fb } from './keys';
 
-var firebase = {};
+window.firebase = {};
 
 import('firebase/app').then(module => {
   firebase = module;
@@ -14,6 +14,7 @@ import('firebase/app').then(module => {
     document.dispatchEvent(new CustomEvent('firebase-auth-loaded'));
   });
   import('firebase/firestore').then(module => {
+    firebase.firestore().settings({ timestampsInSnapshots: true });
     document.dispatchEvent(new CustomEvent('firebase-firestore-loaded'));
   })
 });
