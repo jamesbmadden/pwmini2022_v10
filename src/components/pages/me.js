@@ -57,7 +57,9 @@ export class MePage extends Page {
                 return html`<li>${theClass}</li>`;
               })}
             </ul>
-            <graviton-button filled>Change</graviton-button>
+            <graviton-button filled @click=${() => {
+              document.dispatchEvent(new CustomEvent('set-page', { detail: { page: 'select-classes'} }));
+            }}>Change</graviton-button>
           </graviton-card>
         </main>
         <main class="tab scrollable">
