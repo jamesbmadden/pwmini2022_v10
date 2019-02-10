@@ -18,11 +18,11 @@ import('firebase/app').then(module => {
   })
 });
 
-import(/* webpackChunkName: "classes-page" */ './components/pages/classes');
-import(/* webpackChunkName: "me-page" */ './components/pages/me');
-import(/* webpackChunkName: "mini-page" */ './components/pages/mini');
-import(/* webpackChunkName: "select-classes-page" */ './components/pages/select-classes');
-import(/* webpackChunkName: "error-page" */ './components/pages/error');
+import('./components/pages/classes');
+import('./components/pages/me');
+import('./components/pages/mini');
+import('./components/pages/select-classes');
+import('./components/pages/error');
 
 class AppState extends LitElement {
   static get properties () {
