@@ -60,16 +60,10 @@ class AppState extends LitElement {
         if (user) {
           this.user = user;
           this.signedIn = true;
-          let classesResponse = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}/classes`);
-          let classes = await classesResponse.json();
-          if (classes === {}) {
-            document.dispatchEvent(new CustomEvent('set-page'), { detail: { page: 'select-classes'} })
-          } else {
-            let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
-            this.userData = await response.json();
-            if (this.userData.classes === undefined) {
-              this.state = 'select-classes';
-            }
+          let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
+          this.userData = await response.json();
+          if (this.userData.classes === undefined) {
+            this.state = 'select-classes';
           }
         } else {
           this.signedIn = false;
