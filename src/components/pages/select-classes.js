@@ -52,7 +52,16 @@ export class SelectClasses extends Page {
             </graviton-panel>
           `;
         })}
-        <graviton-button filled>Begin</graviton-button>
+        <graviton-button filled @click=${async () => {
+          if (Object.keys(this.selected).length === 8) {
+            const email = firebase.auth().currentUser.email;
+            firebase.firestore().collection('users').doc(email).set({
+              classes: this.selected
+            }).then(() => {
+              document.dispatchEvent(new CustomEvent('set-page'), { detail: { page: 'classes'} })
+            });
+          }
+        }}>Begin</graviton-button>
       </main>
     `;
   }
