@@ -9,7 +9,8 @@ export class SelectClasses extends Page {
       classes: { type: Object },
       rerender: { type: Number },
       loading: { type: Boolean },
-      dialogueOpen: { type: Boolean }
+      dialogueOpen: { type: Boolean },
+      addName: { type: String }
     }
   }
 
@@ -88,9 +89,22 @@ export class SelectClasses extends Page {
       <app-dialogue ?open=${this.dialogueOpen}>
         <h2 slot="header">Add Class for Block ${location.pathname.split('/')[3]}</h2>
         <div slot="body">
-          <graviton-input>Class Name</graviton-input>
-          <graviton-button filled>Add</graviton-button>
-          <graviton-button>Cancel</graviton-button>
+          <graviton-input @input=${event => {
+            this.addName = event.target.value;
+          }}>Class Name</graviton-input>
+          <graviton-button filled @click=${() => {
+            let newClass = {};
+            newClass[this.addName] = {
+              events: [],
+              homework: []
+            };
+            firebase.firestore().collection('classes').doc(location.pathname.split('/')[3]).update(newClass);
+            this.classes[location.pathname.split('/')[3]].push(this.addName);
+            history.back();
+          }}>Add</graviton-button>
+          <graviton-button @click=${() => {
+            history.back();
+          }}>Cancel</graviton-button>
         </div>
       </app-dialogue>
     `;
