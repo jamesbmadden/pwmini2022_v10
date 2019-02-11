@@ -6,7 +6,23 @@ export class SelectClasses extends Page {
 
   static get properties () {
     return {
-      classes: { type: Object }
+      classes: { type: Object },
+      rerender: { type: Number }
+    }
+  }
+
+  constructor () {
+    super();
+    this.rerender = 0;
+    this.selected = {};
+  }
+
+  handleInput (event) {
+    const {value, name} = event.target;
+    if (this.selected[name] !== value) {
+      this.selected[name] = value;
+      console.log(this.selected);
+      this.rerender++;
     }
   }
 
@@ -23,12 +39,12 @@ export class SelectClasses extends Page {
       <main class="tab scrollable">
         ${blocks.map(block =>  {
           return html`
-            <graviton-panel>
+            <graviton-panel value="${this.selected[block]}">
               <p slot="title">${block}</p>
               <form slot="body" id="block-${block.replace(/\./, '-')}">
                 ${this.classes[block].map(className => {
                   return html`
-                    <input type="radio" name=${block} value="${className}" id=${className.replace(/ /g, '-')}><label for=${className.replace(/ /g, '-')}>${className}</label>
+                    <input type="radio" name=${block} value="${className}" id=${className.replace(/ /g, '-')} @click=${this.handleInput}><label for=${className.replace(/ /g, '-')}>${className}</label>
                   `;
                 })}
                 <graviton-button>Other Class</graviton-button>
