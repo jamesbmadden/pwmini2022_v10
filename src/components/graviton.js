@@ -235,7 +235,7 @@ class GravitonPanel extends LitElement {
   static get properties () {
     return {
       expanded: { type: Boolean },
-      value: { type: Object }
+      value: { type: String }
     }
   }
 
@@ -317,7 +317,7 @@ class GravitonPanel extends LitElement {
         <div class="panel-title" @click=${() => {
           this.expanded = !this.expanded;
         }}>
-          <slot name="title"></slot><p class="panel-title-value">${this.value ? this.value : ''}</p>
+          <slot name="title"></slot><p class="panel-title-value">${this.value !== 'undefined' ? this.value : ''}</p>
           <i class="material-icons drop-icon">arrow_drop_down</i>
         </div>
         <div class="panel-body">
