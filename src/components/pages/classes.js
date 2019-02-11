@@ -174,8 +174,12 @@ export class ClassesPage extends Page {
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
                 <graviton-input type="number" value="2019">Year</graviton-input>
-                <graviton-input type="number">Month</graviton-input>
-                <graviton-input type="number">Day</graviton-input>
+                <graviton-input type="number" @input=${event => {
+                  this.safariUploadMonth = event.target.value;
+                }}>Month</graviton-input>
+                <graviton-input type="number" @input=${event => {
+                  this.safariUploadDay = event.target.value;
+                }}>Day</graviton-input>
               </div>
             `}
             <graviton-button filled @click=${() => {
@@ -223,15 +227,20 @@ export class ClassesPage extends Page {
               <graviton-input type="date">Date</graviton-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
-                <graviton-input type="number" value="2019">Year</graviton-input>
-                <graviton-input type="number">Month</graviton-input>
-                <graviton-input type="number">Day</graviton-input>
+                <graviton-input type="number" @input=${event => {
+                  this.safariUploadMonth = event.target.value;
+                }}>Month</graviton-input>
+                <graviton-input type="number" @input=${event => {
+                  this.safariUploadDay = event.target.value;
+                }}>Day</graviton-input>
               </div>
             `}
           </main>
         </tab-view>
         <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']}></tab-container>
-        <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete}>Post</graviton-button><graviton-button @click=${() => {
+        <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete} @click=${() => {
+
+        }}>Post</graviton-button><graviton-button @click=${() => {
           history.back();
         }}>Close</graviton-button></div>
       </app-dialogue>
