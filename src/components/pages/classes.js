@@ -27,12 +27,12 @@ export class ClassesPage extends Page {
   }
   constructor () {
     super();
-    this.dialogueOpen = location.pathname.split('/')[2] === 'add' ? true : false;
+    this.dialogueOpen = location.pathname.split('/')[2] === 'add';
     if (this.mini == undefined) {
       this.mini = [];
     }
     window.addEventListener('popstate', event => {
-      this.dialogueOpen = location.pathname.split('/')[2] === 'add' ? true : false;
+      this.dialogueOpen = location.pathname.split('/')[2] === 'add';
     })
   }
   get supportsDate () {
