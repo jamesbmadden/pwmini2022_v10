@@ -7,7 +7,9 @@ export class SelectClasses extends Page {
   static get properties () {
     return {
       classes: { type: Object },
-      rerender: { type: Number }
+      rerender: { type: Number },
+      loading: { type: Boolean },
+      dialogueOpen: { type: Boolean }
     }
   }
 
@@ -15,6 +17,10 @@ export class SelectClasses extends Page {
     super();
     this.rerender = 0;
     this.selected = {};
+    this.dialogueOpen = location.pathname.split('/')[2] === 'add';
+    window.addEventListener('popstate', event => {
+      this.dialogueOpen = location.pathname.split('/')[2] === 'add';
+    })
   }
 
   handleInput (event) {
@@ -36,7 +42,7 @@ export class SelectClasses extends Page {
         }
       </style>
       <page-header title="Select Classes" .tabs=${this.tabs}></page-header>
-      <main class="tab scrollable">
+      <main class="tab scrollable" ?hidden=${this.loading}>
         ${blocks.map(block =>  {
           return html`
             <graviton-panel value="${this.selected[block]}">
@@ -47,22 +53,46 @@ export class SelectClasses extends Page {
                     <input type="radio" name=${block} value="${className}" id=${className.replace(/ /g, '-')} @click=${this.handleInput}><label for=${className.replace(/ /g, '-')}>${className}</label>
                   `;
                 })}
-                <graviton-button>Other Class</graviton-button>
+                <graviton-button @click=${() => {
+                  history.pushState({ page: 'select-classes', state: 'add', block }, `Select Classes: Add ${block}`, `/select-classes/add/${block}`);
+                  this.dialogueOpen = true;
+                }}>Other Class</graviton-button>
               </form>
             </graviton-panel>
           `;
         })}
         <graviton-button filled @click=${async () => {
+          console.log(Object.keys(this.selected).length);
           if (Object.keys(this.selected).length === 8) {
-            const email = firebase.auth().currentUser.email;
-            firebase.firestore().collection('users').doc(email).set({
-              classes: this.selected
-            }).then(() => {
-              document.dispatchEvent(new CustomEvent('set-page'), { detail: { page: 'classes'} })
-            });
+            try {
+              console.log('setting user');
+              const email = firebase.auth().currentUser.email;
+              const users = firebase.firestore().collection('users');
+              console.log(email);
+              this.loading = true;
+              await users.doc(email).set({
+                classes: this.selected
+              }, { merge: true });
+              this.loading = false;
+              document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'classes' }}));
+              location.reload();
+            } catch (error) {
+              console.error(error);
+            }
           }
         }}>Begin</graviton-button>
       </main>
+      <main class="tab" ?hidden=${!this.loading}>
+        loading...
+      </main>
+      <app-dialogue ?open=${this.dialogueOpen}>
+        <h2 slot="header">Add Class for Block ${location.pathname.split('/')[3]}</h2>
+        <div slot="body">
+          <graviton-input>Class Name</graviton-input>
+          <graviton-button filled>Add</graviton-button>
+          <graviton-button>Cancel</graviton-button>
+        </div>
+      </app-dialogue>
     `;
   }
 
