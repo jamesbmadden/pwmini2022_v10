@@ -117,16 +117,16 @@ exports.homeworkForEmail = functions.https.onRequest(async (request, response) =
   const email = request.url.split('/')[3];
   const classList = await getClasses(email);
   const homework = await getHomework(classList, true);
-  response.status('200').send(homework);
-  response.end();
+  response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
+  response.end(JSON.parse(homework));
 });
 
 exports.eventsForEmail = functions.https.onRequest(async (request, response) => {
   const email = request.url.split('/')[3];
   const classList = await getClasses(email);
   const events = await getEvents(classList);
-  response.status('200').send(events);
-  response.end();
+  response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
+  response.end(JSON.parse(events));
 });
 
 exports.classesForEmail = functions.https.onRequest(async (request, response) => {
