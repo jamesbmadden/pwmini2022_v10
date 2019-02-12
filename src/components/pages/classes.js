@@ -24,7 +24,8 @@ export class ClassesPage extends Page {
       uploadClass: { type: String },
       uploadTitle: { type: String },
       uploadError: { type: String },
-      dialogueLoading: { type: Boolean }
+      dialogueLoading: { type: Boolean },
+      uploadIsHomework: { type: Number }
     }
   }
   constructor () {
@@ -240,8 +241,11 @@ export class ClassesPage extends Page {
             `}
           </main>
         </tab-view>
-        <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']}></tab-container>
+        <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']} @tab-change=${event => {
+          this.uploadIsHomework = event.detail.tab;
+        }}></tab-container>
         <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete} @click=${async () => {
+          let uploadType = this.uploadIsHomework === 0 ? 'homework' : 'events';
           this.dialogueLoading = true; // Show the loading animation
           if (this.uploadTitle === undefined) { // If there's no title, abort process
             this.dialogueLoading = false;
@@ -257,7 +261,7 @@ export class ClassesPage extends Page {
           let blockData = await block.get(); // get block data
           if (blockData.exists) { // If the class exists
             let theClass = blockData.data()[this.uploadClass];
-            theClass['homework'].push({
+            theClass[uploadType].push({
               title: this.uploadTitle,
               date: `${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}` // Convert date to proper format
             });
@@ -277,7 +281,7 @@ export class ClassesPage extends Page {
       <div class="fab" @click=${() => {
         history.pushState({ page: 'classes', state: 'add' }, 'Classes: Add', '/classes/add');
         this.uploadFile = undefined;
-        this.dialogueOpen = true;
+        this.uploadIsHomework = 0;
       }}>
         <i class="material-icons">add</i>
         <mwc-ripple accent></mwc-ripple>
