@@ -173,7 +173,6 @@ export class ClassesPage extends Page {
               }}>Date</graviton-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
-                <graviton-input type="number" value="2019">Year</graviton-input>
                 <graviton-input type="number" @input=${event => {
                   this.safariUploadMonth = event.target.value;
                 }}>Month</graviton-input>
@@ -224,7 +223,9 @@ export class ClassesPage extends Page {
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
             <graviton-input>Title</graviton-input>
             ${this.supportsDate ? html` <!-- Input Type="date" supported -->
-              <graviton-input type="date">Date</graviton-input>
+              <graviton-input type="date" @change=${e => {
+                this.uploadDate = e.target.value;
+              }}>Date</graviton-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
                 <graviton-input type="number" @input=${event => {
@@ -238,8 +239,19 @@ export class ClassesPage extends Page {
           </main>
         </tab-view>
         <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']}></tab-container>
-        <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete} @click=${() => {
-
+        <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete} @click=${async () => {
+          this.dialogueLoading = true;
+          if (this.uploadTitle === undefined) {
+            this.dialogueLoading = false;
+            throw new Error('Please Choose a Title.');
+          }
+          let date = this.uploadDate;
+          if (!this.supportsDate) {
+            date = '2019-'+this.safariUploadMonth+'-'+this.safariUploadDay;
+          }
+          if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1'];
+          let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)];
+          console.log(uploadBlock);
         }}>Post</graviton-button><graviton-button @click=${() => {
           history.back();
         }}>Close</graviton-button></div>
