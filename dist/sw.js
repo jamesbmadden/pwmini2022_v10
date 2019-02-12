@@ -34,7 +34,7 @@ self.addEventListener('fetch', event => {
     }).catch(() => {
       return fromCache(event.request, 'mini22-api');
     }));
-  } else {
+  } else if (!/firestore.googleapis.com/.test(event.request.url)) {
     addToCache(event.request, 'mini22-10');
     event.respondWith(fromCache(event.request, 'mini22-10').then(response => {
       if (response) return response; // fromCache won't error, so whether response exists needs to be checked
