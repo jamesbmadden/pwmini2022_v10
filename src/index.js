@@ -75,7 +75,7 @@ class AppState extends LitElement {
       history.pushState({ page: this.state }, this.state, `/${this.state}`);
     });
     document.addEventListener('reload-data', async () => {
-      let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
+      let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${this.user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
       this.userData = await response.json();
     })
     window.addEventListener('popstate', event => {
