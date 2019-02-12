@@ -167,7 +167,7 @@ export class ClassesPage extends Page {
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
               this.uploadClass = e.target.value;
             }}>Class</graviton-dropdown>
-            <graviton-input @change=${e => {
+            <graviton-input @input=${e => {
               this.uploadTitle = e.target.value;
             }}>Title</graviton-input>
             ${this.supportsDate ? html` <!-- Input Type="date" supported -->
@@ -224,7 +224,9 @@ export class ClassesPage extends Page {
           <main>
             <h2>Add Event</h2>
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
-            <graviton-input>Title</graviton-input>
+            <graviton-input @input=${e => {
+              this.uploadTitle = e.target.value;
+            }}>Title</graviton-input>
             ${this.supportsDate ? html` <!-- Input Type="date" supported -->
               <graviton-input type="date" @change=${e => {
                 this.uploadDate = e.target.value;
@@ -267,6 +269,7 @@ export class ClassesPage extends Page {
             });
             let updateData = {};
             updateData[this.uploadClass] = theClass;
+            console.log(updateData);
             await block.update(updateData);
             this.dialogueLoading = false;
             history.back();
@@ -282,6 +285,7 @@ export class ClassesPage extends Page {
         history.pushState({ page: 'classes', state: 'add' }, 'Classes: Add', '/classes/add');
         this.uploadFile = undefined;
         this.uploadIsHomework = 0;
+        this.dialogueOpen = true;
       }}>
         <i class="material-icons">add</i>
         <mwc-ripple accent></mwc-ripple>
