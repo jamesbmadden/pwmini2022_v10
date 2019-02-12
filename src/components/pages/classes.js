@@ -22,7 +22,9 @@ export class ClassesPage extends Page {
       imageLoadComplete: { type: Boolean },
       uploadDate: { type: String },
       uploadClass: { type: String },
-      uploadTitle: { type: String }
+      uploadTitle: { type: String },
+      uploadError: { type: String },
+      dialogueLoading: { type: Boolean }
     }
   }
   constructor () {
@@ -240,18 +242,34 @@ export class ClassesPage extends Page {
         </tab-view>
         <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']}></tab-container>
         <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete} @click=${async () => {
-          this.dialogueLoading = true;
-          if (this.uploadTitle === undefined) {
+          this.dialogueLoading = true; // Show the loading animation
+          if (this.uploadTitle === undefined) { // If there's no title, abort process
             this.dialogueLoading = false;
-            throw new Error('Please Choose a Title.');
+            this.uploadError = 'Please Choose a Title.';
           }
-          let date = this.uploadDate;
-          if (!this.supportsDate) {
+          let date = this.uploadDate; // Get the date
+          if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
             date = '2019-'+this.safariUploadMonth+'-'+this.safariUploadDay;
           }
-          if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1'];
-          let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)];
-          console.log(uploadBlock);
+          if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1']; // If there's no uploadClass, use 1.1
+          let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)]; // Find the block
+          let block = firebase.firestore().collection('classes').doc(uploadBlock); // Get Document to be uploaded to
+          let blockData = await block.get(); // get block data
+          if (blockData.exists) { // If the class exists
+            let theClass = blockData.data()[this.uploadClass];
+            theClass['homework'].push({
+              title: this.uploadTitle,
+              date: this.uploadDate
+            });
+            let updateData = {};
+            updateData[this.uploadClass] = theClass;
+            await block.update(updateData);
+            this.dialogueLoading = false;
+            this.dialogueOpen = false;
+          } else {
+            this.uploadError = 'The class doesn\'t exist...?';
+            this.dialogueLoading = false;
+          }
         }}>Post</graviton-button><graviton-button @click=${() => {
           history.back();
         }}>Close</graviton-button></div>
