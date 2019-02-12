@@ -263,10 +263,14 @@ export class ClassesPage extends Page {
           let blockData = await block.get(); // get block data
           if (blockData.exists) { // If the class exists
             let theClass = blockData.data()[this.uploadClass];
-            theClass[uploadType].push({
+            let newUpload = {
               title: this.uploadTitle,
               date: `${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}` // Convert date to proper format
-            });
+            };
+            if (this.uploadFile && uploadType === 'homework') {
+              newUpload.image = this.imageUri;
+            }
+            theClass[uploadType].push(newUpload);
             let updateData = {};
             updateData[this.uploadClass] = theClass;
             console.log(updateData);
