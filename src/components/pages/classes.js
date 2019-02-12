@@ -160,7 +160,7 @@ export class ClassesPage extends Page {
         </main>
       </tab-view>
       <app-dialogue ?open=${this.dialogueOpen}>
-        <tab-view slot="body" for="add-dialogue-tabs">
+        ${this.dialogueLoading ? html`<p style="text-align: center" slot="body">posting...</p>` : html`<tab-view slot="body" for="add-dialogue-tabs">
           <main>
             <h2>Add Homework</h2>
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
@@ -247,9 +247,9 @@ export class ClassesPage extends Page {
             this.dialogueLoading = false;
             this.uploadError = 'Please Choose a Title.';
           }
-          let date = this.uploadDate; // Get the date
+          let date = new Date(this.uploadDate); // Get the date
           if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
-            date = '2019-'+this.safariUploadMonth+'-'+this.safariUploadDay;
+            date = new Date('2019-'+this.safariUploadMonth+'-'+this.safariUploadDay);
           }
           if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1']; // If there's no uploadClass, use 1.1
           let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)]; // Find the block
@@ -259,20 +259,20 @@ export class ClassesPage extends Page {
             let theClass = blockData.data()[this.uploadClass];
             theClass['homework'].push({
               title: this.uploadTitle,
-              date: this.uploadDate
+              date: `${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}` // Convert date to proper format
             });
             let updateData = {};
             updateData[this.uploadClass] = theClass;
             await block.update(updateData);
             this.dialogueLoading = false;
-            this.dialogueOpen = false;
+            history.back();
           } else {
             this.uploadError = 'The class doesn\'t exist...?';
             this.dialogueLoading = false;
           }
         }}>Post</graviton-button><graviton-button @click=${() => {
           history.back();
-        }}>Close</graviton-button></div>
+        }}>Close</graviton-button></div>`}
       </app-dialogue>
       <div class="fab" @click=${() => {
         history.pushState({ page: 'classes', state: 'add' }, 'Classes: Add', '/classes/add');
