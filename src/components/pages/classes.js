@@ -271,6 +271,8 @@ export class ClassesPage extends Page {
             updateData[this.uploadClass] = theClass;
             console.log(updateData);
             await block.update(updateData);
+            document.dispatchEvent(new CustomEvent('reload-data'));
+            this.user = {};
             this.dialogueLoading = false;
             history.back();
           } else {
