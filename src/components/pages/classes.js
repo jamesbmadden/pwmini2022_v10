@@ -272,7 +272,11 @@ export class ClassesPage extends Page {
             console.log(updateData);
             await block.update(updateData);
             document.dispatchEvent(new CustomEvent('reload-data'));
-            this.user = {};
+            this.user = {
+              classes:{},
+              homework:[],
+              events:[]
+            };
             this.dialogueLoading = false;
             history.back();
           } else {
