@@ -81,10 +81,10 @@ class AppState extends LitElement {
     window.addEventListener('popstate', event => {
       this.state = location.pathname.split('/')[1];
     });
-    fetch('https://us-central1-powmini2022.cloudfunctions.net/miniEvents').then(resp => resp.json()).then(json => { // Get Mini Events
+    fetch('https://powmini2022.firebaseapp.com/api/mini').then(resp => resp.json()).then(json => { // Get Mini Events
       this.mini = json;
     });
-    fetch('https://us-central1-powmini2022.cloudfunctions.net/availableClasses').then(resp => resp.json()).then(json  => {
+    fetch('https://powmini2022.firebaseapp.com/api/classes').then(resp => resp.json()).then(json  => {
       this.classes = json;
     });
   }
