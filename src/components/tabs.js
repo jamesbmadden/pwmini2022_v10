@@ -126,6 +126,7 @@ export class TabContainer extends LitElement {
   }
   touchEnd(tab) {
     this.selected = tab;
+    this.dispatchEvent(new CustomEvent('tab-change', { detail: {tab:tab}}));
     this.shadowRoot.querySelector('.header-tabindicator').style.transition = 'transform 0.4s cubic-bezier(0,0,0,1)';
     this.shadowRoot.querySelector('.header-tabindicator').style.transform = `translate(${100*this.selected}%)`;
     setTimeout(() => {
