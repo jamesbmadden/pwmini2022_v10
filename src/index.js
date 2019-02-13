@@ -203,6 +203,7 @@ class SigninPage extends LitElement {
           justify-content:center;
           align-items:center;
           text-align:center;
+          background-color: white;
         }
         form {
           position: relative;

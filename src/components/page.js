@@ -9,6 +9,14 @@ export class Page extends LitElement {
   }
   get pageStyles() {
     return `
+    :host {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+      width: 100%;
+      background-color: white;
+    }
       main.tab {
         margin-top: ${this.tabs.length > 0 ? 7 : 3.5}rem;
         width: 100vw;
