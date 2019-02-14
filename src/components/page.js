@@ -16,6 +16,7 @@ export class Page extends LitElement {
       height: 100%;
       width: 100%;
       background-color: white;
+      overflow-x: hidden;
     }
       main.tab {
         margin-top: ${this.tabs.length > 0 ? 7 : 3.5}rem;
