@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --config webpack.config.dev.js",
     "deploy": "webpack && firebase deploy"
   }
 }
