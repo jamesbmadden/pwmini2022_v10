@@ -8,18 +8,15 @@
     "@material/mwc-ripple": "^0.1.0",
     "@webcomponents/webcomponentsjs": "^2.2.1",
     "array.prototype.flat": "^1.2.1",
-    "firebase": "^5.5.8",
-    "firebase-tools": "^6.1.0",
     "lit-element": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-decorators": "^7.3.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "babel-loader": "^8.0.5",
-    "postcss-loader": "^3.0.0",
-    "raw-loader": "^1.0.0",
+    "firebase": "^5.8.3",
+    "firebase-tools": "^6.3.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14"
