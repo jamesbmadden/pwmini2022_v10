@@ -223,7 +223,9 @@ export class ClassesPage extends Page {
           </main>
           <main>
             <h2>Add Event</h2>
-            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])}>Class</graviton-dropdown>
+            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
+              this.uploadClass = e.target.value;
+            }}>Class</graviton-dropdown>
             <graviton-input @input=${e => {
               this.uploadTitle = e.target.value;
             }}>Title</graviton-input>
