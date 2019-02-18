@@ -1,8 +1,8 @@
-/*
-  Service Worker code by James Madden.
-  Offline-First, with the exception of the API.
-  The API is cached for offline use.
-*/
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open('mini22-10').then(cache => {
