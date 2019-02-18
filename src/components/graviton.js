@@ -81,31 +81,24 @@ export class GravitonInput extends LitElement {
                   padding:0px 12px;
                   width:100%;
                   height:3.5rem;
-                  background:transparent;
-                  border:0px;
+                  background:#fff;
+                  border:1px solid #bdbdbd;
+                  border-radius: 4px;
                   position:relative;
                   font-size:16pt;
-                  z-index:3;
+                  z-index:1;
                   -webkit-appearance: none;
-                }
-                .highlight {
-                  content:"";
-                  position:absolute;
-                  bottom:0px;
-                  width:100%;
-                  height:1px;
-                  background-color:#bdbdbd;
-                  transition:color 0.2s cubic-bezier(1,0,0,1);
-                  pointer-events:none;
+                  transition:border 0.2s cubic-bezier(1,0,0,1);
                 }
                 .fieldInputLabel {
-                  z-index:1;
+                  z-index:2;
                   position:absolute;
-                  top:12.5px;
+                  top:18px;
                   left:2px;
                   color:#222;
+                  background: #fff;
                   transition:transform 0.2s cubic-bezier(1,0,0,1), font-size 0.2s cubic-bezier(1,0,0,1), color 0.2s cubic-bezier(1,0,0,1);
-                  transform:translate(0px,-24px);
+                  transform:translate(4px,-24px);
                   font-size:12px;
                   pointer-events:none;
                 }
@@ -115,6 +108,7 @@ export class GravitonInput extends LitElement {
                 }
                 .fieldInput:focus {
                   outline: none;
+                  border: 1px solid ${red};
                 }
                 .fieldInput:focus ~ .highlight {
                   background-color:${red};
@@ -123,7 +117,7 @@ export class GravitonInput extends LitElement {
                   color:${red};
                 }
                 .fieldInput:focus ~ .fieldInputLabel, .fieldInput:not(:placeholder-shown) ~ .fieldInputLabel {
-                  transform:translate(0px,-24px);
+                  transform:translate(4px,-24px);
                   font-size:12px;
                 }
                 .inputContainer {
@@ -137,7 +131,6 @@ export class GravitonInput extends LitElement {
                   this.dispatchEvent(new Event('input'));
                 }} @change=${(e)=>this.dispatchEvent(new Event('change'))} class="fieldInput" name="fieldInput" id="fieldInput" placeholder=" " type="${this.type}" autocomplete="${this.autocomplete}">
                 <label class="fieldInputLabel" for="fieldInput"><slot></slot></label>
-                <div class="highlight"></div>
               </div>`;
   }
 }
@@ -161,20 +154,12 @@ class GravitonDropdown extends LitElement {
           width: 100%;
           font-size: 16pt;
           padding-left: 8px;
-          border: none;
+          background:#fff;
+          border:1px solid #bdbdbd;
+          border-radius: 4px;
           cursor: pointer;
           background-color: transparent;
           -webkit-appearance: none;
-        }
-        .highlight {
-          content:"";
-          position:absolute;
-          bottom:0px;
-          width:100%;
-          height:1px;
-          background-color:#bdbdbd;
-          transition:color 0.2s cubic-bezier(1,0,0,1);
-          pointer-events:none;
         }
         .select-container {
           position:relative;
@@ -183,16 +168,21 @@ class GravitonDropdown extends LitElement {
         .select-label {
           z-index:1;
           position:absolute;
-          top:12.5px;
+          top:16px;
           left:2px;
           color:#222;
+          background:#fff;
           transition:transform 0.2s cubic-bezier(1,0,0,1), font-size 0.2s cubic-bezier(1,0,0,1), color 0.2s cubic-bezier(1,0,0,1);
-          transform:translate(0px,-24px);
+          transform:translate(4px,-24px);
           font-size:12px;
           pointer-events:none;
         }
-        select:focus ~ .highlight {
-          background-color:${red};
+        select:focus {
+          outline: none;
+          border: 1px solid ${red};
+        }
+        select:focus ~ .select-label {
+          color: ${red};
         }
         .material-icons {
           font-family: 'Material Icons';
@@ -228,7 +218,6 @@ class GravitonDropdown extends LitElement {
           })}
         </select>
         <label class="select-label" for="select"><slot></slot></label>
-        <div class="highlight"></div>
         <i class="material-icons drop-icon">arrow_drop_down</i>
       </div>
     `;
