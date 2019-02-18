@@ -5,6 +5,7 @@ src/keys.js
 dist/*.main.js
 dist/main.js
 icon/
+.DS_Store
 
 # Logs
 logs
