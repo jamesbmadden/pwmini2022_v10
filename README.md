@@ -1,7 +1,7 @@
 # PW Mini 2022
 App for Managing Homework 
 
-![](https://img.shields.io/github/languages/code-size/jamesbmadden/pwmini2022.svg?style=flat-square)
+[![](https://img.shields.io/github/languages/code-size/jamesbmadden/pwmini2022.svg?style=flat-square)](https://github.com/jamesbmadden/pwmini2022)
 [![](https://img.shields.io/github/issues-raw/jamesbmadden/pwmini2022.svg?style=flat-square)](https://github.com/jamesbmadden/pwmini2022/issues)
 
 ## Install
