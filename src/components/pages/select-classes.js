@@ -95,9 +95,9 @@ export class SelectClasses extends Page {
       <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${() => history.back()}>
         <h2 slot="header">Add Class for Block ${location.pathname.split('/')[3]}</h2>
         <div slot="body">
-          <graviton-input @input=${event => {
+          <gvt-input @input=${event => {
             this.addName = event.target.value;
-          }}>Class Name</graviton-input>
+          }}>Class Name</gvt-input>
           <gvt-button filled @click=${() => {
             let newClass = {};
             newClass[this.addName] = {

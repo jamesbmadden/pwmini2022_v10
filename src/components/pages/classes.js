@@ -172,21 +172,21 @@ export class ClassesPage extends Page {
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
               this.uploadClass = e.target.value;
             }}>Class</graviton-dropdown>
-            <graviton-input @input=${e => {
+            <gvt-input @input=${e => {
               this.uploadTitle = e.target.value;
-            }}>Title</graviton-input>
+            }}>Title</gvt-input>
             ${this.supportsDate ? html` <!-- Input Type="date" supported -->
-              <graviton-input type="date" @change=${e => {
+              <gvt-input type="date" @change=${e => {
                 this.uploadDate = e.target.value;
-              }}>Date</graviton-input>
+              }}>Date</gvt-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
-                <graviton-input type="number" @input=${event => {
+                <gvt-input type="number" @input=${event => {
                   this.safariUploadMonth = event.target.value;
-                }}>Month</graviton-input>
-                <graviton-input type="number" @input=${event => {
+                }}>Month</gvt-input>
+                <gvt-input type="number" @input=${event => {
                   this.safariUploadDay = event.target.value;
-                }}>Day</graviton-input>
+                }}>Day</gvt-input>
               </div>
             `}
             <gvt-button filled @click=${() => {
@@ -231,21 +231,21 @@ export class ClassesPage extends Page {
             <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
               this.uploadClass = e.target.value;
             }}>Class</graviton-dropdown>
-            <graviton-input @input=${e => {
+            <gvt-input @input=${e => {
               this.uploadTitle = e.target.value;
-            }}>Title</graviton-input>
+            }}>Title</gvt-input>
             ${this.supportsDate ? html` <!-- Input Type="date" supported -->
-              <graviton-input type="date" @change=${e => {
+              <gvt-input type="date" @change=${e => {
                 this.uploadDate = e.target.value;
-              }}>Date</graviton-input>
+              }}>Date</gvt-input>
             ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
               <div class="replace-date">
-                <graviton-input type="number" @input=${event => {
+                <gvt-input type="number" @input=${event => {
                   this.safariUploadMonth = event.target.value;
-                }}>Month</graviton-input>
-                <graviton-input type="number" @input=${event => {
+                }}>Month</gvt-input>
+                <gvt-input type="number" @input=${event => {
                   this.safariUploadDay = event.target.value;
-                }}>Day</graviton-input>
+                }}>Day</gvt-input>
               </div>
             `}
           </main>

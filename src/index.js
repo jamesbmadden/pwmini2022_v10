@@ -7,6 +7,7 @@ import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter';
 import '@material/mwc-ripple';
 import { LitElement, html, customElement, property } from 'lit-element';
 import { GravitonButton } from './components/graviton/gvt-button';
+import { GravitonInput } from './components/graviton/gvt-input';
 import { fb } from './keys';
 
 window.firebase = {};
@@ -222,16 +223,16 @@ class SigninPage extends LitElement {
         ${this.loading ? html`` :
           html`
             ${this.errorMsg != '' ? html`<p class="error-msg">${this.errorMsg}</p>` : ''}
-            <graviton-input type="email" id="username" autocomplete="email" name="username" .value=${this.username} @input=${(e)=> {
+            <gvt-input type="email" id="username" autocomplete="email" name="username" .value=${this.username} @input=${(e)=> {
               this.username = e.target.value;
-            }}>Email</graviton-input><br>
-            <graviton-input type="password" autocomplete="${(this.state == 'Sign In') ? 'password' : 'new-password'}" id="password" name="password" .value=${this.password} @input=${(e)=> {
+            }}>Email</gvt-input><br>
+            <gvt-input type="password" autocomplete="${(this.state == 'Sign In') ? 'password' : 'new-password'}" id="password" name="password" .value=${this.password} @input=${(e)=> {
               this.password = e.target.value;
-            }}>Password</graviton-input><br>
+            }}>Password</gvt-input><br>
             ${(this.state == 'Sign Up') ? html`
-              <graviton-input type="password" autocomplete="new-password" id="verifyPassword" name="verifyPassword" .value=${this.retypePassword} @input=${(e)=> {
+              <gvt-input type="password" autocomplete="new-password" id="verifyPassword" name="verifyPassword" .value=${this.retypePassword} @input=${(e)=> {
               this.retypePassword = e.target.value;
-            }}>Retype Password</graviton-input><br>
+            }}>Retype Password</gvt-input><br>
               ` : ''}
             <div><gvt-button filled @click="${this.submit}">${this.state}</gvt-button><gvt-button @click="${() => {this.state = (this.state == 'Sign In') ? 'Sign Up' : 'Sign In'}}">${(this.state == 'Sign In') ? 'Sign Up' : 'Sign In'}</gvt-button></div><br>
           `
