@@ -20,30 +20,9 @@ export class TabContainer extends LitElement {
   render () {
     return this.tabs.length > 0 ? html`
       <style>
-        nav {
-          position:relative;
-          width:100%;
-          height:3.5rem;
-          display:flex;
-          flex-direction:row;
-        }
         .header-tabindicator {
-          position:absolute;
-          left:0px;
-          top:52px;
-          height:8px;
-          width:${100/this.tabs.length}%;
-          border-radius:4px;
-          background-color:${red};
-          z-index:1;
-          transition:transform 0.4s cubic-bezier(0.4,0,0,1);
           transform:translate(${100*this.selected}%);
-        }
-        .header-tabindicator[light] {
-          background-color: white;
-        }
-        tab-component {
-          width:100%;
+          width:${100/this.tabs.length}%;
         }
       </style>
       <nav>
