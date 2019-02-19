@@ -6,7 +6,6 @@
 import { LitElement, customElement } from 'lit-element';
 import { HeaderComponent, TabContainer, TabComponent, TabView } from './tabs';
 import { BottomAppBar } from './bottom-app-bar/bottom-app-bar';
-import { red, grad } from './shared';
 import pageStyles from './page.less';
 
 export class Page extends LitElement {
@@ -21,9 +20,6 @@ export class Page extends LitElement {
       }
       main.scrollable {
         height: calc(100vh - ${(this.tabs.length > 0 ? 7 : 3.5) + 3.5}rem);
-      }
-      .fab {
-        background: ${grad};
       }
     `;
   }
