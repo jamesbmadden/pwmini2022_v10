@@ -3,7 +3,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html } from 'lit-element';
+import dialogueStyles from './dialogue.less';
+console.log(dialogueStyles);
 
 class Dialogue extends LitElement {
 
@@ -14,37 +16,9 @@ class Dialogue extends LitElement {
     }
   }
 
-  static get styles () {
-    return [
-      css`
-      .dialogue {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        max-width: 420px;
-        background: #fff;
-        z-index: 6;
-        overflow: hidden;
-      }
-      .dialogue-background {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 5;
-      }
-      .dialogue-header {
-        overflow: hidden;
-      }
-    `]
-  }
-
   render () {
     return html`
+      <style>${dialogueStyles.toString()}</style>
       <div class="dialogue-background" ?hidden=${!this.open} @click=${this.closeDialogue}></div>
       <div class="dialogue" ?hidden=${!this.open}>
         <header class="dialogue-header">
