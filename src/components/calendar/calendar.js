@@ -4,73 +4,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 import { LitElement, html, css, customElement } from 'lit-element';
+import calendarStyles from './calendar.less';
 
 export class Calendar extends LitElement {
   static get properties () {
     return {
       events: { type: Array }
     }
-  }
-  static get styles () {
-    return [
-      css`
-      .calendar-root {
-        margin-top:1px;
-        position: relative;
-        display: grid;
-        grid-template: repeat(6, minmax(0, 1fr)) / repeat(7, minmax(0, 1fr));
-        width: 100%;
-        height: calc(100vh - 10.5rem);
-        grid-gap:1px;
-        cursor: default;
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none;
-      }
-      .calendar-day {
-        position: relative;
-        width:100%;
-        height:100%;
-        box-shadow:0 0 0 1px #222;
-        background-color: #fff;
-      }
-      .calendar-day--before-after {
-        background-color: #ffebee;
-      }
-      .calendar-day--weekend {
-        filter: brightness(0.9);
-      }
-      .calendar-day--weekend * {
-        filter: brightness(1.1);
-      }
-      .calendar-day-event {
-        box-sizing: border-box;
-        margin: 1px;
-        padding: 2px;
-        border-radius: 2px;
-        font-size: 0.75rem;
-        background: #2196f3;
-        color: #fff;
-        max-width:100%;
-        overflow:hidden;
-        white-space: nowrap;
-      }
-      .calendar-day-number {
-        display: block;
-        font-size: 0.75rem;
-        position: relative;
-        text-align: center;
-        width: 1rem;
-        height: 1rem;
-        border-radius: 50%;
-      }
-      .calendar-day-number--today {
-        color: white;
-        background: #f44336;
-      }`
-    ];
   }
   getMonthLength(month) {
     const now = new Date();
@@ -96,6 +36,7 @@ export class Calendar extends LitElement {
     const first = new Date(now.getUTCFullYear(), now.getUTCMonth(), 1);
     const today = now.getDate() + first.getUTCDay()-2;
     return html`
+      <style>${calendarStyles.toString()}</style>
       <div class="calendar-root">
         ${days.map((value, index) => {
           const date = index > this.getMonthLength(now.getUTCMonth()) + first.getUTCDay()-2 ?
