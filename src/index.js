@@ -19,7 +19,6 @@ import('firebase/app').then(module => {
     document.dispatchEvent(new CustomEvent('firebase-auth-loaded'));
   });
   import('firebase/firestore').then(module => {
-    firebase.firestore().settings({ timestampsInSnapshots: true });
     document.dispatchEvent(new CustomEvent('firebase-firestore-loaded'));
   })
 });
