@@ -6,6 +6,7 @@
 import { html } from 'lit-element';
 import { Page } from '../page';
 import { blocks } from '../shared';
+import { GravitonPanel } from '../graviton/gvt-panel';
 import { Dialogue } from '../dialogue/dialogue';
 
 export class SelectClasses extends Page {
@@ -52,7 +53,7 @@ export class SelectClasses extends Page {
       <main class="tab scrollable" ?hidden=${this.loading}>
         ${blocks.map(block =>  {
           return html`
-            <graviton-panel value="${this.selected[block]}">
+            <gvt-panel value="${this.selected[block]}">
               <p slot="title">${block}</p>
               <form slot="body" id="block-${block.replace(/\./, '-')}">
                 ${this.classes[block].map(className => {
@@ -65,7 +66,7 @@ export class SelectClasses extends Page {
                   this.dialogueOpen = true;
                 }}>Other Class</gvt-button>
               </form>
-            </graviton-panel>
+            </gvt-panel>
           `;
         })}
         <gvt-button filled @click=${async () => {
