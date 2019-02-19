@@ -34,6 +34,14 @@ module.exports = {
           path.join(__dirname, '../src'),
           /\/node_modules\/lit-element/
         ]
+      },
+      {
+        test: /\.less$/,
+        use: [{
+          loader: 'css-loader'
+        }, {
+          loader: 'less-loader'
+        }]
       }
     ]
   }
