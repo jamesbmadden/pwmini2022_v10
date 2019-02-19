@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit-element';
 import { Tab } from './tab';
+import tabContainerStyles from './tab-container.less';
 
 export class TabContainer extends LitElement {
   static get properties () {
@@ -21,6 +22,7 @@ export class TabContainer extends LitElement {
   render () {
     return this.tabs.length > 0 ? html`
       <style>
+        ${tabContainerStyles.toString()}
         .header-tabindicator {
           transform:translate(${100*this.selected}%);
           width:${100/this.tabs.length}%;
