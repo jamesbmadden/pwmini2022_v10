@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit-element';
+import { Tab } from './tab';
 
 export class TabContainer extends LitElement {
   static get properties () {

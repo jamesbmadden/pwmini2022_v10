@@ -4,6 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 import { LitElement, html } from 'lit-element';
+import { Tab } from '../tabs/tab';
 import babStyles from './bottom-app-bar.less';
 
 export class BottomAppBar extends LitElement {
