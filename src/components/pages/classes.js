@@ -7,7 +7,7 @@ import { html, customElement } from 'lit-element';
 import { Page } from '../page';
 import { blocks } from '../shared';
 import { Calendar } from '../calendar';
-import { Dialogue } from '../dialogue';
+import { Dialogue } from '../dialogue/dialogue';
 import { GravitonDropdown } from '../graviton';
 
 import * as flat from 'array.prototype.flat';
