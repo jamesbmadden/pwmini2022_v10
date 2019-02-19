@@ -30,5 +30,10 @@
     "build": "webpack",
     "start": "webpack-dev-server --config webpack.config.dev.js",
     "deploy": "webpack && firebase deploy"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "IE 11"
+  ]
 }
