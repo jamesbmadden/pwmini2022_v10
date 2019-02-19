@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 import { LitElement, customElement } from 'lit-element';
-import { HeaderComponent, TabContainer, TabComponent, TabView } from './tabs';
+import { HeaderComponent } from './tabs/header';
 import { BottomAppBar } from './bottom-app-bar/bottom-app-bar';
 import pageStyles from './page.less';
 
