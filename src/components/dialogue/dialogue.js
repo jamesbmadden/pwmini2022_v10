@@ -5,7 +5,6 @@
  */
 import { LitElement, html } from 'lit-element';
 import dialogueStyles from './dialogue.less';
-console.log(dialogueStyles);
 
 class Dialogue extends LitElement {
 
