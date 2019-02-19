@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit-element';
+import tabViewStyles from './tab-view.less';
 
 export class TabView extends LitElement {
   static get properties () {
@@ -77,13 +78,10 @@ export class TabView extends LitElement {
   render () {
     return html`
       <style>
+        ${tabViewStyles.toString()}
         div {
-          overflow-x:hidden;
-          transition:transform 0.4s cubic-bezier(0.4,0,0,1);
           transform:translate(-${this.selected*100/this.tabContainerElement.tabs.length}%);
           width:${100*this.tabContainerElement.tabs.length}%;
-          display:flex;
-          flex-direction:row;
         }
       </style>
       <div>
