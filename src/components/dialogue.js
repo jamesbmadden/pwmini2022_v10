@@ -9,7 +9,8 @@ class Dialogue extends LitElement {
 
   static get properties () {
     return {
-      open: { type: Boolean }
+      open: { type: Boolean },
+      closeDialogue: { type: Function }
     }
   }
 
@@ -44,7 +45,7 @@ class Dialogue extends LitElement {
 
   render () {
     return html`
-      <div class="dialogue-background" ?hidden=${!this.open}></div>
+      <div class="dialogue-background" ?hidden=${!this.open} @click=${this.closeDialogue}></div>
       <div class="dialogue" ?hidden=${!this.open}>
         <header class="dialogue-header">
           <slot name="header"></slot>
