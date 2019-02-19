@@ -5,6 +5,7 @@
  */
 import { LitElement, customElement } from 'lit-element';
 import { HeaderComponent } from './tabs/header';
+import { TabView } from './tabs/tab-view';
 import { BottomAppBar } from './bottom-app-bar/bottom-app-bar';
 import pageStyles from './page.less';
 
