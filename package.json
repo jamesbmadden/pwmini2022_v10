@@ -1,6 +1,6 @@
 {
   "name": "pwmini2022",
-  "version": "10.0.6",
+  "version": "10.1.0",
   "description": "Web App for Managing Homework",
   "license": "MPL-2.0",
   "private": true,
@@ -15,8 +15,11 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
     "firebase": "^5.8.3",
     "firebase-tools": "^6.3.1",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14"
