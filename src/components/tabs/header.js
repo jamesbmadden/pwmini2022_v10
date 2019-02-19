@@ -29,3 +29,5 @@ export class HeaderComponent extends LitElement {
     `;
   }
 }
+
+customElements.define('page-header', HeaderComponent);

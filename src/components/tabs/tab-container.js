@@ -79,3 +79,5 @@ export class TabContainer extends LitElement {
     }, 400);
   }
 }
+
+customElements.define('tab-container', TabContainer);
