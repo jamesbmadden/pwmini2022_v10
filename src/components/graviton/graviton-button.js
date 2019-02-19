@@ -20,4 +20,4 @@ export class GravitonButton extends LitElement {
   }
 }
 
-customElements.define('graviton-button', GravitonButton);
+customElements.define('gvt-button', GravitonButton);
