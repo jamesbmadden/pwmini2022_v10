@@ -60,15 +60,15 @@ export class SelectClasses extends Page {
                     <input type="radio" name=${block} value="${className}" id=${className.replace(/ /g, '-')} @click=${this.handleInput}><label for=${className.replace(/ /g, '-')}>${className}</label>
                   `;
                 })}
-                <graviton-button @click=${() => {
+                <gvt-button @click=${() => {
                   history.pushState({ page: 'select-classes', state: 'add', block }, `Select Classes: Add ${block}`, `/select-classes/add/${block}`);
                   this.dialogueOpen = true;
-                }}>Other Class</graviton-button>
+                }}>Other Class</gvt-button>
               </form>
             </graviton-panel>
           `;
         })}
-        <graviton-button filled @click=${async () => {
+        <gvt-button filled @click=${async () => {
           console.log(Object.keys(this.selected).length);
           if (Object.keys(this.selected).length === 8) {
             try {
@@ -87,7 +87,7 @@ export class SelectClasses extends Page {
               console.error(error);
             }
           }
-        }}>Begin</graviton-button>
+        }}>Begin</gvt-button>
       </main>
       <main class="tab" ?hidden=${!this.loading}>
         loading...
@@ -98,7 +98,7 @@ export class SelectClasses extends Page {
           <graviton-input @input=${event => {
             this.addName = event.target.value;
           }}>Class Name</graviton-input>
-          <graviton-button filled @click=${() => {
+          <gvt-button filled @click=${() => {
             let newClass = {};
             newClass[this.addName] = {
               events: [],
@@ -107,10 +107,10 @@ export class SelectClasses extends Page {
             firebase.firestore().collection('classes').doc(location.pathname.split('/')[3]).update(newClass);
             this.classes[location.pathname.split('/')[3]].push(this.addName);
             history.back();
-          }}>Add</graviton-button>
-          <graviton-button @click=${() => {
+          }}>Add</gvt-button>
+          <gvt-button @click=${() => {
             history.back();
-          }}>Cancel</graviton-button>
+          }}>Cancel</gvt-button>
         </div>
       </app-dialogue>
     `;

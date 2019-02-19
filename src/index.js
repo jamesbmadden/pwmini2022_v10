@@ -6,7 +6,7 @@
 import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter';
 import '@material/mwc-ripple';
 import { LitElement, html, customElement, property } from 'lit-element';
-import { GravitonButton, GravitonInput } from './components/graviton.js';
+import { GravitonButton } from './components/graviton/gvt-button';
 import { fb } from './keys';
 
 window.firebase = {};
@@ -233,7 +233,7 @@ class SigninPage extends LitElement {
               this.retypePassword = e.target.value;
             }}>Retype Password</graviton-input><br>
               ` : ''}
-            <div><graviton-button filled @click="${this.submit}">${this.state}</graviton-button><graviton-button @click="${() => {this.state = (this.state == 'Sign In') ? 'Sign Up' : 'Sign In'}}">${(this.state == 'Sign In') ? 'Sign Up' : 'Sign In'}</graviton-button></div><br>
+            <div><gvt-button filled @click="${this.submit}">${this.state}</gvt-button><gvt-button @click="${() => {this.state = (this.state == 'Sign In') ? 'Sign Up' : 'Sign In'}}">${(this.state == 'Sign In') ? 'Sign Up' : 'Sign In'}</gvt-button></div><br>
           `
         }
       </form>

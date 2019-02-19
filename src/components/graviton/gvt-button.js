@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element';
-import gravitonButtonStyles from 'graviton-button.less';
+import gravitonButtonStyles from './gvt-button.less';
 
 export class GravitonButton extends LitElement {
   static get properties() {

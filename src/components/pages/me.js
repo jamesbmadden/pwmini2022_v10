@@ -53,7 +53,7 @@ export class MePage extends Page {
           <graviton-card>
             <h3>Account</h3>
             <h2>${this.user.email}</h2>
-            <graviton-button filled @click=${this.signOut}>Sign Out</graviton-button>
+            <gvt-button filled @click=${this.signOut}>Sign Out</gvt-button>
           </graviton-card>
           <graviton-card>
             <h3>Classes</h3>
@@ -62,20 +62,20 @@ export class MePage extends Page {
                 return html`<li>${theClass}</li>`;
               })}
             </ul>
-            <graviton-button filled @click=${() => {
+            <gvt-button filled @click=${() => {
               document.dispatchEvent(new CustomEvent('set-page', { detail: { page: 'select-classes'} }));
-            }}>Change</graviton-button>
+            }}>Change</gvt-button>
           </graviton-card>
         </main>
         <main class="tab scrollable">
           <graviton-card>
             <h3>Images</h3>
             <h2 class="option-${this.options.images ? 'supported' : 'unsupported'}">${this.options.images ? 'Enabled' : 'Disabled'}</h2>
-            <graviton-button filled @click=${() => {
+            <gvt-button filled @click=${() => {
               this.options.images = !this.options.images;
               this.rerender++;
               localStorage.setItem('config', JSON.stringify(this.options));
-            }}>${this.options.images ? 'Disable' : 'Enable'}</graviton-button>
+            }}>${this.options.images ? 'Disable' : 'Enable'}</gvt-button>
           </graviton-card>
           <graviton-card>
             <h3>Offline</h3>

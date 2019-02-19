@@ -189,7 +189,7 @@ export class ClassesPage extends Page {
                 }}>Day</graviton-input>
               </div>
             `}
-            <graviton-button filled @click=${() => {
+            <gvt-button filled @click=${() => {
               let fileSelector = document.createElement('input');
               fileSelector.type = 'file';
               fileSelector.accept = 'image/*';
@@ -217,13 +217,13 @@ export class ClassesPage extends Page {
               document.body.appendChild(fileSelector);
               fileSelector.click();
               document.body.removeChild(fileSelector);
-            }}>Upload Image</graviton-button><span>${this.uploadFile ? this.uploadFile.name : 'None'}</span>
+            }}>Upload Image</gvt-button><span>${this.uploadFile ? this.uploadFile.name : 'None'}</span>
             ${this.uploadFileUri ? html`<img id="file-upload-preview" src=${this.uploadFileUri} />` : ''}
             ${this.uploadFile ? html`
-              <graviton-button @click=${() => {
+              <gvt-button @click=${() => {
                 this.uploadFile = undefined;
                 this.uploadFileUri = undefined;
-              }}>Remove Image</graviton-button>
+              }}>Remove Image</gvt-button>
             ` : ''}
           </main>
           <main>
@@ -253,7 +253,7 @@ export class ClassesPage extends Page {
         <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']} @tab-change=${event => {
           this.uploadIsHomework = event.detail.tab;
         }}></tab-container>
-        <div slot="footer"><graviton-button filled ?disabled=${!this.imageLoadComplete} @click=${async () => {
+        <div slot="footer"><gvt-button filled ?disabled=${!this.imageLoadComplete} @click=${async () => {
           let uploadType = this.uploadIsHomework === 0 ? 'homework' : 'events';
           this.dialogueLoading = true; // Show the loading animation
           if (this.uploadTitle === undefined) { // If there's no title, abort process
@@ -294,9 +294,9 @@ export class ClassesPage extends Page {
             this.uploadError = 'The class doesn\'t exist...?';
             this.dialogueLoading = false;
           }
-        }}>Post</graviton-button><graviton-button @click=${() => {
+        }}>Post</gvt-button><gvt-button @click=${() => {
           history.back();
-        }}>Close</graviton-button></div>`}
+        }}>Close</gvt-button></div>`}
       </app-dialogue>
       <div class="fab" @click=${() => {
         history.pushState({ page: 'classes', state: 'add' }, 'Classes: Add', '/classes/add');
