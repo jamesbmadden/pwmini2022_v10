@@ -8,7 +8,7 @@ import { Page } from '../page';
 import { blocks } from '../shared';
 import { Calendar } from '../calendar/calendar';
 import { Dialogue } from '../dialogue/dialogue';
-import { GravitonDropdown } from '../graviton';
+import { GravitonDropdown } from '../graviton/gvt-dropdown';
 
 import * as flat from 'array.prototype.flat';
 
@@ -169,9 +169,9 @@ export class ClassesPage extends Page {
         ${this.dialogueLoading ? html`<p style="text-align: center" slot="body">posting...</p>` : html`<tab-view slot="body" for="add-dialogue-tabs">
           <main>
             <h2>Add Homework</h2>
-            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
+            <gvt-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
               this.uploadClass = e.target.value;
-            }}>Class</graviton-dropdown>
+            }}>Class</gvt-dropdown>
             <gvt-input @input=${e => {
               this.uploadTitle = e.target.value;
             }}>Title</gvt-input>
@@ -228,9 +228,9 @@ export class ClassesPage extends Page {
           </main>
           <main>
             <h2>Add Event</h2>
-            <graviton-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
+            <gvt-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
               this.uploadClass = e.target.value;
-            }}>Class</graviton-dropdown>
+            }}>Class</gvt-dropdown>
             <gvt-input @input=${e => {
               this.uploadTitle = e.target.value;
             }}>Title</gvt-input>
