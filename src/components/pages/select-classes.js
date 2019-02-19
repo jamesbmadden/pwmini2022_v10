@@ -91,7 +91,7 @@ export class SelectClasses extends Page {
       <main class="tab" ?hidden=${!this.loading}>
         loading...
       </main>
-      <app-dialogue ?open=${this.dialogueOpen}>
+      <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${() => history.back()}>
         <h2 slot="header">Add Class for Block ${location.pathname.split('/')[3]}</h2>
         <div slot="body">
           <graviton-input @input=${event => {

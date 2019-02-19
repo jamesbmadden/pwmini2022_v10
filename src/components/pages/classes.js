@@ -165,7 +165,7 @@ export class ClassesPage extends Page {
           })}
         </main>
       </tab-view>
-      <app-dialogue ?open=${this.dialogueOpen}>
+      <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${() => history.back()}>
         ${this.dialogueLoading ? html`<p style="text-align: center" slot="body">posting...</p>` : html`<tab-view slot="body" for="add-dialogue-tabs">
           <main>
             <h2>Add Homework</h2>
