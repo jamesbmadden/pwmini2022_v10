@@ -1,0 +1,68 @@
+:host {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  overflow-x: hidden;
+}
+main {
+  padding: 0px 8px;
+  margin: 8px 0px;
+  width: 100%;
+  box-sizing: border-box;
+  &.tab {
+    width: 100vw;
+  }
+  &.scrollable {
+    overflow: auto;
+  }
+}
+.fab {
+  position: fixed !important;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 1.75rem;
+  right: 1rem;
+  border-radius: 50%;
+  z-index: 2;
+  color: white;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  overflow: hidden;
+  &[disabled] {
+    background:#e3e3e3;
+    color: black;
+    box-shadow: none;
+    cursor: default;
+  }
+  @media(min-width: 1024px) {
+    right: 1.25rem;
+  }
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
