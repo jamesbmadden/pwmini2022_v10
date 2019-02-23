@@ -18,8 +18,8 @@ class Dialogue extends LitElement {
   render () {
     return html`
       <style>${dialogueStyles.toString()}</style>
-      <div class="dialogue-background" ?hidden=${!this.open} @click=${this.closeDialogue}></div>
-      <div class="dialogue" ?hidden=${!this.open}>
+      <div class="dialogue-background" ?dialogue-hidden=${!this.open} @click=${this.closeDialogue}></div>
+      <div class="dialogue" ?dialogue-hidden=${!this.open}>
         <header class="dialogue-header">
           <slot name="header"></slot>
         </header>
