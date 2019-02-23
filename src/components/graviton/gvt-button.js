@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit-element';
 import gravitonButtonStyles from './gvt-button.less';
+import '@material/mwc-ripple';
 
 export class GravitonButton extends LitElement {
   static get properties() {

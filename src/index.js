@@ -4,7 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter';
-import '@material/mwc-ripple';
 import { LitElement, html, customElement, property } from 'lit-element';
 import { GravitonButton } from './components/graviton/gvt-button';
 import { GravitonInput } from './components/graviton/gvt-input';
