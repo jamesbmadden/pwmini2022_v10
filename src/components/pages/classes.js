@@ -106,7 +106,7 @@ export class ClassesPage extends Page {
       event.colour = '#f44336';
       return event;
     })
-    let calendar = [homework, events, mini].flat(2);
+    let calendar = [mini, homework, events].flat(2);
     return html`
       <style>
         ${this.styles}
