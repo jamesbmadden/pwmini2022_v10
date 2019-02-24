@@ -3,6 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+ @days: range(50);
 .calendar-root {
   margin-top:1px;
   position: relative;
@@ -34,6 +35,12 @@
 .calendar-day--weekend * {
   filter: brightness(1.1);
 }
+@keyframes calendar-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
 .calendar-day-event {
   box-sizing: border-box;
   margin: 1px;
@@ -45,7 +52,14 @@
   max-width:100%;
   overflow:hidden;
   white-space: nowrap;
+  animation: calendar-enter 1s both;
 }
+each(@days, {
+  .calendar-day-event--@{value} {
+    @delay: @value * 0.05;
+    animation-delay: e('@{delay}s');
+  }
+})
 .calendar-day-number {
   display: block;
   font-size: 0.75rem;

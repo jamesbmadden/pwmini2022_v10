@@ -35,6 +35,7 @@ export class Calendar extends LitElement {
     const now = new Date();
     const first = new Date(now.getUTCFullYear(), now.getUTCMonth(), 1);
     const today = now.getDate() + first.getUTCDay()-2;
+    let eventCount = 0;
     return html`
       <style>${calendarStyles.toString()}</style>
       <div class="calendar-root">
@@ -45,7 +46,7 @@ export class Calendar extends LitElement {
           const events = this.events.filter(val => {
             return val.date == date;
           });
-          return html`<div class="calendar-day ${index < first.getUTCDay()-1 || index > this.getMonthLength(now.getUTCMonth()) + first.getUTCDay()-2 ? // Checking if index is greater or lower than first/last days
+          return html`<div class="calendar-day calendar-day--${index} ${index < first.getUTCDay()-1 || index > this.getMonthLength(now.getUTCMonth()) + first.getUTCDay()-2 ? // Checking if index is greater or lower than first/last days
               'calendar-day--before-after' : '' /* add a class saying it's out of the month */}
               ${index % 7 == 5 || index % 7 == 6 ? 'calendar-day--weekend' : '' /* The day is a weekend */} day-${now.getUTCFullYear()}-${now.getUTCMonth()+1}-${index - first.getUTCDay()+2}">
             <span class="calendar-day-number ${index == today ? 'calendar-day-number--today' : ''}">${!(index < first.getUTCDay()-1) ? // If the index is less than the day that the month starts on (Monday is 0)
@@ -54,7 +55,8 @@ export class Calendar extends LitElement {
                 : index - first.getUTCDay()+2 
                 : this.getMonthLength(now.getUTCMonth() == 0 ? 11 : now.getUTCMonth()-1)}</span>
             ${events.map(event => {
-              return html`<p class="calendar-day-event" style="background:${event.colour} ${event.image ? `url(${event.image})` : ''}">${event.title}</p>`
+              eventCount++;
+              return html`<p class="calendar-day-event calendar-day-event--${eventCount-1}" style="background:${event.colour} ${event.image ? `url(${event.image})` : ''}">${event.title}</p>`
             })}
           </div>`;
         })}
