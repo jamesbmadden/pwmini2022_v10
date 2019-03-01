@@ -25,8 +25,7 @@ module.exports = {
           options: {
             presets: ['@babel/preset-env'],
             plugins: [
-              '@babel/plugin-proposal-decorators',
-              '@babel/plugin-syntax-dynamic-import'
+              '@babel/plugin-proposal-decorators'
             ]
           }
         },
