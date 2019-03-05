@@ -298,6 +298,7 @@ export class ClassesPage extends Page {
         this.uploadFile = undefined;
         this.uploadIsHomework = 0;
         this.dialogueOpen = true;
+        this.uploadFileUri = false;
       }}>
         <i class="material-icons">add</i>
         <mwc-ripple accent></mwc-ripple>
