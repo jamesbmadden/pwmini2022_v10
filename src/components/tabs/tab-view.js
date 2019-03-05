@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import tabViewStyles from './tab-view.less';
 
 export class TabView extends LitElement {
@@ -13,6 +13,9 @@ export class TabView extends LitElement {
       selected: { type: Number },
       swipeable: { type: Boolean }
     }
+  }
+  static get styles () {
+    return css([tabViewStyles.toString()]);
   }
   constructor () {
     super();
@@ -83,7 +86,6 @@ export class TabView extends LitElement {
   render () {
     return html`
       <style>
-        ${tabViewStyles.toString()}
         div {
           transform:translate(-${this.selected*100/this.tabContainerElement.tabs.length}%);
           width:${100*this.tabContainerElement.tabs.length}%;

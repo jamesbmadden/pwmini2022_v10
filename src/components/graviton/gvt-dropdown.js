@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import gvtDropdownStyles from './gvt-dropdown.less';
 
 class GravitonDropdown extends LitElement {
@@ -13,13 +13,15 @@ class GravitonDropdown extends LitElement {
       value: { type: String }
     }
   }
+  static get styles () {
+    return css([gvtDropdownStyles.toString()]);
+  }
   connectedCallback () {
     super.connectedCallback();
     this.value = this.options[0];
   }
   render () {
     return html`
-      <style>${gvtDropdownStyles.toString()}</style>
       <div class="select-container">
         <select id="select" @input=${event => {
           this.value = event.target.value;

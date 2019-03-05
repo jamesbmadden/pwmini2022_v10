@@ -26,18 +26,13 @@ export class MePage extends Page {
   get tabs () {
     return ['My Account', 'Options'];
   }
-  get styles () {
-    return `
-      ${this.pageStyles}
-    `;
-  }
   render () {
     const classes = blocks.map(block => {
       return this.userData.classes[block];
     })
     return html`
       <style>
-        ${this.styles}
+        ${this.pageStyles}
       </style>
       <style>
         .option-supported {

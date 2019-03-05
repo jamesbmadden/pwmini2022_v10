@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import gravitonButtonStyles from './gvt-button.less';
 import '@material/mwc-ripple';
 
@@ -13,9 +13,11 @@ export class GravitonButton extends LitElement {
       filled: { type: Boolean }
     }
   }
+  static get styles () {
+    return css([gravitonButtonStyles.toString()]);
+  }
   render() {
     return html`
-      <style>${gravitonButtonStyles.toString()}</style>
       <div class="btn-wrapping">
         <button class="btn ${this.filled ? 'fill' : 'light'}">
           <slot></slot>

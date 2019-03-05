@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import { Tab } from './tab';
 import tabContainerStyles from './tab-container.less';
 
@@ -16,6 +16,9 @@ export class TabContainer extends LitElement {
       light: { type: Boolean }
     }
   }
+  static get styles () {
+    return css([tabContainerStyles.toString()]);
+  }
   constructor () {
     super();
     this.selected = 0;
@@ -27,7 +30,6 @@ export class TabContainer extends LitElement {
   render () {
     return this.tabs.length > 0 ? html`
       <style>
-        ${tabContainerStyles.toString()}
         .header-tabindicator {
           transform:translate(${100*this.selected}%);
           width:${100/this.tabs.length}%;

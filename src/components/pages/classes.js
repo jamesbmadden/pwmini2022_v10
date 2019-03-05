@@ -58,11 +58,6 @@ export class ClassesPage extends Page {
       'Events'
     ];
   }
-  get styles () {
-    return `
-      ${this.pageStyles}
-    `;
-  }
   getMonthName (month) {
     switch (month) {
       case 0: return 'January';
@@ -109,7 +104,7 @@ export class ClassesPage extends Page {
     let calendar = [mini, homework, events].flat(2);
     return html`
       <style>
-        ${this.styles}
+        ${this.pageStyles}
         #file-upload-preview {
           display: block;
           max-height: 128px;

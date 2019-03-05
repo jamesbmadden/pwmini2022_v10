@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import { TabContainer } from './tab-container.js';
 import headerStyles from './header.less';
 
@@ -15,6 +15,9 @@ export class HeaderComponent extends LitElement {
       filled: { type: Boolean }
     }
   }
+  static get styles () {
+    return css([headerStyles.toString()]);
+  }
   constructor () {
     super();
     this.filled = true;
@@ -22,7 +25,6 @@ export class HeaderComponent extends LitElement {
   render () {
     return html`
       <style>
-        ${headerStyles.toString()}
         header {
           height:${this.tabs.length > 0 ? 7 : 3.5}rem;
         }

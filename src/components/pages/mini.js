@@ -16,11 +16,6 @@ export class MiniPage extends Page {
     super();
     this.mini = [];
   }
-  get styles () {
-    return `
-      ${this.pageStyles}
-    `;
-  }
   getMonthName (month) {
     switch (month) {
       case 0: return 'January';
@@ -51,7 +46,7 @@ export class MiniPage extends Page {
   render () {
     return html`
       <style>
-        ${this.styles}
+        ${this.pageStyles}
       </style>
       <page-header title="Mini" .tabs=${this.tabs}></page-header>
       <main class="tab">

@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import gvtInputStyles from './gvt-input.less';
 
 export class GravitonInput extends LitElement {
@@ -14,6 +14,9 @@ export class GravitonInput extends LitElement {
       value: String
     }
   }
+  static get styles() {
+    return css([gvtInputStyles.toString()]);
+  }
   constructor() {
     super();
     if (this.value == undefined) {
@@ -22,7 +25,6 @@ export class GravitonInput extends LitElement {
   }
   render() {
     return html`
-      <style>${gvtInputStyles.toString()}</style>
       <div class="inputContainer">
         <input .value=${this.value} @input=${(e)=> {
           this.value = e.target.value;
