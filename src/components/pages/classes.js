@@ -126,6 +126,9 @@ export class ClassesPage extends Page {
           display: flex;
           flex-direction: row;
         }
+        app-dialogue main {
+          padding-top: 3rem;
+        }
       </style>
       <page-header title="Classes" .tabs=${this.tabs}></page-header>
       <tab-view for="Classes-tabs">
