@@ -108,8 +108,7 @@ export class ClassesPage extends Page {
         date: `${new Date().getFullYear()}-${val.date}`,
         colour: '#4caf50'
       }
-    })
-    console.log(birthdays, birthdaysJson);
+    });
     let calendar = [birthdays, mini, homework, events].flat(2);
     return html`
       <style>
