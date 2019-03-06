@@ -9,6 +9,7 @@ import { blocks } from '../shared';
 import { Calendar } from '../calendar/calendar';
 import { Dialogue } from '../dialogue/dialogue';
 import { GravitonDropdown } from '../graviton/gvt-dropdown';
+import birthdaysJson from '../../data/birthdays.json';
 
 import * as flat from 'array.prototype.flat';
 
@@ -90,18 +91,26 @@ export class ClassesPage extends Page {
       let work = val;
       work.colour = '#2196f3';
       return work;
-    })
+    });
     const events = this.user.events.flat().map(val => {
       let event = val;
       event.colour = '#ff9800';
       return event;
-    })
+    });
     const mini = this.mini.map(val => {
       let event = val;
       event.colour = '#f44336';
       return event;
+    });
+    const birthdays = birthdaysJson.map(val => {
+      return {
+        ...val,
+        date: `${new Date().getFullYear()}-${val.date}`,
+        colour: '#4caf50'
+      }
     })
-    let calendar = [mini, homework, events].flat(2);
+    console.log(birthdays, birthdaysJson);
+    let calendar = [birthdays, mini, homework, events].flat(2);
     return html`
       <style>
         ${this.pageStyles}
