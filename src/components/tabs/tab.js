@@ -5,7 +5,6 @@
  */
 import { LitElement, html, css } from 'lit-element';
 import tabStyles from './tab.less';
-import '@material/mwc-ripple';
 
 export class Tab extends LitElement {
   static get properties () {

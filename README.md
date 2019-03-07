@@ -22,6 +22,22 @@ export const fb = {
   projectId: "..."
 }
 ```
+In another directory, clone and build the [Graviton Components Package](https://github.com/jamesbmadden/graviton).
+```
+git clone https://github.com/jamesbmadden/graviton
+cd graviton
+yarn install
+yarn build
+```
+Then link that package to the pwmini2022 directory.
+```
+// Inside the graviton directory
+yarn link
+```
+```
+// In the pwmini2022 directory
+yarn link graviton
+```
 
 ## Run
 ```

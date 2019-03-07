@@ -8,7 +8,7 @@ import { Page } from '../page';
 import { blocks } from '../shared';
 import { Calendar } from '../calendar/calendar';
 import { Dialogue } from '../dialogue/dialogue';
-import { GravitonDropdown } from '../graviton/gvt-dropdown';
+import { GravitonDropdown } from 'graviton/components/dropdown';
 import birthdaysJson from '../../data/birthdays.json';
 
 import * as flat from 'array.prototype.flat';

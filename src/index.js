@@ -5,8 +5,8 @@
  */
 import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter';
 import { LitElement, html, customElement, property } from 'lit-element';
-import { GravitonButton } from './components/graviton/gvt-button';
-import { GravitonInput } from './components/graviton/gvt-input';
+import { GravitonButton } from 'graviton/components/button';
+import { GravitonInput } from 'graviton/components/input';
 import { fb } from './keys';
 
 window.firebase = {};
