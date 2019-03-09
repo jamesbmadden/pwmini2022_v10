@@ -6,7 +6,7 @@
 import { html } from 'lit-element';
 import { Page } from '../page';
 import { blocks } from '../shared';
-import { GravitonPanel } from 'graviton/components/panel';
+import { GravitonPanel } from '@graviton/panel';
 import { Dialogue } from '../dialogue/dialogue';
 
 export class SelectClasses extends Page {

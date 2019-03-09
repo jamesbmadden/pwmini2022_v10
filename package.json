@@ -5,6 +5,10 @@
   "license": "MPL-2.0",
   "private": true,
   "dependencies": {
+    "@graviton/button": "^1.0.0",
+    "@graviton/dropdown": "^1.0.0",
+    "@graviton/input": "^1.0.0",
+    "@graviton/panel": "^1.0.0",
     "@material/mwc-ripple": "^0.3.6",
     "@webcomponents/webcomponentsjs": "^2.2.1",
     "array.prototype.flat": "^1.2.1",
