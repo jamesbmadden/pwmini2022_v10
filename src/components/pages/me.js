@@ -78,7 +78,7 @@ export class MePage extends Page {
           </graviton-card>
           <graviton-card>
               <h3>App Version</h3>
-              <h2>Version 10.1.4</h2>
+              <h2>Version 10.2.0</h2>
           </graviton-card>
         </main>
       </tab-view>
