@@ -5,6 +5,7 @@
   "license": "MPL-2.0",
   "private": true,
   "dependencies": {
+    "@material/mwc-ripple": "^0.3.6",
     "@webcomponents/webcomponentsjs": "^2.2.1",
     "array.prototype.flat": "^1.2.1",
     "lit-element": "^2.0.1"

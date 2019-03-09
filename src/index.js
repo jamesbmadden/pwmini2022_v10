@@ -9,6 +9,8 @@ import { GravitonButton } from 'graviton/components/button';
 import { GravitonInput } from 'graviton/components/input';
 import { fb } from './keys';
 
+import '@material/mwc-ripple';
+
 window.firebase = {};
 
 import('firebase/app').then(module => {
