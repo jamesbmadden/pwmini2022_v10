@@ -211,6 +211,12 @@ class SigninPage extends LitElement {
           text-align:center;
           background-color: white;
         }
+        @media (prefers-color-scheme: dark) {
+          :host {
+            background-color: #333;
+            color: white;
+          }
+        }
         form {
           position: relative;
           width: 280px;

@@ -3,6 +3,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+@import '../shared.less';
+
  @days: range(50);
 .calendar-root {
   margin-top:1px;
@@ -25,9 +27,15 @@
   vertical-align: bottom;
   box-shadow:0 0 0 1px #222;
   background-color: #fff;
+  @media (prefers-color-scheme: dark) {
+    background-color: @dark-secondary;
+  }
 }
 .calendar-day--before-after {
   background-color: #ffebee;
+  @media (prefers-color-scheme: dark) {
+    background-color: desaturate(darken(#ffebee, 80%), 80%);
+  }
 }
 .calendar-day--weekend {
   filter: brightness(0.9);

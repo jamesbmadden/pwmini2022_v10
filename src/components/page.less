@@ -13,6 +13,10 @@
   width: 100%;
   background-color: white;
   overflow-x: hidden;
+  @media (prefers-color-scheme: dark) {
+    background-color: @dark-secondary;
+    color: white;
+  }
 }
 main {
   padding: 0px 8px;
@@ -51,6 +55,10 @@ main {
     color: black;
     box-shadow: none;
     cursor: default;
+    @media (prefers-color-scheme: dark) {
+      background-color: #444;
+      color: white;
+    }
   }
   @media(min-width: 1024px) {
     right: 1.25rem;
