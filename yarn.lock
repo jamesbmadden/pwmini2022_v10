@@ -805,10 +805,10 @@
     autoprefixer "^9.4.10"
     lit-element "^2.0.1"
 
-"@graviton/dropdown@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@graviton/dropdown/-/dropdown-1.1.0.tgz#2074dc787b47d0d4b810441e90f7d9d71ec9e9bd"
-  integrity sha512-amLqpsJgl631EAv1AtOZsZRlAAOEIF4OZL1hHFLiH1FMUklwHHvjaplucPrLZJ4182lNp4WUDRENjAZgwpqZIQ==
+"@graviton/dropdown@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@graviton/dropdown/-/dropdown-1.1.4.tgz#f6179e36b6b733afbcb6add163244f75e5e11359"
+  integrity sha512-ITom8+SZUBeVqm6wVIsztAy+weixjBFYrA3NN0U25yV1f/Ih2gt5O2KDcHVGgCXN8FSDglFdQ4rdBMrQde6y0w==
   dependencies:
     autoprefixer "^9.4.10"
     lit-element "^2.0.1"
@@ -821,10 +821,10 @@
     autoprefixer "^9.4.10"
     lit-element "^2.0.1"
 
-"@graviton/panel@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@graviton/panel/-/panel-1.1.0.tgz#56082bb54293dea03f11cbbe15143dc9f91b857d"
-  integrity sha512-h/UtWcG36cCNpkY8WwHyUfLE3O5XrtuxWmcOhI/wJfIAZXNTuYfPEdgV2xOeiBbPH/fLtlqxlcGovQwywOS4AA==
+"@graviton/panel@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@graviton/panel/-/panel-1.1.4.tgz#45fd0f2ea10a9bb5eb0f9e6279fe5cd17c591246"
+  integrity sha512-Nnv4xZhnkZ9JDA3lh4Of2AW8vEKGXVZHvQ7LRIOaiG05EJCNFr6q3s+al0fb5mjlJ4n09qD7mMUp5i/mMKWo1g==
   dependencies:
     autoprefixer "^9.4.10"
     lit-element "^2.0.1"
