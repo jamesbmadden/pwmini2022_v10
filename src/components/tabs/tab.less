@@ -25,6 +25,9 @@ div {
   @media (prefers-color-scheme: dark) {
     &:not([light]) {
       color: white;
+      svg * {
+        fill: white;
+      }
     }
   }
   *:not(mwc-ripple) {
@@ -33,31 +36,28 @@ div {
     transform:scale(0.8);
     opacity: 0.5;
   }
+  svg * {
+    transition: fill 0.4s cubic-bezier(0.4, 0, 0, 1);
+  }
   &[selected=true] {
     *:not(mwc-ripple) {
       transform:scale(1);
       color: @red;
       opacity: 1;
     }
+    svg * {
+      fill: @red;
+    }
     &[light] *:not(mwc-ripple) {
       color: white;
     }
+    &[light] {
+      svg * {
+        fill: white;
+      }
+    }
   }
 }
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'liga';
+svg * {
+  transform-origin: center;
 }
