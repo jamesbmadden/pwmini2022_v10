@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css, svg } from 'lit-element';
 import tabStyles from './tab.less';
 
 export class Tab extends LitElement {
@@ -22,7 +22,7 @@ export class Tab extends LitElement {
   render () {
     return html`
       <div ?light=${this.light} selected=${this.selected} @click="${()=>{this.tabChange(this.index)}}">
-        ${this.icon ? html`<i class="material-icons">${this.icon}</i>` : null}
+        ${this.icon ? svg([this.icon]) : null}
         <span><slot></slot></span>
         <mwc-ripple ?primary=${!this.light} ?accent=${this.light}></mwc-ripple>
       </div>
