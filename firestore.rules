@@ -4,7 +4,7 @@ service cloud.firestore {
       allow read, create, update;
     }
     match /users/{user} {
-      allow read, write: if request.auth.email == user;
+      allow read, write;
     }
   }
 }
