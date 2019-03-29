@@ -78,7 +78,6 @@ async function getHomework(classList, images) {
   let classesCollection = await fs.collection('classes').get();
   let index = 0;
   classesCollection.forEach(block => {
-      console.log(classList, blocks, index);
       let theClass = classList[blocks[index]];
       let classData = block.data()[theClass];
       let classWork;
@@ -100,7 +99,6 @@ async function getEvents(classList) {
   let classesCollection = await fs.collection('classes').get();
   let index = 0;
   classesCollection.forEach(block => {
-      console.log(classList, blocks, index);
       let theClass = classList[blocks[index]];
       let classData = block.data()[theClass];
       let classEvent = classData.events;
@@ -176,11 +174,13 @@ exports.miniEvents = functions.https.onRequest(async (request, response) => {
 });
 
 exports.availableClasses = functions.https.onRequest(async (request, response) => {
-  let classesCollection = fs.collection('classes');
+  let classesCollection = await fs.collection('classes').get();
   let classes = {};
-  await asyncForEach(blocks, async block => {
-    let blockSnap = await classesCollection.doc(block).get();
-    classes[block] = Object.keys(blockSnap.data());
+  let index = 0;
+  classesCollection.forEach(doc => {
+    let block = blocks[index];
+    classes[block] = Object.keys(doc.data());
+    index++;
   });
   response.writeHead(200, {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.0.0', 'content-type':'application/json'});
   response.end(JSON.stringify(classes));
