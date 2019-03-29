@@ -75,12 +75,12 @@ async function getClasses(email) {
 
 async function getHomework(classList, images) {
   const homework = [];
-  let classesCollection = await fs.collection('classes');
-  await asyncForEach(blocks, async (block) => {
-    let theClass = classList[block];
-    try {
-      let classSnap = await classesCollection.doc(block).get();
-      const classData = classSnap.data()[theClass];
+  let classesCollection = await fs.collection('classes').get();
+  let index = 0;
+  classesCollection.forEach(block => {
+      console.log(classList, blocks, index);
+      let theClass = classList[blocks[index]];
+      let classData = block.data()[theClass];
       let classWork;
       if (images == 'true') {
         classWork = classData.homework;
@@ -90,25 +90,22 @@ async function getHomework(classList, images) {
         });
       }
       homework.push(classWork);
-    } catch (error) {
-      return 'Error in class '+theClass+': '+error.message;
-    }
+      index++;
   });
   return homework;
 }
 
 async function getEvents(classList) {
   const events = [];
-  let classesCollection = await fs.collection('classes');
-  await asyncForEach(blocks, async (block) => {
-    let theClass = classList[block];
-    try {
-      let classSnap = await classesCollection.doc(block).get();
-      const classData = classSnap.data()[theClass];
-      events.push(classData.events);
-    } catch (error) {
-      return 'Error in class '+theClass+': '+error.message;
-    }
+  let classesCollection = await fs.collection('classes').get();
+  let index = 0;
+  classesCollection.forEach(block => {
+      console.log(classList, blocks, index);
+      let theClass = classList[blocks[index]];
+      let classData = block.data()[theClass];
+      let classEvent = classData.events;
+      events.push(classEvent);
+      index++;
   });
   return events;
 }
