@@ -9,7 +9,7 @@
     "@graviton/dropdown": "^1.1.4",
     "@graviton/input": "^1.1.0",
     "@graviton/panel": "^1.1.4",
-    "@graviton/ripple": "^1.1.6",
+    "@graviton/ripple": "^1.1.8",
     "@webcomponents/webcomponentsjs": "^2.2.1",
     "array.prototype.flat": "^1.2.1",
     "lit-element": "^2.0.1"
