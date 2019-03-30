@@ -9,7 +9,7 @@ App for Managing Homework
 ```
 git clone https://github.com/jamesbmadden/pwmini2022.git
 cd pwmini2022
-yarn install
+npm install
 ```
 Create an ```src/keys.js``` file with your firebase configuration object:
 ```javascript
@@ -25,5 +25,5 @@ export const fb = {
 
 ## Run
 ```
-yarn start
+npm run start
 ```
