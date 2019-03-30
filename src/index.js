@@ -9,7 +9,7 @@ import { GravitonButton } from '@graviton/button';
 import { GravitonInput } from '@graviton/input';
 import { fb } from './keys';
 
-import '@material/mwc-ripple';
+import '@graviton/ripple';
 
 window.firebase = {};
 
