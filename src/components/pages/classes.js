@@ -9,7 +9,7 @@ import { blocks } from '../shared';
 import { Calendar } from '../calendar/calendar';
 import { Dialogue } from '../dialogue/dialogue';
 import { GravitonDropdown } from '@graviton/dropdown';
-import './components/enter-fade/enter-fade';
+import '../enter-fade/enter-fade';
 import birthdaysJson from '../../data/birthdays.json';
 
 import * as flat from 'array.prototype.flat';
