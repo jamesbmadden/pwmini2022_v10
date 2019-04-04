@@ -1,0 +1,19 @@
+@days: range(50);
+
+:host {
+  display: block;
+  transform: translateY(1rem);
+  opacity: 0;
+}
+:host([intersecting]) {
+  transition: transform 1s, opacity 1s;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+each(@days, {
+  :host(:nth-child(@{value})) {
+    @delay: @value * 0.05;
+    transition-delay: e('@{delay}s');
+  }
+})
