@@ -47,13 +47,16 @@ export class MiniPage extends Page {
     return html`
       <style>
         ${this.pageStyles}
+        p {
+          margin: 1rem;
+        }
       </style>
       <page-header title="Mini" .tabs=${this.tabs}></page-header>
       <main class="tab">
         ${this.mini.length > 0 ? html`${this.mini.map(event => {
           const parts = event.date.split('-');
           const date = new Date(parts[0], parts[1]-1, parts[2]);
-          return html`<p>${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p>`;
+          return html`<enter-fade><p>${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></enter-fade>`;
         })}` : html`<p>Nothing Yet!</p>`}
       </main>
       <div class="fab" disabled>

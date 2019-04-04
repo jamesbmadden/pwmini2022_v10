@@ -45,12 +45,12 @@ export class MePage extends Page {
       <page-header title="Me" .tabs=${this.tabs}></page-header>
       <tab-view for="Me-tabs">
         <main class="tab scrollable">
-          <graviton-card>
+          <enter-fade>
             <h3>Account</h3>
             <h2>${this.user.email}</h2>
             <gvt-button filled @click=${this.signOut}>Sign Out</gvt-button>
-          </graviton-card>
-          <graviton-card>
+          </enter-fade>
+          <enter-fade>
             <h3>Classes</h3>
             <ul>
               ${classes.map(theClass => {
@@ -60,10 +60,10 @@ export class MePage extends Page {
             <gvt-button filled @click=${() => {
               document.dispatchEvent(new CustomEvent('set-page', { detail: { page: 'select-classes'} }));
             }}>Change</gvt-button>
-          </graviton-card>
+          </enter-fade>
         </main>
         <main class="tab scrollable">
-          <graviton-card>
+          <enter-fade>
             <h3>Images</h3>
             <h2 class="option-${this.options.images ? 'supported' : 'unsupported'}">${this.options.images ? 'Enabled' : 'Disabled'}</h2>
             <gvt-button filled @click=${() => {
@@ -71,15 +71,15 @@ export class MePage extends Page {
               this.rerender++;
               localStorage.setItem('config', JSON.stringify(this.options));
             }}>${this.options.images ? 'Disable' : 'Enable'}</gvt-button>
-          </graviton-card>
-          <graviton-card>
+          </enter-fade>
+          <enter-fade>
             <h3>Offline</h3>
             ${this.serviceWorker ? html`<h2 class="option-supported">Supported</h2>` : html`<h2 class="option-unsupported">Unsupported In Your Browser</h2>`}
-          </graviton-card>
-          <graviton-card>
+          </enter-fade>
+          <enter-fade>
               <h3>App Version</h3>
               <h2>Version 10.2.2</h2>
-          </graviton-card>
+          </enter-fade>
         </main>
       </tab-view>
       <div class="fab" disabled>

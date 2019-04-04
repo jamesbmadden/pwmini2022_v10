@@ -9,6 +9,7 @@ import { blocks } from '../shared';
 import { Calendar } from '../calendar/calendar';
 import { Dialogue } from '../dialogue/dialogue';
 import { GravitonDropdown } from '@graviton/dropdown';
+import './components/enter-fade/enter-fade';
 import birthdaysJson from '../../data/birthdays.json';
 
 import * as flat from 'array.prototype.flat';
@@ -139,7 +140,7 @@ export class ClassesPage extends Page {
           ${this.user.homework.map((theClass, index) => {
             if (theClass.length > 0) {
               return html`
-                <div class="class-card">
+                <enter-fade>
                   <h2 class="class-card-title">${this.user.classes[blocks[index]]}</h2>
                   ${theClass.map(work => {
                     const parts = work.date.split('-');
@@ -149,7 +150,7 @@ export class ClassesPage extends Page {
                       <p>${work.title} for ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p>
                     `;
                   })}
-                </div>
+                </enter-fade>
               `;
             }
           })}
@@ -158,14 +159,14 @@ export class ClassesPage extends Page {
         ${this.user.events.map((theClass, index) => {
             if (theClass.length > 0) {
               return html`
-                <div class="class-card">
+                <enter-fade>
                   <h2 class="class-card-title">${this.user.classes[blocks[index]]}</h2>
                   ${theClass.map(event => {
                     const parts = event.date.split('-');
                     const date = new Date(parts[0], parts[1]-1, parts[2]);
                     return html`<p>${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p>`;
                   })}
-                </div>
+                </enter-fade>
               `;
             }
           })}
