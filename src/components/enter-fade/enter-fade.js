@@ -5,15 +5,19 @@ class FadeEnter extends LitElement {
 
   connectedCallback () {
     super.connectedCallback();
-    const observer = new IntersectionObserver(entries => {
-      let entry = entries[0];
-      if (entry.isIntersecting) {
-        this.setAttribute('intersecting', true);
-      } else {
-        this.removeAttribute('intersecting');
-      }
-    });
-    observer.observe(this);
+    if (IntersectionObserver) {
+      const observer = new IntersectionObserver(entries => {
+        let entry = entries[0];
+        if (entry.isIntersecting) {
+          this.setAttribute('intersecting', true);
+        } else {
+          this.removeAttribute('intersecting');
+        }
+      });
+      observer.observe(this);
+    } else {
+      this.setAttribute('intersecting', true);
+    }
   }
 
   static get styles () {
