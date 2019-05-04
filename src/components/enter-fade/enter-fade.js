@@ -3,7 +3,7 @@ import styles from './enter-fade.less';
 
 class FadeEnter extends LitElement {
 
-  connectedCallback () {
+  /*connectedCallback () {
     super.connectedCallback();
     if (IntersectionObserver) {
       const observer = new IntersectionObserver(entries => {
@@ -18,7 +18,7 @@ class FadeEnter extends LitElement {
     } else {
       this.setAttribute('intersecting', true);
     }
-  }
+  }*/
 
   static get styles () {
     return css([styles.toString()]);
