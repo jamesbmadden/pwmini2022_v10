@@ -6,11 +6,8 @@ App for Managing Homework
 
 ## Install
 
-```
-git clone https://github.com/jamesbmadden/pwmini2022.git
-cd pwmini2022
-npm install
-```
+<img src="https://raw.githubusercontent.com/jamesbmadden/pwmini2022/master/README_Materials/install.png">
+
 Create an ```src/keys.js``` file with your firebase configuration object:
 
 <img src="https://raw.githubusercontent.com/jamesbmadden/pwmini2022/master/README_Materials/keys_sample.png">
