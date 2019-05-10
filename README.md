@@ -12,6 +12,9 @@ cd pwmini2022
 npm install
 ```
 Create an ```src/keys.js``` file with your firebase configuration object:
+
+<img src="https://raw.githubusercontent.com/jamesbmadden/pwmini2022/master/README_Materials/keys_sample.png">
+
 ```javascript
 // src/keys.js
 
