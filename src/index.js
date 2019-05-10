@@ -5,8 +5,8 @@
  */
 import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter';
 import { LitElement, html, customElement, property } from 'lit-element';
-import { GravitonButton } from '@graviton/button';
-import { GravitonInput } from '@graviton/input';
+import '@graviton/button';
+import '@graviton/input';
 import { fb } from './keys';
 
 import '@material/mwc-ripple';
