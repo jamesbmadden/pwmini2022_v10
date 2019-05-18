@@ -78,7 +78,7 @@ export class MePage extends Page {
           </enter-fade>
           <enter-fade>
               <h3>App Version</h3>
-              <h2>Version 10.3.0</h2>
+              <h2>Version 10.3.1</h2>
           </enter-fade>
           <details>
             <summary><h3 style="display:inline-block;cursor:pointer">Debug</h3></summary>
