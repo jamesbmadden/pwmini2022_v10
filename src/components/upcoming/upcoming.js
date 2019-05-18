@@ -14,6 +14,12 @@ export default class Upcoming extends LitElement {
   }
 
   render () {
+    let calendar = {};
+    this.events.forEach(event => {
+      calendar[event.date] = calendar[event.date] || [];
+      calendar[event.date].push(event);
+    });
+    console.log(calendar);
     return html`<p>Upcoming Page</p>`;
   }
 
