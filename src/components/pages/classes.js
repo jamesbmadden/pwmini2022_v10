@@ -104,14 +104,20 @@ export class ClassesPage extends Page {
       event.colour = '#f44336';
       return event;
     });
-    /*const birthdays = birthdaysJson.map(val => {
+    let birthdays = birthdaysJson.map(val => {
       return {
         ...val,
         date: `${new Date().getFullYear()}-${val.date}`,
         colour: '#4caf50'
       }
-    });*/
-    let calendar = [/*birthdays, */mini, homework, events].flat(2);
+    });
+    const birthdaysFiltered = birthdays.filter(event => {
+      const now = new Date();
+      const parts = event.date.split('-');
+      const date = new Date(2019, parts[1]-1, parts[2]);
+      return now < date;
+    });
+    let calendar = [birthdaysFiltered, mini, homework, events].flat(2);
     return html`
       <style>
         ${this.pageStyles}
@@ -134,7 +140,7 @@ export class ClassesPage extends Page {
       </style>
       <page-header title="Classes" .tabs=${this.tabs}></page-header>
       <tab-view for="Classes-tabs">
-        <main class="tab">
+        <main class="tab scrollable">
           <!-- <grid-calendar .events=\${calendar}></grid-calendar> -->
           <pwm-upcoming .events=${calendar}></pwm-upcoming>
         </main>
