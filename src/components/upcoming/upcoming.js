@@ -49,11 +49,23 @@ export default class Upcoming extends LitElement {
       calendar[event.date].push(event);
     });
     console.log(calendar);
+    let days = Object.keys(calendar).sort((currentString, previousString) => {
+      const currentParts = currentString.split('-');
+      const current = new Date(currentParts[0], currentParts[1]-1, currentParts[2]);
+      const previousParts = previousString.split('-');
+      const previous = new Date(previousParts[0], previousParts[1]-1, previousParts[2]);
+      return current - previous;
+    });
     return html`
-      ${Object.keys(calendar).map(dateString => {
+      ${days.map(dateString => {
         const parts = dateString.split('-');
         const date = new Date(parts[0], parts[1]-1, parts[2]);
-        return html`<p>${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p>`
+        return html`
+          <h2 class="day-title">${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</h2>
+          ${calendar[dateString].map(event => html`
+            <p>${event.title}</p>
+          `)}
+        `;
       })}
     `;
   }
