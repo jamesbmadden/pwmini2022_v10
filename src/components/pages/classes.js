@@ -56,7 +56,7 @@ export class ClassesPage extends Page {
   }
   get tabs () {
     return [
-      'Calendar',
+      'Upcoming',
       'Homework',
       'Events'
     ];
