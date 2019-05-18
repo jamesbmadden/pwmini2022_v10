@@ -78,8 +78,21 @@ export class MePage extends Page {
           </enter-fade>
           <enter-fade>
               <h3>App Version</h3>
-              <h2>Version 10.2.3</h2>
+              <h2>Version 10.3.0</h2>
           </enter-fade>
+          <details>
+            <summary><h3 style="display:inline-block;cursor:pointer">Debug</h3></summary>
+            <enter-fade>
+              <h3>Stored Data</h3>
+              <gvt-button filled @click=${async () => {
+                await Promise.all([
+                  caches.delete('mini22-10'),
+                  caches.delete('mini22-api')
+                ])
+              }}>Clear Cache</gvt-button>
+              <gvt-button @click=${() => localStorage.clear()}>Clear LocalStorage</gvt-button>
+            </enter-fade>
+          </details>
         </main>
       </tab-view>
       <div class="fab" disabled>
