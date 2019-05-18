@@ -6,7 +6,6 @@
 import { html, customElement } from 'lit-element';
 import { Page } from '../page';
 import { blocks } from '../shared';
-import { Calendar } from '../calendar/calendar';
 import '../upcoming/upcoming';
 import { Dialogue } from '../dialogue/dialogue';
 import { GravitonDropdown } from '@graviton/dropdown';
@@ -141,7 +140,6 @@ export class ClassesPage extends Page {
       <page-header title="Classes" .tabs=${this.tabs}></page-header>
       <tab-view for="Classes-tabs">
         <main class="tab scrollable">
-          <!-- <grid-calendar .events=\${calendar}></grid-calendar> -->
           <pwm-upcoming .events=${calendar}></pwm-upcoming>
         </main>
         <main class="tab scrollable">
