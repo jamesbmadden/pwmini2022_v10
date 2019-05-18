@@ -48,7 +48,6 @@ export default class Upcoming extends LitElement {
       calendar[event.date] = calendar[event.date] || [];
       calendar[event.date].push(event);
     });
-    console.log(calendar);
     let days = Object.keys(calendar).sort((currentString, previousString) => {
       const currentParts = currentString.split('-');
       const current = new Date(currentParts[0], currentParts[1]-1, currentParts[2]);
