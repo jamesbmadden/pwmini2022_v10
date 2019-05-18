@@ -137,8 +137,8 @@ export class ClassesPage extends Page {
           padding-top: 3rem;
         }
       </style>
-      <page-header title="Classes" .tabs=${this.tabs}></page-header>
-      <tab-view for="Classes-tabs">
+      <page-header title="Upcoming" .tabs=${this.tabs}></page-header>
+      <tab-view for="Upcoming-tabs">
         <main class="tab scrollable">
           <pwm-upcoming .events=${calendar}></pwm-upcoming>
         </main>
