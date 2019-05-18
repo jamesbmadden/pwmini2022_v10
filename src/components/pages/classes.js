@@ -7,8 +7,8 @@ import { html, customElement } from 'lit-element';
 import { Page } from '../page';
 import { blocks } from '../shared';
 import '../upcoming/upcoming';
-import { Dialogue } from '../dialogue/dialogue';
-import { GravitonDropdown } from '@graviton/dropdown';
+import '../dialogue/dialogue';
+import '@graviton/dropdown';
 import '../enter-fade/enter-fade';
 import birthdaysJson from '../../data/birthdays.json';
 
