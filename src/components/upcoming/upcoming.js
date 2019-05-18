@@ -62,6 +62,7 @@ export default class Upcoming extends LitElement {
         return html`
           <h2 class="day-title">${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</h2>
           ${calendar[dateString].map(event => html`
+            ${event.image ? html`<div class="gvt-card"><img class="homework-image" src="${event.image}" /></div>` : ''}
             <div class="gvt-card">
               <p>${event.title}</p>
             </div>
