@@ -104,14 +104,14 @@ export class ClassesPage extends Page {
       event.colour = '#f44336';
       return event;
     });
-    const birthdays = birthdaysJson.map(val => {
+    /*const birthdays = birthdaysJson.map(val => {
       return {
         ...val,
         date: `${new Date().getFullYear()}-${val.date}`,
         colour: '#4caf50'
       }
-    });
-    let calendar = [birthdays, mini, homework, events].flat(2);
+    });*/
+    let calendar = [/*birthdays, */mini, homework, events].flat(2);
     return html`
       <style>
         ${this.pageStyles}
