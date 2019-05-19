@@ -5,7 +5,7 @@
   "license": "MPL-2.0",
   "private": true,
   "dependencies": {
-    "@graviton/button": "^1.1.3",
+    "@graviton/button": "^1.1.8",
     "@graviton/dropdown": "^1.1.4",
     "@graviton/input": "^1.1.0",
     "@graviton/panel": "^1.1.4",
