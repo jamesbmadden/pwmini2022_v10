@@ -13,6 +13,13 @@ import '@material/mwc-ripple';
 
 window.firebase = {};
 
+// Sets the Title Bar Colour. Changes based on context.
+function setHeader (colour) {
+  console.log('setting the colour');
+  document.body.background = colour;
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', colour);
+}
+
 import('firebase/app').then(module => {
   firebase = module;
   firebase.initializeApp(fb);
@@ -139,11 +146,13 @@ class AppState extends LitElement {
   }
   render () {
     if (this.signedIn) {
+      setHeader('#b71c1c');
       return html`
         ${this.getPage(this.state)}
         <bottom-app-bar .tabs=${this.bottomAppBarTabs} .selected=${this.selectedInt}>loading Bottom App Bar...</bottom-app-bar>
       `;
     } else {
+      setHeader('#ffffff');
       return html`<sign-in>loading...</sign-in>`;
     }
   }
