@@ -346,7 +346,7 @@ export class ClassesPage extends Page {
               color: #e53935;
             }
           </style>
-          <main>
+          <main class="scroll">
             <h2>Account Options</h2>
             <enter-fade>
               <h3>Account</h3>
@@ -365,7 +365,7 @@ export class ClassesPage extends Page {
               }}>Change</gvt-button>
             </enter-fade>
           </main>
-          <main>
+          <main class="scroll">
             <h2>App Options</h2>
             <enter-fade>
               <h3>Images</h3>
