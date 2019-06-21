@@ -82,7 +82,7 @@ export class SelectClasses extends Page {
                 classes: this.selected
               }, { merge: true });
               this.loading = false;
-              document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'classes' }}));
+              document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'upcoming' }}));
               location.reload();
             } catch (error) {
               console.error(error);

@@ -398,11 +398,11 @@ export class ClassesPage extends Page {
         </tab-view>
         <tab-container slot="header" id="settings-dialogue-tabs" .tabs=${['Account', 'App']} .selected=${0}></tab-container>
         <div slot="footer">
-          <gvt-button>Close</gvt-button>
+          <gvt-button filled>Close</gvt-button>
         </div>
       </app-dialogue>
       <div class="fab" @click=${() => {
-        history.pushState({ page: 'classes', state: 'add' }, 'Classes: Add', '/classes/add');
+        history.pushState({ page: 'upcoming', state: 'add' }, 'Upcoming: Add', '/upcoming/add');
         this.uploadFile = undefined;
         this.uploadIsHomework = 0;
         this.dialogueOpen = true;
