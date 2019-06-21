@@ -18,17 +18,15 @@ export class ErrorPage extends Page {
   render () {
     return html`
       <style>
-        h1 {
-          text-align: center;
-          color: ${red};
-        }
-        h3 {
-          text-align: center;
-        }
+        ${this.pageStyles}
       </style>
-      <h3></h3>
-      <h1>${this.error}.</h1>
-      <h3>You Seem Lost.</h3>
+      <page-header title="${this.error}" .tabs=${this.tabs}></page-header>
+      <main class="tab">
+        <p>Something went wrong. The current URL is probably not a page in the current version of the app.</p>
+        <h2>How do I fix this?</h2>
+        <p>Just press this button to return to the app:</p>
+        <gvt-button filled @click=${() => document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'upcoming' }}))}>Save Me!</gvt-button>
+      </main>
     `;
   }
 
