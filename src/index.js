@@ -26,8 +26,6 @@ import('firebase/app').then(module => {
 });
 
 import('./components/pages/classes');
-import('./components/pages/me');
-import('./components/pages/mini');
 import('./components/pages/select-classes');
 import('./components/pages/error');
 
