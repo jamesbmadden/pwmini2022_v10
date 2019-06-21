@@ -141,7 +141,6 @@ class AppState extends LitElement {
     if (this.signedIn) {
       return html`
         ${this.getPage(this.state)}
-        <bottom-app-bar .tabs=${this.bottomAppBarTabs} .selected=${this.selectedInt}>loading Bottom App Bar...</bottom-app-bar>
       `;
     } else {
       return html`<sign-in>loading...</sign-in>`;

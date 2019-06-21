@@ -22,7 +22,7 @@ export class Page extends LitElement {
         margin-top: ${this.tabs.length > 0 ? 7 : 3.5}rem;
       }
       main.scrollable {
-        height: calc(100vh - ${(this.tabs.length > 0 ? 7 : 3.5) + 3.5}rem);
+        height: calc(100vh - ${(this.tabs.length > 0 ? 7 : 3.5)}rem);
       }
     `;
   }
