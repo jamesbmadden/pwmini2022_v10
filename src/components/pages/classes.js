@@ -153,6 +153,9 @@ export class ClassesPage extends Page {
           padding: 1rem;
           cursor: pointer;
         }
+        .text-align-center {
+          text-align: center;
+        }
 
         /* DESKTOP UI */
         @media (min-width: 768px) {
@@ -177,7 +180,7 @@ export class ClassesPage extends Page {
           <pwm-upcoming .events=${calendar}></pwm-upcoming>
         </main>
         <main class="tab scrollable">
-          ${this.user.homework.map((theClass, index) => {
+          ${this.user.homework.flat().length > 0 ? this.user.homework.map((theClass, index) => {
             if (theClass.length > 0) {
               return html`
                 <enter-fade>
@@ -193,23 +196,23 @@ export class ClassesPage extends Page {
                 </enter-fade>
               `;
             }
-          })}
+          }) : html`<p class="text-align-center">No Homework!</p>`}
         </main>
         <main class="tab scrollable">
-        ${this.user.events.map((theClass, index) => {
-            if (theClass.length > 0) {
-              return html`
-                <enter-fade>
-                  <h2 class="class-card-title">${this.user.classes[blocks[index]]}</h2>
-                  ${theClass.map(event => {
-                    const parts = event.date.split('-');
-                    const date = new Date(parts[0], parts[1]-1, parts[2]);
-                    return html`<p>${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p>`;
-                  })}
-                </enter-fade>
-              `;
-            }
-          })}
+          ${this.mini.length > 0 ? html`${this.mini.map(event => {
+            const parts = event.date.split('-');
+            const date = new Date(parts[0], parts[1]-1, parts[2]);
+            return html`<enter-fade><p>${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></enter-fade>`;
+          })}` : html`<p class="text-align-center">No Mini Events...</p>`}
+        </main>
+        <main class="tab scrollable">
+          <h2>Birthdays</h2>
+          ${birthdays.map(birthday => {
+            const parts = birthday.date.split('-');
+            const date = new Date(parts[0], parts[1]-1, parts[2]);
+            return html`
+              <gvt-card><p>${birthday.title} on ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></gvt-card>
+          `})}
         </main>
       </tab-view>
       <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${() => history.back()}>
