@@ -14,7 +14,7 @@ export default class Snackbar extends LitElement {
     setTimeout(() => {
       this.shadowRoot.querySelector('.snackbar').style.transform = 'translateY(-200%)';
       setTimeout(() => {
-        this.parentElement.removeChild(this);
+        this.parentNode.removeChild(this);
       }, 400);
     }, 5000);
   }
