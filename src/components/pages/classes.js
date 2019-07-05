@@ -173,6 +173,23 @@ export class ClassesPage extends Page {
           text-align: center;
         }
 
+        .gvt-card {
+          position: relative;
+          box-sizing: border-box;
+          width: calc(100% - 2rem);
+          margin: 0 1rem;
+          padding: 1rem;
+          p {
+            margin: 0;
+          }
+        }
+
+        .outer-box {
+          margin: 0.25rem;
+          padding: 0.25rem;
+          box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+        }
+
         /* DESKTOP UI */
         @media (min-width: 768px) {
           .settings-icon {
@@ -180,6 +197,11 @@ export class ClassesPage extends Page {
             right: auto;
             bottom: 0;
             left: 0;
+          }
+          main.grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            align-items: start;
           }
         }
       </style>
@@ -195,39 +217,40 @@ export class ClassesPage extends Page {
         <main class="tab scrollable">
           <pwm-upcoming .events=${calendar}></pwm-upcoming>
         </main>
-        <main class="tab scrollable">
+        <main class="tab scrollable grid">
           ${this.user.homework.flat().length > 0 ? this.user.homework.map((theClass, index) => {
             if (theClass.length > 0) {
               return html`
-                <enter-fade>
+                <div class="outer-box">
                   <h2 class="class-card-title">${this.user.classes[blocks[index]]}</h2>
                   ${theClass.map(work => {
                     const parts = work.date.split('-');
                     const date = new Date(parts[0], parts[1]-1, parts[2]);
                     return html`
-                      ${work.image ? html`<img class="homework-image" src=${work.image} />` : ''}
-                      <p>${work.title} for ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p>
+                      <div class="gvt-card">
+                        ${work.image ? html`<img class="homework-image" src=${work.image} />` : ''}
+                        <p>${work.title} for ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p>
+                      </div>
                     `;
                   })}
-                </enter-fade>
+                </div>
               `;
             }
           }) : html`<p class="text-align-center">No Homework!</p>`}
         </main>
-        <main class="tab scrollable">
+        <main class="tab scrollable grid">
           ${this.mini.length > 0 ? html`${this.mini.map(event => {
             const parts = event.date.split('-');
             const date = new Date(parts[0], parts[1]-1, parts[2]);
-            return html`<enter-fade><p>${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></enter-fade>`;
+            return html`<div class="outer-box"><p class="gvt-card">${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></div>`;
           })}` : html`<p class="text-align-center">No Mini Events...</p>`}
         </main>
-        <main class="tab scrollable">
-          <h2>Birthdays</h2>
+        <main class="tab scrollable grid">
           ${birthdays.map(birthday => {
             const parts = birthday.date.split('-');
             const date = new Date(parts[0], parts[1]-1, parts[2]);
             return html`
-              <gvt-card><p>${birthday.title} on ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></gvt-card>
+              <div class="outer-box"><p class="gvt-card">${birthday.title} on ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></div>
           `})}
         </main>
       </tab-view>
