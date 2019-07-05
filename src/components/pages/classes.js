@@ -8,6 +8,7 @@ import { Page } from '../page';
 import { blocks } from '../shared';
 import '../upcoming/upcoming';
 import '../dialogue/dialogue';
+import '../snackbar/snackbar';
 import '@graviton/dropdown';
 import '../enter-fade/enter-fade';
 import birthdaysJson from '../../data/birthdays.json';
@@ -96,6 +97,13 @@ export class ClassesPage extends Page {
       case 6: return 'Saturday';
     }
   }
+
+  createErrorBar (error) {
+    let snackbar = document.createElement('pwm-snackbar');
+    snackbar.error = error;
+    this.shadowRoot.appendChild(snackbar);
+  }
+
   render () {
     const classes = blocks.map(block => {
       return this.user ? this.user.classes[block] : 'loading...';
@@ -280,7 +288,8 @@ export class ClassesPage extends Page {
           this.dialogueLoading = true; // Show the loading animation
           if (this.uploadTitle === undefined) { // If there's no title, abort process
             this.dialogueLoading = false;
-            this.uploadError = 'Please Choose a Title.';
+            history.back();
+            this.createErrorBar('You Need to Choose a Title');
           }
           let date = new Date(this.uploadDate); // Get the date
           if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
@@ -288,34 +297,35 @@ export class ClassesPage extends Page {
           }
           if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1']; // If there's no uploadClass, use 1.1
           let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)]; // Find the block
-          let block = firebase.firestore().collection('classes').doc(uploadBlock); // Get Document to be uploaded to
-          let blockData = await block.get(); // get block data
-          if (blockData.exists) { // If the class exists
-            let theClass = blockData.data()[this.uploadClass];
-            let newUpload = {
-              title: this.uploadTitle,
-              date: `${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}` // Convert date to proper format
-            };
-            if (this.uploadFile) {
-              newUpload.image = this.imageUri;
+          if (navigator.onLine) {
+            let block = firebase.firestore().collection('classes').doc(uploadBlock); // Get Document to be uploaded to
+            let blockData = await block.get(); // get block data
+            if (blockData.exists) { // If the class exists
+              let theClass = blockData.data()[this.uploadClass];
+              let newUpload = {
+                title: this.uploadTitle,
+                date: `${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}` // Convert date to proper format
+              };
+              if (this.uploadFile) {
+                newUpload.image = this.imageUri;
+              }
+              theClass['homework'].push(newUpload);
+              let updateData = {};
+              updateData[this.uploadClass] = theClass;
+              console.log(updateData);
+              await block.update(updateData);
+              document.dispatchEvent(new CustomEvent('reload-data'));
+              this.user = {
+                classes:{},
+                homework:[],
+                events:[]
+              };
             }
-            theClass['homework'].push(newUpload);
-            let updateData = {};
-            updateData[this.uploadClass] = theClass;
-            console.log(updateData);
-            await block.update(updateData);
-            document.dispatchEvent(new CustomEvent('reload-data'));
-            this.user = {
-              classes:{},
-              homework:[],
-              events:[]
-            };
-            this.dialogueLoading = false;
-            history.back();
           } else {
-            this.uploadError = 'The class doesn\'t exist...?';
-            this.dialogueLoading = false;
+            this.createErrorBar('You\'re Offline, so You Can\'t Post Homework');
           }
+          this.dialogueLoading = false;
+          history.back();
         }}>Post</gvt-button><gvt-button @click=${() => {
           history.back();
         }}>Close</gvt-button></div>`}
