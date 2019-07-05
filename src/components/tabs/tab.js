@@ -21,6 +21,20 @@ export class Tab extends LitElement {
   }
   render () {
     return html`
+      ${this.light ? html`
+        <style>
+          /* DESKTOP UI */
+          @media (min-width: 768px) {
+            div {
+              height: 3rem !important;
+              justify-content: start !important;
+            }
+            div span {
+              padding-left: 1rem !important;
+            }
+          }
+        </style>
+      ` : ''}
       <div ?light=${this.light} selected=${this.selected} @click="${()=>{this.tabChange(this.index)}}">
         ${this.icon ? svg([this.icon]) : null}
         <span><slot></slot></span>

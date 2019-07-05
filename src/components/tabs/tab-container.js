@@ -35,6 +35,17 @@ export class TabContainer extends LitElement {
           width:${100/this.tabs.length}%;
         }
       </style>
+      ${this.light ? html`
+        <style>
+          /* DESKTOP UI */
+          @media (min-width: 768px) {
+            nav {
+              flex-direction: column !important;
+              height: 100% !important;
+            }
+          }
+        </style>
+      ` : ''}
       <nav>
         ${this.tabs.map((tab, index) => html`<tab-component ?light=${this.light} .selected=${this.selected == index} .index=${index} .tabChange=${tab => {
           this.selected = tab;
