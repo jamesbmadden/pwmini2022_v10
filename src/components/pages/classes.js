@@ -214,7 +214,7 @@ export class ClassesPage extends Page {
       </tab-view>
       <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${() => history.back()}>
         ${this.dialogueLoading ? html`<p style="text-align: center" slot="body">posting...</p>` : html`
-          <main>
+          <main slot="body" style="padding-top: 0">
             <h2>Add Homework</h2>
             <gvt-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
               this.uploadClass = e.target.value;
