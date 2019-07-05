@@ -10,6 +10,14 @@ export default class Snackbar extends LitElement {
 
   static get styles () {
     return css`
+      @keyframes snackbar-enter {
+        0% {
+          transform: translateY(-200%);
+        }
+        100% {
+          transform: translateY(0%);
+        }
+      }
       .snackbar {
         position: fixed;
         left: 1rem;
@@ -23,6 +31,8 @@ export default class Snackbar extends LitElement {
         padding: 1rem;
         border-radius: 2rem;
         box-shadow: 0px 6px 12px rgba(211, 47, 47, 0.5);
+        animation: snackbar-enter 0.4s;
+        transition: transform 0.4s;
       }
       @media (min-width: 768px) {
         .snackbar {
