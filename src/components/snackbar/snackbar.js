@@ -8,6 +8,16 @@ export default class Snackbar extends LitElement {
     }
   }
 
+  connectedCallback () {
+    super.connectedCallback();
+    setTimeout(() => {
+      this.shadowRoot.querySelector('.snackbar').style.transform = 'translateY(-200%)';
+      setTimeout(() => {
+        this.parentElement.removeChild(this);
+      }, 400);
+    }, 5000);
+  }
+
   static get styles () {
     return css`
       @keyframes snackbar-enter {
