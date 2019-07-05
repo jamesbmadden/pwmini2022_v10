@@ -75,3 +75,19 @@ main {
   }
   background: @grad;
 }
+
+/* DESKTOP UI */
+@media (min-width: 768px) {
+  :host {
+    width: calc(100% - 256px);
+    left: 256px;
+  }
+  main {
+    &.scrollable {
+      height: 100vh;
+    }
+    &.tab {
+      margin-top: 0;
+    }
+  }
+}

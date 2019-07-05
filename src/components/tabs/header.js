@@ -31,7 +31,7 @@ export class HeaderComponent extends LitElement {
       </style>
       <header ?filled=${this.filled}>
         <p class="title">${this.title}</p>
-        <tab-container id="${`${this.title}-tabs`}" .tabs=${this.tabs} ?light=${this.filled}></tab-container>
+        <tab-container id="${`${this.title.replace(' ', '_')}-tabs`}" .tabs=${this.tabs} ?light=${this.filled}></tab-container>
       </header>
     `;
   }
