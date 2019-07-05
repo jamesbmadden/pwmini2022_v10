@@ -289,7 +289,7 @@ export class ClassesPage extends Page {
           if (this.uploadTitle === undefined) { // If there's no title, abort process
             this.dialogueLoading = false;
             history.back();
-            this.createErrorBar('You Need to Choose a Title');
+            this.createErrorBar('You Need to Choose a Title.');
           }
           let date = new Date(this.uploadDate); // Get the date
           if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
@@ -322,7 +322,7 @@ export class ClassesPage extends Page {
               };
             }
           } else {
-            this.createErrorBar('You\'re Offline, so You Can\'t Post Homework');
+            this.createErrorBar('You\'re Offline, so You Can\'t Post Homework.');
           }
           this.dialogueLoading = false;
           history.back();
