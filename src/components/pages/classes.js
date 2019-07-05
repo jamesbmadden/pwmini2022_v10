@@ -64,8 +64,9 @@ export class ClassesPage extends Page {
   get tabs () {
     return [
       'Upcoming',
-      'Homework',
-      'Events'
+      'Classes',
+      'Mini',
+      'Birthdays'
     ];
   }
   getMonthName (month) {
@@ -104,11 +105,6 @@ export class ClassesPage extends Page {
       work.colour = '#2196f3';
       return work;
     });
-    const events = this.user.events.flat().map(val => {
-      let event = val;
-      event.colour = '#ff9800';
-      return event;
-    });
     const mini = this.mini.map(val => {
       let event = val;
       event.colour = '#f44336';
@@ -127,7 +123,7 @@ export class ClassesPage extends Page {
       const date = new Date(2019, parts[1]-1, parts[2]);
       return now < date;
     });
-    let calendar = [birthdaysFiltered, mini, homework, events].flat(2);
+    let calendar = [birthdaysFiltered, mini, homework].flat(2);
     return html`
       <style>
         ${this.pageStyles}
@@ -217,7 +213,7 @@ export class ClassesPage extends Page {
         </main>
       </tab-view>
       <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${() => history.back()}>
-        ${this.dialogueLoading ? html`<p style="text-align: center" slot="body">posting...</p>` : html`<tab-view slot="body" for="add-dialogue-tabs">
+        ${this.dialogueLoading ? html`<p style="text-align: center" slot="body">posting...</p>` : html`
           <main>
             <h2>Add Homework</h2>
             <gvt-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
@@ -277,35 +273,7 @@ export class ClassesPage extends Page {
               }}>Remove Image</gvt-button>
             ` : ''}
           </main>
-          <main>
-            <h2>Add Event</h2>
-            <gvt-dropdown .options=${blocks.map(block => this.user.classes[block])} @change=${e => {
-              this.uploadClass = e.target.value;
-            }}>Class</gvt-dropdown>
-            <gvt-input @input=${e => {
-              this.uploadTitle = e.target.value;
-            }}>Title</gvt-input>
-            ${this.supportsDate ? html` <!-- Input Type="date" supported -->
-              <gvt-input type="date" @change=${e => {
-                this.uploadDate = e.target.value;
-              }}>Date</gvt-input>
-            ` : html` <!-- Input Type="date" not supported. Replace with three number inputs. -->
-              <div class="replace-date">
-                <gvt-input type="number" @input=${event => {
-                  this.safariUploadMonth = event.target.value;
-                }}>Month</gvt-input>
-                <gvt-input type="number" @input=${event => {
-                  this.safariUploadDay = event.target.value;
-                }}>Day</gvt-input>
-              </div>
-            `}
-          </main>
-        </tab-view>
-        <tab-container slot="header" id="add-dialogue-tabs" .selected=${0} .tabs=${['Homework', 'Event']} @tab-change=${event => {
-          this.uploadIsHomework = event.detail.tab;
-        }}></tab-container>
         <div slot="footer"><gvt-button filled ?disabled=${!this.imageLoadComplete} @click=${async () => {
-          let uploadType = this.uploadIsHomework === 0 ? 'homework' : 'events';
           this.dialogueLoading = true; // Show the loading animation
           if (this.uploadTitle === undefined) { // If there's no title, abort process
             this.dialogueLoading = false;
@@ -325,10 +293,10 @@ export class ClassesPage extends Page {
               title: this.uploadTitle,
               date: `${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}` // Convert date to proper format
             };
-            if (this.uploadFile && uploadType === 'homework') {
+            if (this.uploadFile) {
               newUpload.image = this.imageUri;
             }
-            theClass[uploadType].push(newUpload);
+            theClass['homework'].push(newUpload);
             let updateData = {};
             updateData[this.uploadClass] = theClass;
             console.log(updateData);
