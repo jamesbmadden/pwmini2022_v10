@@ -54,6 +54,7 @@ export default class Snackbar extends LitElement {
         background: #dcedc8;
         color: #689f38;
         border: #689f38 solid 2px;
+        box-shadow: 0px 6px 12px rgba(104, 159, 56, 0.5);
       }
       @media (min-width: 768px) {
         .snackbar {
