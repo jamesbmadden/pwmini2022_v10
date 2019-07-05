@@ -100,7 +100,15 @@ export class ClassesPage extends Page {
 
   createErrorBar (error) {
     let snackbar = document.createElement('pwm-snackbar');
-    snackbar.error = error;
+    snackbar.title = error;
+    snackbar.type = 'error';
+    this.shadowRoot.appendChild(snackbar);
+  }
+
+  createSuccessBar (message) {
+    let snackbar = document.createElement('pwm-snackbar');
+    snackbar.title = message;
+    snackbar.type = 'success';
     this.shadowRoot.appendChild(snackbar);
   }
 
@@ -320,6 +328,7 @@ export class ClassesPage extends Page {
                 homework:[],
                 events:[]
               };
+              this.createSuccessBar('Homework Posted!');
             }
           } else {
             this.createErrorBar('You\'re Offline, so You Can\'t Post Homework.');
