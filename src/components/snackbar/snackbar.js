@@ -4,7 +4,8 @@ export default class Snackbar extends LitElement {
 
   static get properties () {
     return {
-      error: { type: String }
+      title: { type: String },
+      type: { type: String }
     }
   }
 
@@ -44,6 +45,16 @@ export default class Snackbar extends LitElement {
         animation: snackbar-enter 0.4s;
         transition: transform 0.4s;
       }
+      .snackbar.error {
+        background: #ffcdd2;
+        color: #d32f2f;
+        border: #d32f2f solid 2px;
+      }
+      .snackbar.success {
+        background: #dcedc8;
+        color: #689f38;
+        border: #689f38 solid 2px;
+      }
       @media (min-width: 768px) {
         .snackbar {
           left: calc(256px + 1rem);
@@ -56,8 +67,8 @@ export default class Snackbar extends LitElement {
 
   render () {
     return html`
-      <div class="snackbar">
-        ${this.error}
+      <div class="snackbar ${this.type}">
+        ${this.title}
       </div>
     `;
   }
