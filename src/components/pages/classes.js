@@ -110,16 +110,6 @@ export class ClassesPage extends Page {
     const classes = blocks.map(block => {
       return this.user ? this.user.classes[block] : 'loading...';
     });
-    const homework = this.user.homework.flat().map(val => {
-      let work = val;
-      work.colour = '#2196f3';
-      return work;
-    });
-    const mini = this.mini.map(val => {
-      let event = val;
-      event.colour = '#f44336';
-      return event;
-    });
     let birthdays = birthdaysJson.map(val => {
       return {
         ...val,
@@ -133,7 +123,7 @@ export class ClassesPage extends Page {
       const date = new Date(2019, parts[1]-1, parts[2]);
       return now < date;
     });
-    let calendar = [birthdaysFiltered, mini, homework].flat(2);
+    let calendar = [birthdaysFiltered, this.mini, this.user.homework].flat(2);
     return html`
       <style>
         ${this.pageStyles}
