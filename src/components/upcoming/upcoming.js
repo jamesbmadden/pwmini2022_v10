@@ -67,8 +67,8 @@ export default class Upcoming extends LitElement {
               <div class="gvt-card">
                 <p>${event.title}</p>
               </div>
+            `)}
           </div>
-          `)}
         `;
       })}
     `;
