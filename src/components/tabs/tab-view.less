@@ -9,3 +9,10 @@ div {
   display:flex;
   flex-direction:row;
 }
+
+@media (min-width: 768px) {
+  div[vertical] {
+    overflow-y: hidden;
+    flex-direction: column;
+  }
+}

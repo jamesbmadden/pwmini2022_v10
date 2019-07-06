@@ -11,7 +11,8 @@ export class TabView extends LitElement {
     return {
       for: { type: String },
       selected: { type: Number },
-      swipeable: { type: Boolean }
+      swipeable: { type: Boolean },
+      vertical: { type: Boolean }
     }
   }
   static get styles () {
@@ -90,8 +91,16 @@ export class TabView extends LitElement {
           transform:translate(-${this.selected*100/this.tabContainerElement.tabs.length}%);
           width:${100*this.tabContainerElement.tabs.length}%;
         }
+
+        @media (min-width: 768px) {
+          div[vertical] {
+            width: 100%;
+            height: ${100*this.tabContainerElement.tabs.length}%;
+            transform:translateY(-${this.selected*100/this.tabContainerElement.tabs.length}%);
+          }
+        }
       </style>
-      <div>
+      <div ?vertical=${this.vertical}>
         <slot></slot>
       </div>
     `;
