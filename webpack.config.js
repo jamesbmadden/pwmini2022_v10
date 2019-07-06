@@ -19,17 +19,14 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
+        exclude: /node_modules\/(?!(lit-html))/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-syntax-dynamic-import']
           }
-        },
-        include: [
-          path.join(__dirname, '../src'),
-          /\/node_modules\/lit-element/
-        ]
+        }
       },
       {
         test: /\.less$/,
