@@ -23,10 +23,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: [
-              '@babel/plugin-proposal-decorators'
-            ]
+            presets: ['@babel/preset-env']
           }
         },
         include: [
