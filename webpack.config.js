@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -39,6 +40,14 @@ module.exports = {
           loader: 'less-loader'
         }]
       }
-    ]
-  }
+    ],
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve('node_modules/@webcomponents/webcomponentsjs/*.js'),
+        to: path.resolve(__dirname, 'dist')
+      }
+    ])
+  ]
 }
