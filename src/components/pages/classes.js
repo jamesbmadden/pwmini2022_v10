@@ -206,7 +206,9 @@ export class ClassesPage extends Page {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             grid-auto-rows: min-content;
-            align-items: start;
+          }
+          main.grid > * {
+            align-self: start
           }
         }
       </style>
