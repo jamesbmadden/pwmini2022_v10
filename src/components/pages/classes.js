@@ -173,6 +173,10 @@ export class ClassesPage extends Page {
           text-align: center;
         }
 
+        .grid-whole {
+          grid-column: 1 / -1;
+        }
+
         .gvt-card {
           position: relative;
           box-sizing: border-box;
@@ -215,9 +219,11 @@ export class ClassesPage extends Page {
       </div>
       <tab-view for="Mini_'22-tabs">
         <main class="tab scrollable">
+          <h2 class="grid-whole">Upcoming</h2>
           <pwm-upcoming .events=${calendar}></pwm-upcoming>
         </main>
         <main class="tab scrollable grid">
+          <h2 class="grid-whole">Classes</h2>
           ${this.user.homework.flat().length > 0 ? this.user.homework.map((theClass, index) => {
             if (theClass.length > 0) {
               return html`
@@ -236,16 +242,18 @@ export class ClassesPage extends Page {
                 </div>
               `;
             }
-          }) : html`<p class="text-align-center">No Homework!</p>`}
+          }) : html`<p class="text-align-center grid-whole">No Homework!</p>`}
         </main>
         <main class="tab scrollable grid">
+          <h2 class="grid-whole">Mini Events</h2>
           ${this.mini.length > 0 ? html`${this.mini.map(event => {
             const parts = event.date.split('-');
             const date = new Date(parts[0], parts[1]-1, parts[2]);
             return html`<div class="outer-box"><p class="gvt-card">${event.title} on ${this.getWeekDay(date.getUTCDay())}, ${this.getMonthName(date.getUTCMonth())} ${date.getUTCDate()}</p></div>`;
-          })}` : html`<p class="text-align-center">No Mini Events...</p>`}
+          })}` : html`<p class="text-align-center grid-whole">No Mini Events...</p>`}
         </main>
         <main class="tab scrollable grid">
+          <h2 class="grid-whole">Birthdays</h2>
           ${birthdays.map(birthday => {
             const parts = birthday.date.split('-');
             const date = new Date(parts[0], parts[1]-1, parts[2]);
