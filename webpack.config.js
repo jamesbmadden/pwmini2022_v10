@@ -46,7 +46,8 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: path.resolve('node_modules/@webcomponents/webcomponentsjs/*.js'),
-        to: path.resolve(__dirname, 'dist')
+        to: path.resolve(__dirname, 'dist/wc'),
+        flatten: true
       }
     ])
   ]
