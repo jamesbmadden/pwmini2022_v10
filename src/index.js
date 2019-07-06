@@ -3,6 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+import '@babel/polyfill';
 import { LitElement, html, customElement, property } from 'lit-element';
 import '@graviton/button';
 import '@graviton/input';
@@ -240,7 +241,7 @@ class SigninPage extends LitElement {
           color:red;
         }
       </style>
-      <form>
+      <form @submit=${event => event.preventDefault()}>
         <h1>${this.loading ? this.state == 'Sign In' ? 'Signing In...' : 'Signing Up...' : this.state}</h1>
         ${this.loading ? html`` :
           html`
