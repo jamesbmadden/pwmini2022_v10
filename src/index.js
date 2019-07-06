@@ -121,8 +121,6 @@ class AppState extends LitElement {
     switch (page) {
       case '': 
       case 'upcoming': return html`<classes-page .mini=${this.mini} .user=${this.userData} .postWork=${this.postWork} .userData=${this.user} .signOut=${this.signOut}>loading page...</classes-page>`;
-      /* case 'mini': return html`<mini-page .mini=${this.mini}>loading page...</mini-page>`; */
-      /* case 'me': return html`<me-page .user=$ {this.user} .userData=$ {this.userData} .signOut=$ {this.signOut}>loading page...</me-page>`;*/
       case 'select-classes': return html`<select-classes-page .userData=${this.userData} .classes=${this.classes}></select-classes-page>`;
       default: return html`<error-page error=404></error-page>`; 
     }
