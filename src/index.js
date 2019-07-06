@@ -41,6 +41,18 @@ class AppState extends LitElement {
       classes: { type: Object }
     }
   }
+  createErrorBar (error) {
+    let snackbar = document.createElement('pwm-snackbar');
+    snackbar.title = error;
+    snackbar.type = 'error';
+    this.shadowRoot.appendChild(snackbar);
+  }
+  createSuccessBar (message) {
+    let snackbar = document.createElement('pwm-snackbar');
+    snackbar.title = message;
+    snackbar.type = 'success';
+    this.shadowRoot.appendChild(snackbar);
+  }
   constructor () {
     super();
     this.loading = true;
@@ -81,6 +93,13 @@ class AppState extends LitElement {
     document.addEventListener('reload-data', async () => {
       let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${this.user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
       this.userData = await response.json();
+    })
+    document.addEventListener('show-snackbar', event => {
+      if (event.detail.type === 'error') {
+        this.createErrorBar(event.detail.title);
+      } else {
+        this.createSuccessBar(event.detail.title);
+      }
     })
     window.addEventListener('popstate', event => {
       this.state = location.pathname.split('/')[1];
