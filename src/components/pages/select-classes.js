@@ -82,8 +82,9 @@ export class SelectClasses extends Page {
                   classes: this.selected
                 }, { merge: true });
                 this.loading = false;
+                document.dispatchEvent(new CustomEvent('reload-data'));
                 document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'upcoming' }}));
-                location.reload();
+                document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'success', title: 'Classes set successfully!' } }));
               } catch (error) {
                 console.error(error);
               }
