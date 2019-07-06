@@ -70,23 +70,28 @@ export class SelectClasses extends Page {
           `;
         })}
         <gvt-button filled @click=${async () => {
-          console.log(Object.keys(this.selected).length);
           if (Object.keys(this.selected).length === 8) {
-            try {
-              console.log('setting user');
-              const email = firebase.auth().currentUser.email;
-              const users = firebase.firestore().collection('users');
-              console.log(email);
-              this.loading = true;
-              await users.doc(email).set({
-                classes: this.selected
-              }, { merge: true });
-              this.loading = false;
-              document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'upcoming' }}));
-              location.reload();
-            } catch (error) {
-              console.error(error);
+            if (navigator.onLine) {
+              try {
+                console.log('setting user');
+                const email = firebase.auth().currentUser.email;
+                const users = firebase.firestore().collection('users');
+                console.log(email);
+                this.loading = true;
+                await users.doc(email).set({
+                  classes: this.selected
+                }, { merge: true });
+                this.loading = false;
+                document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'upcoming' }}));
+                location.reload();
+              } catch (error) {
+                console.error(error);
+              }
+            } else {
+              document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: 'Failed to set classes: You don\'t have an internet connection.' } }));
             }
+          } else {
+            document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: 'Please select a class for every block.' } }));
           }
         }}>Begin</gvt-button>
       </main>
