@@ -106,6 +106,25 @@ export class ClassesPage extends Page {
     document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'success', title: message } }));
   }
 
+  uploadImage () {
+    let fileSelector = document.createElement('input');
+    fileSelector.type = 'file';
+    fileSelector.accept = 'image/*, image/heic';
+    fileSelector.addEventListener('change', event => {
+      this.imageLoadComplete = false;
+      this.uploadFile = event.target.files[0];
+      if (this.uploadFile.type === 'image/heic') {
+        this.uploadFileUri = 'preview not supported';
+      } else {
+        const previewUrl = URL.createObjectURL(this.uploadFile);
+        this.uploadFileUri = previewUrl;
+      }
+    });
+    document.body.appendChild(fileSelector);
+    fileSelector.click();
+    document.body.removeChild(fileSelector);
+  }
+
   render () {
     const classes = blocks.map(block => {
       return this.user ? this.user.classes[block] : 'loading...';
@@ -273,36 +292,8 @@ export class ClassesPage extends Page {
                 }}>Day</gvt-input>
               </div>
             `}
-            <gvt-button filled @click=${() => {
-              let fileSelector = document.createElement('input');
-              fileSelector.type = 'file';
-              fileSelector.accept = 'image/*';
-              fileSelector.addEventListener('change', event => {
-                this.imageLoadComplete = false;
-                this.uploadFile = event.target.files[0];
-                const reader = new FileReader();
-                reader.addEventListener('load', event => {
-                  this.uploadFileUri = event.target.result;
-                  const image = document.createElement('img');
-                  image.src = this.uploadFileUri;
-                  image.addEventListener('load', () => {
-                    this.uploadFileRatio = image.width / image.height;
-                    let canvas = document.createElement('canvas');
-                    let ctx = canvas.getContext('2d');
-                    canvas.width = image.width < 512 ? image.width : 512;
-                    canvas.height = canvas.width / this.uploadFileRatio;
-                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-                    this.imageUri = canvas.toDataURL('image/png');
-                    this.imageLoadComplete = true;
-                  });
-                });
-                reader.readAsDataURL(this.uploadFile);
-              });
-              document.body.appendChild(fileSelector);
-              fileSelector.click();
-              document.body.removeChild(fileSelector);
-            }}>Upload Image</gvt-button><span>${this.uploadFile ? this.uploadFile.name : 'None'}</span>
-            ${this.uploadFileUri ? html`<img id="file-upload-preview" src=${this.uploadFileUri} />` : ''}
+            <gvt-button filled @click=${this.uploadImage}>Upload Image</gvt-button><span>${this.uploadFile ? this.uploadFile.name : 'None'}</span>
+            ${this.uploadFileUri ? html`<img id="file-upload-preview" src=${this.uploadFileUri} alt=".heic images can't be previewed before upload" />` : ''}
             ${this.uploadFile ? html`
               <gvt-button @click=${() => {
                 this.uploadFile = undefined;
