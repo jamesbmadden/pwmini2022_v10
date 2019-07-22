@@ -308,6 +308,11 @@ export class ClassesPage extends Page {
             history.back();
             this.createErrorBar('You Need to Choose a Title.');
           }
+          if (this.uploadDate === undefined) {
+            this.dialogueLoading = false;
+            history.back();
+            this.createErrorBar('You need to Choose a Date.')
+          }
           let date = new Date(this.uploadDate); // Get the date
           if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
             date = new Date('2019-'+this.safariUploadMonth+'-'+this.safariUploadDay);
@@ -336,7 +341,7 @@ export class ClassesPage extends Page {
                 classes:{},
                 homework:[],
                 events:[]
-              };
+              };*/
               this.createSuccessBar('Homework Posted!');
             }
           } else {
