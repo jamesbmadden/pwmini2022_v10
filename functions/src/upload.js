@@ -51,6 +51,21 @@ module.exports = functions.https.onRequest(async (request, response) => {
       }
     }
 
+    // Check that all the required parts are there
+    if (!body.block || !body.class) {
+      response.writeHead(400, responseHeaders);
+      response.end(JSON.stringify({success: false, error: 'Missing Class'}));
+      return;
+    } else if (!body.title) {
+      response.writeHead(400, responseHeaders);
+      response.end(JSON.stringify({success: false, error: 'Missing Title'}));
+      return;
+    } else if (!body.date) {
+      response.writeHead(400, responseHeaders);
+      response.end(JSON.stringify({success: false, error: 'Missing Date'}));
+      return;
+    }
+    
     response.writeHead(200, responseHeaders);
     response.end(JSON.stringify({...body, image}));
   } else {
