@@ -268,7 +268,7 @@ export class ClassesPage extends Page {
           `})}
         </main>
       </tab-view>
-      <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${() => history.back()}>
+      <app-dialogue ?open=${this.dialogueOpen} .closeDialogue=${this.dialogueLoading ? () => {} : () => history.back()}>
         ${this.dialogueLoading ? html`<p style="text-align: center" slot="body">posting...</p>` : html`
           <main slot="body" style="padding-top: 0">
             <h2>Add Homework</h2>
@@ -336,6 +336,12 @@ export class ClassesPage extends Page {
             });
             const postJson = await postResponse.json();
             console.log(postJson);
+            if (!postJson.success) {
+              this.dialogueLoading = false;
+              history.back();
+              this.createErrorBar(`Server Error: ${postJson.error}`);
+              return;
+            }
             /*let block = firebase.firestore().collection('classes').doc(uploadBlock); // Get Document to be uploaded to
             let blockData = await block.get(); // get block data
             if (blockData.exists) { // If the class exists
