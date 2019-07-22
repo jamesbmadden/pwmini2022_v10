@@ -307,11 +307,13 @@ export class ClassesPage extends Page {
             this.dialogueLoading = false;
             history.back();
             this.createErrorBar('You Need to Choose a Title.');
+            return;
           }
           if (this.uploadDate === undefined) {
             this.dialogueLoading = false;
             history.back();
-            this.createErrorBar('You need to Choose a Date.')
+            this.createErrorBar('You need to Choose a Date.');
+            return;
           }
           let date = new Date(this.uploadDate); // Get the date
           if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
