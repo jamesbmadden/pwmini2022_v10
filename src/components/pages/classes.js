@@ -319,14 +319,28 @@ export class ClassesPage extends Page {
           }
           if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1']; // If there's no uploadClass, use 1.1
           let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)]; // Find the block
+
+          // Move to the posting - Check if user is online
           if (navigator.onLine) {
-            let block = firebase.firestore().collection('classes').doc(uploadBlock); // Get Document to be uploaded to
+            const uploadData = new FormData();
+            uploadData.append('title', this.uploadTitle);
+            uploadData.append('date', this.uploadDate);
+            uploadData.append('block', uploadBlock);
+            uploadData.append('class', this.uploadClass);
+            if (this.uploadFile) uploadData.append('image', this.uploadFile);
+            const postResponse = await fetch('http://localhost:5000/powmini2022/us-central1/uploadHomework', {
+              method: 'post',
+              body: uploadData
+            });
+            const postJson = await postResponse.json();
+            console.log(postJson);
+            /*let block = firebase.firestore().collection('classes').doc(uploadBlock); // Get Document to be uploaded to
             let blockData = await block.get(); // get block data
             if (blockData.exists) { // If the class exists
               let theClass = blockData.data()[this.uploadClass];
               let newUpload = {
                 title: this.uploadTitle,
-                date: `${date.getFullYear()}-${date.getUTCMonth()+1}-${date.getUTCDate()}` // Convert date to proper format
+                date: `$\{date.getFullYear()}-$\{date.getUTCMonth()+1}-$\{date.getUTCDate()}` // Convert date to proper format
               };
               if (this.uploadFile) {
                 newUpload.image = this.imageUri;
@@ -341,9 +355,9 @@ export class ClassesPage extends Page {
                 classes:{},
                 homework:[],
                 events:[]
-              };*/
+              };
               this.createSuccessBar('Homework Posted!');
-            }
+            }*/
           } else {
             this.createErrorBar('You\'re Offline, so You Can\'t Post Homework.');
           }
