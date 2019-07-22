@@ -1,9 +1,10 @@
-const { parse } = require('querystring');
 const inspect = require('util').inspect;
 
 const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
+
+const fs = admin.firestore();
 
 const Busboy = require('busboy');
 
@@ -39,37 +40,60 @@ function buildBody (request) {
 }
 
 module.exports = functions.https.onRequest(async (request, response) => {
-  if (request.method === 'POST') {
-    const body = await buildBody(request);
-    let image;
-    if (body.image) {
-      if (body.image.type === 'image/heic') {
-        image = 'tbi';
-      } else {
-        // Convert the image buffer to a data url
-        image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;
+  try {
+    if (request.method === 'POST') {
+      const body = await buildBody(request);
+      let image;
+      if (body.image) {
+        if (body.image.type === 'image/heic') {
+          image = 'tbi';
+        } else {
+          // Convert the image buffer to a data url
+          image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;
+        }
       }
-    }
 
-    // Check that all the required parts are there
-    if (!body.block || !body.class) {
-      response.writeHead(400, responseHeaders);
-      response.end(JSON.stringify({success: false, error: 'Missing Class'}));
-      return;
-    } else if (!body.title) {
-      response.writeHead(400, responseHeaders);
-      response.end(JSON.stringify({success: false, error: 'Missing Title'}));
-      return;
-    } else if (!body.date) {
-      response.writeHead(400, responseHeaders);
-      response.end(JSON.stringify({success: false, error: 'Missing Date'}));
-      return;
+      // Check that all the required parts are there
+      if (!body.block || !body.class) {
+        response.writeHead(400, responseHeaders);
+        response.end(JSON.stringify({success: false, error: 'Missing Class'}));
+        return;
+      } else if (!body.title) {
+        response.writeHead(400, responseHeaders);
+        response.end(JSON.stringify({success: false, error: 'Missing Title'}));
+        return;
+      } else if (!body.date) {
+        response.writeHead(400, responseHeaders);
+        response.end(JSON.stringify({success: false, error: 'Missing Date'}));
+        return;
+      }
+
+      // Prepare New Entry
+      const newHomework = {
+        title: body.title,
+        date: body.date
+      };
+      if (body.image) {
+        newHomework.image = image;
+      }
+
+      // Add to database
+      const doc = fs.collection('classes').doc(body.block);
+      const docSnap = await doc.get();
+      const theClass = docSnap.data()[body.class];
+      theClass.homework.push(newHomework);
+      const updateData = {};
+      updateData[body.class] = theClass;
+      await doc.update(updateData);
+
+      response.writeHead(200, responseHeaders);
+      response.end(JSON.stringify({success: true}));
+    } else {
+      response.writeHead(405, responseHeaders);
+      response.end(JSON.stringify({success: false, error: 'POST request must be used', method: request.method}));
     }
-    
-    response.writeHead(200, responseHeaders);
-    response.end(JSON.stringify({...body, image}));
-  } else {
-    response.writeHead(405, responseHeaders);
-    response.end(JSON.stringify({success: false, error: 'POST request must be used', method: request.method}));
+  } catch (error) {
+    response.writeHead(400, responseHeaders);
+    response.end(JSON.stringify({success: false, error: error.message, method: request.method}));
   }
 });
