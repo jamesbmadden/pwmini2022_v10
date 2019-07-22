@@ -342,30 +342,13 @@ export class ClassesPage extends Page {
               this.createErrorBar(`Server Error: ${postJson.error}`);
               return;
             }
-            /*let block = firebase.firestore().collection('classes').doc(uploadBlock); // Get Document to be uploaded to
-            let blockData = await block.get(); // get block data
-            if (blockData.exists) { // If the class exists
-              let theClass = blockData.data()[this.uploadClass];
-              let newUpload = {
-                title: this.uploadTitle,
-                date: `$\{date.getFullYear()}-$\{date.getUTCMonth()+1}-$\{date.getUTCDate()}` // Convert date to proper format
-              };
-              if (this.uploadFile) {
-                newUpload.image = this.imageUri;
-              }
-              theClass['homework'].push(newUpload);
-              let updateData = {};
-              updateData[this.uploadClass] = theClass;
-              console.log(updateData);
-              await block.update(updateData);
-              document.dispatchEvent(new CustomEvent('reload-data'));
-              this.user = {
-                classes:{},
-                homework:[],
-                events:[]
-              };
-              this.createSuccessBar('Homework Posted!');
-            }*/
+            document.dispatchEvent(new CustomEvent('reload-data'));
+            this.user = {
+              classes:{},
+              homework:[],
+              events:[]
+            };
+            this.createSuccessBar('Homework Posted!');
           } else {
             this.createErrorBar('You\'re Offline, so You Can\'t Post Homework.');
           }
