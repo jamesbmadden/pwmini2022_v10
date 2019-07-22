@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 
 const url = require('url');
 
-admin.initializeApp(functions.config().firestore);
+admin.initializeApp({ credential: admin.credential.applicationDefault() });
 
 var fs = admin.firestore();
 fs.settings({timestampsInSnapshots: true});
