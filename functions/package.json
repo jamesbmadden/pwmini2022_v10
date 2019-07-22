@@ -14,6 +14,7 @@
   "dependencies": {
     "buffer-image-size": "^0.6.4",
     "busboy": "^0.3.1",
+    "cloudmersive-image-api-client": "^1.2.2",
     "firebase-admin": "^8.2.0",
     "firebase-functions": "^3.1.0",
     "node-fetch": "^2.3.0",

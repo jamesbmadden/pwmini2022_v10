@@ -12,6 +12,11 @@ const Busboy = require('busboy');
 const sharp = require('sharp');
 const sizeOf = require('buffer-image-size');
 
+// Library to convert image formats
+const CloudmersiveConvertApiClient = require('cloudmersive-convert-api-client');
+
+const cloudmersiveKey = require('./upload-apikey');
+
 const responseHeaders = {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
 
 function buildBody (request) {
@@ -50,7 +55,9 @@ module.exports = functions.https.onRequest(async (request, response) => {
       let image;
       if (body.image) {
         if (body.image.type === 'image/heic') {
-          image = 'tbi';
+          const cloudmersiveClient = CloudmersiveConvertApiClient.ApiClient.instance;
+          const Apikey = cloudmersiveClient.authentications['Apikey'];
+          Apikey.apikey = cloudmersiveKey;
         } else {
           const imageDimensions = sizeOf(body.image.data);
           if (imageDimensions.width > 512) {
