@@ -16,7 +16,10 @@ function buildBody (request) {
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
       console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
       file.on('data', function(data) {
-        body[fieldname] = data;
+        body[fieldname] = {
+          data,
+          type: mimetype
+        }
         console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
       });
       file.on('end', function() {
@@ -38,8 +41,18 @@ function buildBody (request) {
 module.exports = functions.https.onRequest(async (request, response) => {
   if (request.method === 'POST') {
     const body = await buildBody(request);
+    let image;
+    if (body.image) {
+      if (body.image.type === 'image/heic') {
+        image = 'tbi';
+      } else {
+        // Convert the image buffer to a data url
+        image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;
+      }
+    }
+
     response.writeHead(200, responseHeaders);
-    response.end(JSON.stringify(body));
+    response.end(JSON.stringify({...body, image}));
   } else {
     response.writeHead(405, responseHeaders);
     response.end(JSON.stringify({success: false, error: 'POST request must be used', method: request.method}));
