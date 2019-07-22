@@ -8,6 +8,10 @@ const fs = admin.firestore();
 
 const Busboy = require('busboy');
 
+// Libraries for resizing the image
+const sharp = require('sharp');
+const sizeOf = require('buffer-image-size');
+
 const responseHeaders = {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
 
 function buildBody (request) {
@@ -48,6 +52,11 @@ module.exports = functions.https.onRequest(async (request, response) => {
         if (body.image.type === 'image/heic') {
           image = 'tbi';
         } else {
+          const imageDimensions = sizeOf(body.image);
+          if (imageDimensions.width > 512) {
+            const ratio = imageDimensions.width / 512;
+            body.image = await sharp(body.image).resize(512, imageDimensions.height / ratio).toBuffer();
+          }
           // Convert the image buffer to a data url
           image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;
         }
