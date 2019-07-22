@@ -48,6 +48,23 @@ function buildBody (request) {
   });
 }
 
+function convertImage (image) {
+  return new Promise((resolve, reject) => {
+    const cloudmersiveClient = CloudmersiveConvertApiClient.ApiClient.instance;
+    const Apikey = cloudmersiveClient.authentications['Apikey'];
+    Apikey.apikey = cloudmersiveKey;
+
+    const apiInstance = new CloudmersiveConvertApiClient.ConvertImageApi();
+    apiInstance.convertImageImageFormatConvert('HEIC', 'PNG', image, (error, data) => {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+
 module.exports = functions.https.onRequest(async (request, response) => {
   try {
     if (request.method === 'POST') {
@@ -55,18 +72,16 @@ module.exports = functions.https.onRequest(async (request, response) => {
       let image;
       if (body.image) {
         if (body.image.type === 'image/heic') {
-          const cloudmersiveClient = CloudmersiveConvertApiClient.ApiClient.instance;
-          const Apikey = cloudmersiveClient.authentications['Apikey'];
-          Apikey.apikey = cloudmersiveKey;
-        } else {
-          const imageDimensions = sizeOf(body.image.data);
-          if (imageDimensions.width > 512) {
-            const ratio = imageDimensions.width / 512;
-            body.image.data = await sharp(body.image.data).resize(512, imageDimensions.height / ratio).toBuffer();
-          }
-          // Convert the image buffer to a data url
-          image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;
+          body.image.data = await convertImage(body.image.data);
+          body.image.type === 'image/png';
         }
+        const imageDimensions = sizeOf(body.image.data);
+        if (imageDimensions.width > 512) {
+          const ratio = imageDimensions.width / 512;
+          body.image.data = await sharp(body.image.data).resize(512, imageDimensions.height / ratio).toBuffer();
+        }
+        // Convert the image buffer to a data url
+        image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;
       }
 
       // Check that all the required parts are there
