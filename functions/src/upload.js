@@ -52,10 +52,10 @@ module.exports = functions.https.onRequest(async (request, response) => {
         if (body.image.type === 'image/heic') {
           image = 'tbi';
         } else {
-          const imageDimensions = sizeOf(body.image);
+          const imageDimensions = sizeOf(body.image.data);
           if (imageDimensions.width > 512) {
             const ratio = imageDimensions.width / 512;
-            body.image = await sharp(body.image).resize(512, imageDimensions.height / ratio).toBuffer();
+            body.image.data = await sharp(body.image.data).resize(512, imageDimensions.height / ratio).toBuffer();
           }
           // Convert the image buffer to a data url
           image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;
