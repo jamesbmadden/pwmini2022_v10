@@ -12,10 +12,11 @@ const Busboy = require('busboy');
 const sharp = require('sharp');
 const sizeOf = require('buffer-image-size');
 
-// Library to convert image formats
-const CloudmersiveConvertApiClient = require('cloudmersive-convert-api-client');
-
-const cloudmersiveKey = require('./upload-apikey');
+// file system & command line stuff
+const exec = require('child-process-promise').exec;
+const files = require('fs');
+const path = require('path');
+const os = require('os');
 
 const responseHeaders = {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
 
@@ -50,19 +51,16 @@ function buildBody (request) {
 
 function convertImage (image) {
   return new Promise((resolve, reject) => {
-    const cloudmersiveClient = CloudmersiveConvertApiClient.ApiClient.instance;
-    const Apikey = cloudmersiveClient.authentications['Apikey'];
-    Apikey.apikey = cloudmersiveKey;
-
-    const apiInstance = new CloudmersiveConvertApiClient.ConvertImageApi();
-    apiInstance.convertImageImageFormatConvert('HEIC', 'PNG', image, (error, data) => {
-      if (error) {
-        reject(error)
-      } else {
+    const tempFilePath = path.join(os.tmpdir(), 'convert.heic');
+    files.writeFile(tempFilePath, image, async err => {
+      if (err) reject(err);
+      await exec(`convert ${tempFilePath} ${os.tmpdir()}/converted.jpg`);
+      files.readFile(`${os.tmpdir()}/converted.jpg`, (err, data) => {
+        if (err) reject(err);
         resolve(data);
-      }
+      });
     });
-  });
+  })
 }
 
 module.exports = functions.https.onRequest(async (request, response) => {
@@ -78,7 +76,7 @@ module.exports = functions.https.onRequest(async (request, response) => {
         const imageDimensions = sizeOf(body.image.data);
         if (imageDimensions.width > 512) {
           const ratio = imageDimensions.width / 512;
-          body.image.data = await sharp(body.image.data).resize(512, imageDimensions.height / ratio).toBuffer();
+          body.image.data = await sharp(body.image.data).resize(512, Math.round(imageDimensions.height / ratio)).toBuffer();
         }
         // Convert the image buffer to a data url
         image = `data:${body.image.type};base64,${encodeURIComponent(body.image.data.toString('base64'))}`;

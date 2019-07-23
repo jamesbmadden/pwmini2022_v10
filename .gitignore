@@ -1,6 +1,5 @@
 # Ignore Firebase Keys
 src/keys.js
-functions/src/upload-apikey.js
 
 # Ignore Built Files
 dist/*.main.js
