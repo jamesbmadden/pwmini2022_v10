@@ -125,6 +125,61 @@ export class ClassesPage extends Page {
     document.body.removeChild(fileSelector);
   }
 
+  async upload () {
+    this.dialogueLoading = true; // Show the loading animation
+    if (this.uploadTitle === undefined) { // If there's no title, abort process
+      this.dialogueLoading = false;
+      history.back();
+      this.createErrorBar('You Need to Choose a Title.');
+      return;
+    }
+    if (this.uploadDate === undefined) {
+      this.dialogueLoading = false;
+      history.back();
+      this.createErrorBar('You need to Choose a Date.');
+      return;
+    }
+    let date = new Date(this.uploadDate); // Get the date
+    if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
+      date = new Date('2019-'+this.safariUploadMonth+'-'+this.safariUploadDay);
+    }
+    if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1']; // If there's no uploadClass, use 1.1
+    let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)]; // Find the block
+
+    // Move to the posting - Check if user is online
+    if (navigator.onLine) {
+      const uploadData = new FormData();
+      uploadData.append('title', this.uploadTitle);
+      uploadData.append('date', this.uploadDate);
+      uploadData.append('block', uploadBlock);
+      uploadData.append('class', this.uploadClass);
+      if (this.uploadFile) uploadData.append('image', this.uploadFile);
+      const postResponse = await fetch('http://localhost:5000/powmini2022/us-central1/uploadHomework', {
+        method: 'post',
+        body: uploadData
+      });
+      const postJson = await postResponse.json();
+      console.log(postJson);
+      if (!postJson.success) {
+        this.dialogueLoading = false;
+        history.back();
+        this.createErrorBar(`Server Error: ${postJson.error}`);
+        return;
+      }
+      document.dispatchEvent(new CustomEvent('reload-data'));
+      this.user = {
+        classes:{},
+        homework:[],
+        events:[]
+      };
+      this.createSuccessBar('Homework Posted!');
+    } else {
+      this.createErrorBar('You\'re Offline, so You Can\'t Post Homework.');
+    }
+    this.dialogueLoading = false;
+    history.back();
+  }
+
   render () {
     const classes = blocks.map(block => {
       return this.user ? this.user.classes[block] : 'loading...';
@@ -301,60 +356,7 @@ export class ClassesPage extends Page {
               }}>Remove Image</gvt-button>
             ` : ''}
           </main>
-        <div slot="footer"><gvt-button filled ?disabled=${!this.imageLoadComplete} @click=${async () => {
-          this.dialogueLoading = true; // Show the loading animation
-          if (this.uploadTitle === undefined) { // If there's no title, abort process
-            this.dialogueLoading = false;
-            history.back();
-            this.createErrorBar('You Need to Choose a Title.');
-            return;
-          }
-          if (this.uploadDate === undefined) {
-            this.dialogueLoading = false;
-            history.back();
-            this.createErrorBar('You need to Choose a Date.');
-            return;
-          }
-          let date = new Date(this.uploadDate); // Get the date
-          if (!this.supportsDate) { // Get date for browsers (safari) that don't support type=date
-            date = new Date('2019-'+this.safariUploadMonth+'-'+this.safariUploadDay);
-          }
-          if (this.uploadClass === undefined) this.uploadClass = this.user.classes['1.1']; // If there's no uploadClass, use 1.1
-          let uploadBlock = Object.keys(this.user.classes)[Object.values(this.user.classes).indexOf(this.uploadClass)]; // Find the block
-
-          // Move to the posting - Check if user is online
-          if (navigator.onLine) {
-            const uploadData = new FormData();
-            uploadData.append('title', this.uploadTitle);
-            uploadData.append('date', this.uploadDate);
-            uploadData.append('block', uploadBlock);
-            uploadData.append('class', this.uploadClass);
-            if (this.uploadFile) uploadData.append('image', this.uploadFile);
-            const postResponse = await fetch('http://localhost:5000/powmini2022/us-central1/uploadHomework', {
-              method: 'post',
-              body: uploadData
-            });
-            const postJson = await postResponse.json();
-            console.log(postJson);
-            if (!postJson.success) {
-              this.dialogueLoading = false;
-              history.back();
-              this.createErrorBar(`Server Error: ${postJson.error}`);
-              return;
-            }
-            document.dispatchEvent(new CustomEvent('reload-data'));
-            this.user = {
-              classes:{},
-              homework:[],
-              events:[]
-            };
-            this.createSuccessBar('Homework Posted!');
-          } else {
-            this.createErrorBar('You\'re Offline, so You Can\'t Post Homework.');
-          }
-          this.dialogueLoading = false;
-          history.back();
-        }}>Post</gvt-button><gvt-button @click=${() => {
+        <div slot="footer"><gvt-button filled ?disabled=${!this.imageLoadComplete} @click=${this.upload}>Post</gvt-button><gvt-button @click=${() => {
           history.back();
         }}>Close</gvt-button></div>`}
       </app-dialogue>
