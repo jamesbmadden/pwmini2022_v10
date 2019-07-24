@@ -20,9 +20,6 @@ import('firebase/app').then(module => {
   import('firebase/auth').then(module => {
     document.dispatchEvent(new CustomEvent('firebase-auth-loaded'));
   });
-  import('firebase/firestore').then(module => {
-    document.dispatchEvent(new CustomEvent('firebase-firestore-loaded'));
-  })
 });
 
 import('./components/pages/classes');
