@@ -22,6 +22,7 @@ const blocks = ['1.1','1.2','1.3','1.4','2.1','2.2','2.3','2.4'];
 
 exports.discord = require('./src/discord');
 exports.uploadHomework = require('./src/upload');
+exports.setClasses = require('./src/set-classes');
 
 exports.oldHomework = functions.https.onRequest(async (request, response) => {
   var now = new Date();
