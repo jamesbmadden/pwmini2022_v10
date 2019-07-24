@@ -35,7 +35,6 @@ export class SelectClasses extends Page {
     const {value, name} = event.target;
     if (this.selected[name] !== value) {
       this.selected[name] = value;
-      console.log(this.selected);
       this.rerender++;
     }
   }
@@ -58,7 +57,7 @@ export class SelectClasses extends Page {
               <form slot="body" id="block-${block.replace(/\./, '-')}">
                 ${this.classes[block].map(className => {
                   return html`
-                    <input type="radio" name=${block} value="${className}" id=${className.replace(/ /g, '-')} @click=${this.handleInput}><label for=${className.replace(/ /g, '-')}>${className}</label>
+                    <input type="radio" name=${block} value="${className}" id=${`${block}-${className.replace(/ /g, '-')}`} @click=${this.handleInput}><label for=${`${block}-${className.replace(/ /g, '-')}`}>${className}</label>
                   `;
                 })}
                 <gvt-button @click=${() => {
