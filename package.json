@@ -8,7 +8,7 @@
     "@babel/polyfill": "^7.4.4",
     "@graviton/button": "^1.1.9",
     "@graviton/dropdown": "^1.1.4",
-    "@graviton/input": "^1.1.0",
+    "@graviton/input": "^1.1.10",
     "@graviton/panel": "^1.1.4",
     "@material/mwc-ripple": "^0.3.6",
     "@webcomponents/webcomponentsjs": "^2.2.10",
