@@ -111,14 +111,22 @@ export class SelectClasses extends Page {
             this.addName = event.target.value;
           }}>Class Name</gvt-input>
           <gvt-button filled @click=${() => {
-            let newClass = {};
-            newClass[this.addName] = {
-              events: [],
-              homework: []
-            };
-            firebase.firestore().collection('classes').doc(location.pathname.split('/')[3]).update(newClass);
-            this.classes[location.pathname.split('/')[3]].push(this.addName);
-            history.back();
+            if (navigator.onLine) {
+              fetch('http://localhost:5000/powmini2022/us-central1/addClass', {
+                method: 'POST', body: JSON.stringify({
+                  block: location.pathname.split('/')[3],
+                  name: this.addName
+                })
+              }).then(response => response.json()).then(postJson => {
+                if (!postJson.success) {
+                  document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: `Server Error: ${postJson.error}` } }));
+                }
+              });
+              this.classes[location.pathname.split('/')[3]].push(this.addName);
+              history.back();
+            } else {
+              document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: 'Failed to add class: You don\'t have an internet connection.' } }));
+            }
           }}>Add</gvt-button>
           <gvt-button @click=${() => {
             history.back();
