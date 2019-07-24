@@ -28,7 +28,7 @@ module.exports = functions.https.onRequest(async (request, response) => {
       events: [],
       homework: []
     };
-    await firebase.firestore().collection('classes').doc(body.block).update(newClass);
+    await fs.collection('classes').doc(body.block).update(newClass);
 
     // Send Response
     response.writeHead(200, responseHeaders);
