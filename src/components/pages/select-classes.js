@@ -94,22 +94,6 @@ export class SelectClasses extends Page {
               } catch (error) {
                 document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: error.message } }));
               }
-              /*try {
-                console.log('setting user');
-                const email = firebase.auth().currentUser.email;
-                const users = firebase.firestore().collection('users');
-                console.log(email);
-                this.loading = true;
-                await users.doc(email).set({
-                  classes: this.selected
-                }, { merge: true });
-                this.loading = false;
-                document.dispatchEvent(new CustomEvent('reload-data'));
-                document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'upcoming' }}));
-                document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'success', title: 'Classes set successfully!' } }));
-              } catch (error) {
-                console.error(error);
-              }*/
             } else {
               document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: 'Failed to set classes: You don\'t have an internet connection.' } }));
             }
