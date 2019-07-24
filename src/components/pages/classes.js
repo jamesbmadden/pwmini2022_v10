@@ -206,7 +206,7 @@ export class ClassesPage extends Page {
           max-height: 128px;
         }
         .homework-image {
-          max-width: 100%;
+          width: 100%;
         }
         .replace-date {
           position: relative;
