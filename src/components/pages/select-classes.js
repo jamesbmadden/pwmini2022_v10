@@ -73,6 +73,28 @@ export class SelectClasses extends Page {
           if (Object.keys(this.selected).length === 8) {
             if (navigator.onLine) {
               try {
+                this.loading = true;
+                const email = firebase.auth().currentUser.email;
+                const postResponse = await fetch('http://localhost:5000/powmini2022/us-central1/setClasses', {
+                  method: 'POST', body: JSON.stringify({
+                    classes: this.selected,
+                    user: email
+                  })
+                });
+                const postJson = await postResponse.json();
+                console.log(postJson);
+                this.loading = false;
+                if (!postJson.success) {
+                  document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: `Server Error: ${postJson.error}` } }));
+                  return;
+                }
+                document.dispatchEvent(new CustomEvent('reload-data'));
+                document.dispatchEvent( new CustomEvent('set-page', { detail: { page: 'upcoming' }}));
+                document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'success', title: 'Classes set successfully!' } }));
+              } catch (error) {
+                document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: error.message } }));
+              }
+              /*try {
                 console.log('setting user');
                 const email = firebase.auth().currentUser.email;
                 const users = firebase.firestore().collection('users');
@@ -87,7 +109,7 @@ export class SelectClasses extends Page {
                 document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'success', title: 'Classes set successfully!' } }));
               } catch (error) {
                 console.error(error);
-              }
+              }*/
             } else {
               document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: 'Failed to set classes: You don\'t have an internet connection.' } }));
             }
