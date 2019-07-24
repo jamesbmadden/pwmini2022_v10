@@ -18,7 +18,7 @@ module.exports = functions.https.onRequest(async (request, response) => {
       return;
     } else if (!body.user) {
       response.writeHead(400, responseHeaders);
-      response.end(JSON.stringify({success: false, error: 'Missing Class'}));
+      response.end(JSON.stringify({success: false, error: 'Missing User'}));
       return;
     }
 
