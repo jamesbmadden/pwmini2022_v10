@@ -32,7 +32,7 @@ module.exports = functions.https.onRequest(async (request, response) => {
     response.writeHead(200, responseHeaders);
     response.end(JSON.stringify({success: true}));
   } else {
-    response.writeHead(200, responseHeaders);
+    response.writeHead(405, responseHeaders);
     response.end(JSON.stringify({success: false, error: 'POST request must be used', method: request.method}));
   }
 });
