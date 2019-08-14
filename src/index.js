@@ -11,6 +11,8 @@ import { fb } from './keys';
 
 import '@material/mwc-ripple';
 
+import './components/pages/classes';
+
 window.firebase = {};
 
 import('firebase/app').then(module => {
@@ -22,7 +24,6 @@ import('firebase/app').then(module => {
   });
 });
 
-import('./components/pages/classes');
 import('./components/pages/select-classes');
 import('./components/pages/error');
 
@@ -50,7 +51,7 @@ class AppState extends LitElement {
     snackbar.type = 'success';
     this.shadowRoot.appendChild(snackbar);
   }
-  constructor () {
+constructor () {
     super();
     this.loading = true;
     this.state = location.pathname.split('/')[1];
@@ -67,7 +68,32 @@ class AppState extends LitElement {
       };
       localStorage.setItem('config', JSON.stringify(defaultConfig));
     }
-    document.addEventListener('firebase-auth-loaded', () => {
+
+    if (localStorage.getItem('jwt-token')) {
+      this.signedIn = true;
+      this.user = JSON.parse(localStorage.getItem('firebase-account'));
+      (async () => {
+        let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${this.user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
+        this.userData = await response.json();
+        if (this.userData.classes === undefined) {
+          this.state = 'select-classes';
+        }
+      })();
+    } else {
+      this.signedIn = false;
+    }
+
+    document.addEventListener('auth-valid', async event => {
+      this.loading = false;
+      this.user = event.detail.account;
+      this.signedIn = true;
+      let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${event.detail.account.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
+      this.userData = await response.json();
+      if (this.userData.classes === undefined) {
+        this.state = 'select-classes';
+      }
+    });
+    /*document.addEventListener('firebase-auth-loaded', () => {
       firebase.auth().onAuthStateChanged(async (user) => {
         this.loading = false;
         if (user) {
@@ -82,7 +108,7 @@ class AppState extends LitElement {
           this.signedIn = false;
         }
       });
-    });
+    });*/
     document.addEventListener('set-page', (e)=>{
       this.state = e.detail.page;
       history.pushState({ page: this.state }, this.state, `/${this.state}`);
@@ -159,13 +185,33 @@ class SigninPage extends LitElement {
       this.retypePassword = '';
     }
   }
-  submit() {
+  async submit() {
     if (this.state == 'Sign In') {
       this.loading = true;
-      firebase.auth().signInWithEmailAndPassword(this.username, this.password).catch(error => {
+
+      const rawResponse = await fetch('http://localhost:5000/powmini2022/us-central1/auth', {
+        method: 'POST', body: JSON.stringify({
+          email: this.username,
+          password: this.password
+        })
+      });
+
+      const response = await rawResponse.json();
+      if (!response.success) {
+        this.loading = false;
+        this.errorMsg = response.error;
+        return;
+      }
+
+      localStorage.setItem('jwt-token', response.token);
+      localStorage.setItem('firebase-account', JSON.stringify(response.account));
+
+      document.dispatchEvent(new CustomEvent('auth-valid', { detail: { token: response.token, account: response.account } }));
+
+      /*firebase.auth().signInWithEmailAndPassword(this.username, this.password).catch(error => {
         this.loading = false;
         this.errorMsg = error.message;
-      })
+      })*/
     } else {
       this.loading = true;
       if (this.password === this.retypePassword) {

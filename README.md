@@ -16,3 +16,6 @@ Create an ```src/keys.js``` file with your firebase configuration object:
 ```
 npm run start
 ```
+
+## Functions
+Firebase Functions are used for managing authentication and publishing homework. To make custom functions for authentication, you must set an environment variable for the JSON Web Token secret. [View the firebase documentation here](https://firebase.google.com/docs/functions/config-env).

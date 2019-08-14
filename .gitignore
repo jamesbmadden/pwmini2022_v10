@@ -1,5 +1,7 @@
 # Ignore Firebase Keys
 src/keys.js
+# Ignore Firebase Functions Auth Secret
+functions/.runtimeconfig.json
 
 # Ignore Built Files
 dist/*.main.js
