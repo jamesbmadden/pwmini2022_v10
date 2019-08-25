@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const fetch = require('node-fetch');
 
-const responseHeaders = {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
+const responseHeaders = {'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
 
 module.exports = functions.https.onRequest(async (request, response) => {
   if (request.method === 'POST') {
