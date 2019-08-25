@@ -12,6 +12,22 @@
     ],
     "rewrites": [
       {
+        "source": "/auth",
+        "function": "auth"
+      },
+      {
+        "source": "/api/classes/add",
+        "function": "addClass"
+      },
+      {
+        "source": "/api/user/set",
+        "function": "setClasses"
+      },
+      {
+        "source": "/api/homework/post",
+        "function": "uploadHomework"
+      },
+      {
         "source": "/api/classes",
         "function": "availableClasses"
       },
