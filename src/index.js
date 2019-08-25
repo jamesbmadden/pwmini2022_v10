@@ -11,8 +11,6 @@ import { fb } from './keys';
 
 import '@material/mwc-ripple';
 
-import './components/pages/classes';
-
 window.firebase = {};
 
 import('firebase/app').then(module => {
@@ -24,6 +22,7 @@ import('firebase/app').then(module => {
   });
 });
 
+import('./components/pages/classes');
 import('./components/pages/select-classes');
 import('./components/pages/error');
 
@@ -189,7 +188,7 @@ class SigninPage extends LitElement {
     if (this.state == 'Sign In') {
       this.loading = true;
 
-      const rawResponse = await fetch('http://localhost:5000/powmini2022/us-central1/auth', {
+      const rawResponse = await fetch('./auth', {
         method: 'POST', body: JSON.stringify({
           email: this.username,
           password: this.password
@@ -203,7 +202,7 @@ class SigninPage extends LitElement {
         return;
       }
 
-      localStorage.setItem('jwt-token', response.token);
+      localStorage.setItem('jwt-token', response.token)
       localStorage.setItem('firebase-account', JSON.stringify(response.account));
 
       document.dispatchEvent(new CustomEvent('auth-valid', { detail: { token: response.token, account: response.account } }));
