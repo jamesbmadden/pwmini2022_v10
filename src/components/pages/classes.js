@@ -154,9 +154,13 @@ export class ClassesPage extends Page {
       uploadData.append('block', uploadBlock);
       uploadData.append('class', this.uploadClass);
       if (this.uploadFile) uploadData.append('image', this.uploadFile);
-      const postResponse = await fetch('http://localhost:5000/powmini2022/us-central1/uploadHomework', {
+      const postResponse = await fetch('/api/homework/post', {
         method: 'post',
-        body: uploadData
+        body: uploadData,
+        credentials: 'include',
+        headers: {
+          authorization: localStorage.getItem('jwt-token')
+        }
       });
       const postJson = await postResponse.json();
       console.log(postJson);
