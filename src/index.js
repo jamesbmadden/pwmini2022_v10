@@ -7,20 +7,8 @@ import '@babel/polyfill';
 import { LitElement, html, customElement, property } from 'lit-element';
 import '@graviton/button';
 import '@graviton/input';
-import { fb } from './keys';
 
 import '@material/mwc-ripple';
-
-window.firebase = {};
-
-import('firebase/app').then(module => {
-  firebase = module;
-  firebase.initializeApp(fb);
-  document.dispatchEvent(new CustomEvent('firebase-loaded'));
-  import('firebase/auth').then(module => {
-    document.dispatchEvent(new CustomEvent('firebase-auth-loaded'));
-  });
-});
 
 import('./components/pages/classes');
 import('./components/pages/select-classes');
@@ -92,22 +80,6 @@ constructor () {
         this.state = 'select-classes';
       }
     });
-    /*document.addEventListener('firebase-auth-loaded', () => {
-      firebase.auth().onAuthStateChanged(async (user) => {
-        this.loading = false;
-        if (user) {
-          this.user = user;
-          this.signedIn = true;
-          let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
-          this.userData = await response.json();
-          if (this.userData.classes === undefined) {
-            this.state = 'select-classes';
-          }
-        } else {
-          this.signedIn = false;
-        }
-      });
-    });*/
     document.addEventListener('set-page', (e)=>{
       this.state = e.detail.page;
       history.pushState({ page: this.state }, this.state, `/${this.state}`);
