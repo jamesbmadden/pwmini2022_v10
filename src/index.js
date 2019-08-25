@@ -188,10 +188,30 @@ class SigninPage extends LitElement {
     } else {
       this.loading = true;
       if (this.password === this.retypePassword) {
-        firebase.auth().createUserWithEmailAndPassword(this.username, this.password).catch(error => {
+        this.loading = true;
+
+        const rawResponse = await fetch('/api/user/add', {
+          method: 'POST', body: JSON.stringify({
+            email: this.username,
+            password: this.password
+          })
+        });
+
+        const response = await rawResponse.json();
+        if (!response.success) {
+          this.loading = false;
+          this.errorMsg = response.error;
+          return;
+        }
+
+        localStorage.setItem('jwt-token', response.token);
+        localStorage.setItem('firebase-account', JSON.stringify(response.account));
+
+        document.dispatchEvent(new CustomEvent('auth-valid', { detail: { token: response.token, account: response.account } }));
+        /*firebase.auth().createUserWithEmailAndPassword(this.username, this.password).catch(error => {
           this.loading = false;
           this.errorMsg = error.message;
-        });
+        });*/
       } else {
         this.loading = false;
         this.errorMsg = 'Passwords are Not the Same.'
