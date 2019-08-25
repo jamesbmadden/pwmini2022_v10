@@ -8,10 +8,6 @@ App for Managing Homework
 
 <img src="https://raw.githubusercontent.com/jamesbmadden/pwmini2022/master/README_Materials/install.png">
 
-Create an ```src/keys.js``` file with your firebase configuration object:
-
-<img src="https://raw.githubusercontent.com/jamesbmadden/pwmini2022/master/README_Materials/keys_sample.png">
-
 ## Run
 ```
 npm run start
