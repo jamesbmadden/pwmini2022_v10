@@ -173,8 +173,7 @@ export class ClassesPage extends Page {
       document.dispatchEvent(new CustomEvent('reload-data'));
       this.user = {
         classes:{},
-        homework:[],
-        events:[]
+        homework:[]
       };
       this.createSuccessBar('Homework Posted!');
     } else {
@@ -185,6 +184,8 @@ export class ClassesPage extends Page {
   }
 
   render () {
+    this.user.classes = this.user.classes || {};
+    this.user.homework = this.user.homework || [];
     const classes = blocks.map(block => {
       return this.user ? this.user.classes[block] : 'loading...';
     });
