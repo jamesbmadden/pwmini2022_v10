@@ -20,6 +20,10 @@
         "function": "addClass"
       },
       {
+        "source": "/api/user/add",
+        "function": "signUp"
+      },
+      {
         "source": "/api/user/set",
         "function": "setClasses"
       },
