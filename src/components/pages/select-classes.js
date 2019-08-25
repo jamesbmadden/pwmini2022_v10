@@ -74,11 +74,16 @@ export class SelectClasses extends Page {
               try {
                 this.loading = true;
                 const email = firebase.auth().currentUser.email;
-                const postResponse = await fetch('http://localhost:5000/powmini2022/us-central1/setClasses', {
-                  method: 'POST', body: JSON.stringify({
+                const postResponse = await fetch('./api/user/set', {
+                  method: 'POST', 
+                  body: JSON.stringify({
                     classes: this.selected,
                     user: email
-                  })
+                  }),
+                  credentials: 'include',
+                  headers: {
+                    authorization: localStorage.getItem('jwt-token')
+                  }
                 });
                 const postJson = await postResponse.json();
                 console.log(postJson);

@@ -4,9 +4,17 @@ const admin = require('firebase-admin');
 
 const fs = admin.firestore();
 
-const responseHeaders = {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
+// Get authorisation function
+const verifyToken = require('./auth/verify.js');
+const responseHeaders = {'Access-Control-Allow-Credentials': true, 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
 
 module.exports = functions.https.onRequest(async (request, response) => {
+  try {
+    verifyToken(request.headers['authorization']);
+  } catch (error) {
+    response.writeHead(400, responseHeaders);
+    response.end(JSON.stringify({success: false, error: error.message}));
+  }
   if (request.method === 'POST') {
     let body = JSON.parse(request.rawBody.toString());
     console.log(JSON.stringify(body));
