@@ -73,7 +73,7 @@ export class SelectClasses extends Page {
             if (navigator.onLine) {
               try {
                 this.loading = true;
-                const email = firebase.auth().currentUser.email;
+                const email = JSON.parse(localStorage.getItem('firebase-account').email);
                 const postResponse = await fetch('./api/user/set', {
                   method: 'POST', 
                   body: JSON.stringify({
