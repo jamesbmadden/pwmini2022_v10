@@ -17,10 +17,6 @@ self.addEventListener('install', event => {
       './4.main.js',
       './5.main.js',
       './6.main.js',
-      './7.main.js',
-      './8.main.js',
-      './9.main.js',
-      './10.main.js',
       'https://fonts.googleapis.com/icon?family=Material+Icons'
     ]);
   }));
@@ -28,7 +24,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method === 'GET') {
-    if (/powmini2022.firebaseapp.com\/api/.test(event.request.url)) {
+    if (/\/api/.test(event.request.url)) {
       addToCache(event.request, 'mini22-api');
       event.respondWith(fromNetwork(event.request, 'mini22-api').then(response => {
         return response;
