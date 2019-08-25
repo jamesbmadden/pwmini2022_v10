@@ -68,7 +68,12 @@ function convertImage (image) {
 
 module.exports = functions.https.onRequest(async (request, response) => {
   try {
-    verifyToken(request.headers['authorization']);
+    try {
+      verifyToken(request.headers['authorization']);
+    } catch (error) {
+      response.writeHead(400, responseHeaders);
+      response.end(JSON.stringify({success: false, error: error.message}));
+    }
     if (request.method === 'POST') {
       const body = await buildBody(request);
       let image;
