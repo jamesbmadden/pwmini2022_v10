@@ -112,11 +112,16 @@ export class SelectClasses extends Page {
           }}>Class Name</gvt-input>
           <gvt-button filled @click=${() => {
             if (navigator.onLine) {
-              fetch('http://localhost:5000/powmini2022/us-central1/addClass', {
-                method: 'POST', body: JSON.stringify({
+              fetch('./api/classes/add', {
+                method: 'POST', 
+                body: JSON.stringify({
                   block: location.pathname.split('/')[3],
                   name: this.addName
-                })
+                }),
+                credentials: 'include',
+                headers: {
+                  authorization: localStorage.getItem('jwt-token')
+                }
               }).then(response => response.json()).then(postJson => {
                 if (!postJson.success) {
                   document.dispatchEvent(new CustomEvent('show-snackbar', { detail: { type: 'error', title: `Server Error: ${postJson.error}` } }));
