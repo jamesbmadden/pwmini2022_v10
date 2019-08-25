@@ -74,7 +74,7 @@ export class SelectClasses extends Page {
               try {
                 this.loading = true;
                 const email = JSON.parse(localStorage.getItem('firebase-account').email);
-                const postResponse = await fetch('./api/user/set', {
+                const postResponse = await fetch('/api/user/set', {
                   method: 'POST', 
                   body: JSON.stringify({
                     classes: this.selected,
@@ -117,7 +117,7 @@ export class SelectClasses extends Page {
           }}>Class Name</gvt-input>
           <gvt-button filled @click=${() => {
             if (navigator.onLine) {
-              fetch('./api/classes/add', {
+              fetch('/api/classes/add', {
                 method: 'POST', 
                 body: JSON.stringify({
                   block: location.pathname.split('/')[3],

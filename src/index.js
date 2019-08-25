@@ -188,7 +188,7 @@ class SigninPage extends LitElement {
     if (this.state == 'Sign In') {
       this.loading = true;
 
-      const rawResponse = await fetch('./auth', {
+      const rawResponse = await fetch('/auth', {
         method: 'POST', body: JSON.stringify({
           email: this.username,
           password: this.password
