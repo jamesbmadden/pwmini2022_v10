@@ -106,7 +106,9 @@ constructor () {
     });
   }
   signOut () {
-    firebase.auth().signOut();
+    localStorage.removeItem('jwt-token');
+    localStorage.removeItem('firebase-account');
+    location.reload();
   }
   postWork (isHomework, theclass, title, date, image) {
     console.log(isHomework, theclass, title, date, image);
