@@ -17,7 +17,6 @@ module.exports = functions.https.onRequest(async (request, response) => {
   }
   if (request.method === 'POST') {
     let body = JSON.parse(request.rawBody.toString());
-    console.log(JSON.stringify(body));
 
     // Check for required properties
     if (!body.classes) {
