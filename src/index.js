@@ -60,7 +60,7 @@ constructor () {
       this.signedIn = true;
       this.user = JSON.parse(localStorage.getItem('firebase-account'));
       (async () => {
-        let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${this.user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
+        let response = await fetch(`/api/user/${this.user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
         this.userData = await response.json();
         if (this.userData.classes === undefined) {
           this.state = 'select-classes';
@@ -74,7 +74,7 @@ constructor () {
       this.loading = false;
       this.user = event.detail.account;
       this.signedIn = true;
-      let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${event.detail.account.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
+      let response = await fetch(`/api/user/${event.detail.account.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
       this.userData = await response.json();
       if (this.userData.classes === undefined) {
         this.state = 'select-classes';
@@ -85,7 +85,7 @@ constructor () {
       history.pushState({ page: this.state }, this.state, `/${this.state}`);
     });
     document.addEventListener('reload-data', async () => {
-      let response = await fetch(`https://powmini2022.firebaseapp.com/api/user/${this.user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
+      let response = await fetch(`/api/user/${this.user.email}?images=${JSON.parse(localStorage.getItem('config')).images}`);
       this.userData = await response.json();
     })
     document.addEventListener('show-snackbar', event => {
@@ -98,10 +98,10 @@ constructor () {
     window.addEventListener('popstate', event => {
       this.state = location.pathname.split('/')[1];
     });
-    fetch('https://powmini2022.firebaseapp.com/api/mini').then(resp => resp.json()).then(json => { // Get Mini Events
+    fetch('/api/mini').then(resp => resp.json()).then(json => { // Get Mini Events
       this.mini = json;
     });
-    fetch('https://powmini2022.firebaseapp.com/api/classes').then(resp => resp.json()).then(json  => {
+    fetch('/api/classes').then(resp => resp.json()).then(json  => {
       this.classes = json;
     });
   }
