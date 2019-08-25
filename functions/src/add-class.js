@@ -6,7 +6,7 @@ const fs = admin.firestore();
 
 // Get authorisation function
 const verifyToken = require('./auth/verify.js');
-const responseHeaders = {'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
+const responseHeaders = {'Access-Control-Allow-Credentials': true, 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
 
 module.exports = functions.https.onRequest(async (request, response) => {
   try {
