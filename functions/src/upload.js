@@ -21,7 +21,7 @@ const os = require('os');
 // Get authorisation function
 const verifyToken = require('./auth/verify.js');
 
-const responseHeaders = {'Access-Control-Allow-Origin': 'http://localhost:2022', 'Access-Control-Allow-Credentials': true, 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
+const responseHeaders = {'Access-Control-Allow-Credentials': true, 'PW-Mini-Version': '10.5.0', 'content-type':'application/json'};
 
 function buildBody (request) {
   return new Promise((resolve, reject) => {
@@ -68,7 +68,6 @@ function convertImage (image) {
 
 module.exports = functions.https.onRequest(async (request, response) => {
   try {
-    console.log(JSON.stringify(request.headers));
     verifyToken(request.headers['authorization']);
     if (request.method === 'POST') {
       const body = await buildBody(request);

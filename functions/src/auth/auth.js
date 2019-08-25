@@ -11,7 +11,6 @@ const responseHeaders = {'Access-Control-Allow-Origin': '*', 'PW-Mini-Version': 
 module.exports = functions.https.onRequest(async (request, response) => {
   if (request.method === 'POST') {
     let body = JSON.parse(request.rawBody.toString());
-    console.log(JSON.stringify(body));
     const googleResp = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD-L3rjWDvUVc1TMDZ_t8xeWZrkhjPM3Fw', {
       method: 'POST', body: JSON.stringify({
         email: body.email,
