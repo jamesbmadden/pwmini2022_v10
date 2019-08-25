@@ -25,6 +25,7 @@ exports.uploadHomework = require('./src/upload');
 exports.setClasses = require('./src/set-classes');
 exports.addClass = require('./src/add-class');
 exports.auth = require('./src/auth/auth');
+exports.signUp = require('./src/create-user');
 
 exports.oldHomework = functions.https.onRequest(async (request, response) => {
   var now = new Date();
