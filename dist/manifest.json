@@ -16,8 +16,19 @@
       "src": "/src/icon/icon-round-1024.png",
       "type": "image/png",
       "sizes": "1024x1024"
+    },
+    {
+      "src": "/src/icon/adaptive-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/src/icon/adaptive-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
-
   ],
   "display": "standalone",
   "start_url": "/?pwa=true",
