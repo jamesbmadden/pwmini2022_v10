@@ -4,6 +4,7 @@ src/keys.js
 functions/.runtimeconfig.json
 
 # Ignore Built Files
+dist/*.map
 dist/*.main.js
 dist/main.js
 dist/wc
