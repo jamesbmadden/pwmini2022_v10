@@ -36,7 +36,7 @@ export class Tab extends LitElement {
         </style>
       ` : ''}
       <div ?light=${this.light} selected=${this.selected} @click="${()=>{this.tabChange(this.index)}}">
-        ${this.icon ? svg([this.icon]) : null}
+        <div class="icon-container">${this.icon ? svg([this.icon]) : null}</div>
         <span><slot></slot></span>
         <mwc-ripple ?primary=${!this.light} ?accent=${this.light}></mwc-ripple>
       </div>

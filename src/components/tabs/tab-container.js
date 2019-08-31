@@ -47,10 +47,10 @@ export class TabContainer extends LitElement {
         </style>
       ` : ''}
       <nav>
-        ${this.tabs.map((tab, index) => html`<tab-component ?light=${this.light} .selected=${this.selected == index} .index=${index} .tabChange=${tab => {
+        ${this.tabs.map((tab, index) => html`<tab-component ?light=${this.light} .selected=${this.selected == index} .icon=${tab.icon} .index=${index} .tabChange=${tab => {
           this.selected = tab;
-          this.dispatchEvent(new CustomEvent('tab-change', { detail: {tab:tab}}));
-        }}>${tab}</tab-component>`)}
+          this.dispatchEvent(new CustomEvent('tab-change', { detail: { tab: tab }}));
+        }}>${tab.title}</tab-component>`)}
         <span class="header-tabindicator" ?light=${this.light}></span>
       </nav>` : null;
   }
