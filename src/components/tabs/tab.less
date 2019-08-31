@@ -25,7 +25,7 @@ div {
   @media (prefers-color-scheme: dark) {
     &:not([light]) {
       color: white;
-      svg * {
+      svg path:last-child {
         fill: white;
       }
     }
@@ -36,8 +36,9 @@ div {
     transform:scale(0.8);
     opacity: 0.5;
   }
-  svg * {
+  svg path:last-child {
     transition: fill 0.4s cubic-bezier(0.4, 0, 0, 1);
+    fill: white;
   }
   &[selected=true] {
     *:not(mwc-ripple) {
@@ -45,19 +46,32 @@ div {
       color: @red;
       opacity: 1;
     }
-    svg * {
-      fill: @red;
+    svg path:last-child {
+      fill: white;
     }
     &[light] *:not(mwc-ripple) {
       color: white;
     }
     &[light] {
-      svg * {
+      svg path:last-child {
         fill: white;
       }
     }
   }
 }
-svg * {
+svg path:last-child {
   transform-origin: center;
+}
+
+.icon-container {
+  position: relative;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  height: 3.5rem;
+  width: 2.5rem;
+  box-sizing: border-box;
+  padding: 1rem;
+  padding-right: 0rem;
+  cursor: pointer;
 }
